@@ -1,0 +1,6 @@
+---
+// Platzhalter-Bild: farbige Fläche, finale Bilder TBD
+export interface Props { label: string; class?: string; ratio?: string; }
+const { label, class: cls = "", ratio = "aspect-[16/9]" } = Astro.props;
+---
+<div class={`flex ${ratio} items-center justify-center rounded-[24px] bg-line/60 text-sm text-ink/60 ${cls}`} role="img" aria-label={label}>{label} · Bild TBD</div>

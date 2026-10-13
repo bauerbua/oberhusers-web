@@ -1,0 +1,28 @@
+---
+import TierIcons from "./TierIcons.astro";
+const sparten = [
+  { name: "Eier", icon: "huhn", text: "Kühlschrank und Abos laufen weiter — neu vom Partner-Hof, mit derselben Sorgfalt.", href: "/eier", cta: "Eier entdecken", notiz: "frisch usem Chaschte" },
+  { name: "Kindernachmittage", icon: "hund", text: "Einmal im Monat auf den Hof: Tiere kennen, mitarbeiten, draussen sein.", href: "/kindernachmittage", cta: "Nachmittag finden", notiz: "1× im Monet" },
+  { name: "Milch", icon: "kuh", text: "40 Kühe auf der Weide — Milch für echten Emmentaler aus dem Emmental.", href: "/milch", cta: "Kühe kennenlernen", notiz: "40 Kühe" },
+  { name: "Ackerbau", icon: "apfel", text: "Futter, Kartoffeln, Wald und Obst: der Kreislauf hinter allem.", href: "/ackerbau", cta: "Feld & Obst sehen", notiz: "30 ha" },
+] as const;
+---
+<section class="mx-auto max-w-[1120px] px-5 md:px-8" aria-label="Unsere Sparten">
+  <div class="border-t-4 border-holz-dunkel/70">
+    {sparten.map((s, i) => (
+      <article class="gasse-band group grid items-center gap-5 border-b-4 border-holz-dunkel/70 py-8 md:grid-cols-[auto_1fr_auto] md:gap-8 md:py-10">
+        <a href={s.href} class="contents" aria-label={`${s.name}: ${s.cta}`}>
+          <div class={`flex items-center justify-center rounded-[24px] bg-gradient-to-b from-sun/40 to-paper p-6 transition group-hover:from-sun/60 md:h-44 md:w-44 ${i % 2 ? "md:order-3" : ""}`}>
+            <TierIcons name={s.icon} class="h-24 w-24 md:h-28 md:w-28" />
+          </div>
+          <div>
+            <h3 class="font-display text-2xl font-extrabold tracking-tight md:text-3xl">{s.name}</h3>
+            <p class="mt-2 max-w-[52ch] text-[16px] leading-relaxed text-ink/75">{s.text}</p>
+            <span class="mt-3 inline-block rounded-xl border-2 border-pine px-4 py-1.5 text-sm font-bold uppercase tracking-wide text-pine transition group-hover:bg-pine group-hover:text-white">{s.cta} →</span>
+          </div>
+          <span class={`font-hand hidden text-2xl text-holz-dunkel/80 md:block ${i % 2 ? "md:order-1" : ""}`} aria-hidden="true">{s.notiz}</span>
+        </a>
+      </article>
+    ))}
+  </div>
+</section>

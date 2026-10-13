@@ -1,0 +1,53 @@
+---
+export interface Props { title: string; description?: string; }
+const { title, description = "Familienhof im Emmental – zum Erleben." } = Astro.props;
+import "../styles/global.css";
+---
+<!doctype html>
+<html lang="de-CH">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title} – Hof Oberhusers</title>
+  <meta name="description" content={description} />
+</head>
+<body class="min-h-screen antialiased">
+  <header class="sticky top-0 z-20 border-b border-line/90 bg-paper/88 backdrop-blur">
+    <nav class="mx-auto flex max-w-[1600px] items-center gap-6 px-4 py-2.5 md:px-7">
+      <a href="/" class="font-display text-[15px] font-extrabold tracking-tight">Hof Oberhusers</a>
+      <div class="ml-auto hidden items-center gap-6 text-[13px] text-ink/75 md:flex">
+        <a href="/eier" class="transition-colors hover:text-ink">Eier</a>
+        <a href="/kindernachmittage" class="transition-colors hover:text-ink">Kindernachmittage</a>
+        <a href="/milch" class="transition-colors hover:text-ink">Milch</a>
+        <a href="/ackerbau" class="transition-colors hover:text-ink">Ackerbau</a>
+        <a href="/ueber-uns" class="transition-colors hover:text-ink">Über uns</a>
+      </div>
+      <a href="#besuch" class="ml-auto hidden rounded-lg border-2 border-pine bg-pine px-3 py-1 text-[12px] font-bold uppercase tracking-[0.06em] text-paper transition-colors hover:border-stall hover:bg-stall md:ml-0 md:inline-block">Vorbeikommen</a>
+      <details class="ml-auto md:hidden">
+        <summary class="list-none px-1 text-[13px] font-semibold text-ink/75 [&::-webkit-details-marker]:hidden">Menü</summary>
+        <div class="absolute inset-x-0 top-full border-b border-line bg-paper/97 px-4 pb-4 pt-1 backdrop-blur">
+          <div class="flex flex-col gap-2.5 text-[15px]">
+            <a href="/eier">Eier</a>
+            <a href="/kindernachmittage">Kindernachmittage</a>
+            <a href="/milch">Milch</a>
+            <a href="/ackerbau">Ackerbau</a>
+            <a href="/ueber-uns">Über uns</a>
+            <a href="#besuch" class="font-bold text-pine">Vorbeikommen</a>
+          </div>
+        </div>
+      </details>
+    </nav>
+  </header>
+  <main><slot /></main>
+  <footer class="mt-24 border-t-2 border-holz-dunkel/20">
+    <div class="mx-auto grid max-w-[1120px] gap-6 px-5 py-10 text-sm md:grid-cols-3 md:px-8">
+      <div><strong class="font-display">Hof Oberhusers</strong><br />Emmental · Nähe Langnau/Emmenmatt</div>
+      <div>Eierkühlschrank: jederzeit, bar/QR<br /><a class="underline underline-offset-4" href="#besuch">Anfahrt &amp; Kontakt</a></div>
+      <div>Cookieless Analytics via PostHog (keine Cookies). Details: Datenschutz [TBD].</div>
+    </div>
+  </footer>
+  <script>
+    // PostHog cookieless stub – Key/Host via ENV, TODO: init ohne Cookies, nur anonyme Events
+  </script>
+</body>
+</html>

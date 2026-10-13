@@ -1,0 +1,18 @@
+---
+export interface Props { kompakt?: boolean; }
+const { kompakt = false } = Astro.props;
+---
+<section id="besuch" class="mx-auto max-w-[1120px] scroll-mt-20 px-5 md:px-8">
+  <div class={`rounded-[24px] border-4 border-holz-dunkel bg-gradient-to-b from-sun/25 to-paper p-6 md:p-10 ${kompakt ? "" : "mt-16"}`}>
+    <h2 class="font-display text-2xl font-extrabold tracking-tight md:text-3xl">Die Stalltür steht offen — kommt vorbei</h2>
+    <p class="mt-2 max-w-[60ch] text-ink/70">[Text TBD: Einladung in 1–2 Sätzen]</p>
+    {!kompakt && (
+      <div class="mt-6 grid gap-4 text-[15px] md:grid-cols-3">
+        <div class="rounded-xl border-2 border-line bg-paper p-4"><strong>Standort</strong><br />Adresse [TBD] · Karte [Embed TBD]</div>
+        <div class="rounded-xl border-2 border-line bg-paper p-4"><strong>Anreise</strong><br />ÖV Langnau/Emmenmatt · Parken [TBD]</div>
+        <div class="rounded-xl border-2 border-line bg-paper p-4"><strong>Kontakt</strong><br />Tel/Mail [TBD] · Eierkühlschrank jederzeit, bar/QR</div>
+      </div>
+    )}
+    {kompakt && <p class="mt-3 text-[15px]">Anfahrt kurz + Kontakt [TBD] · <a class="font-semibold text-pine underline underline-offset-4" href="/ueber-uns#besuch">Details</a></p>}
+  </div>
+</section>

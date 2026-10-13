@@ -1,0 +1,23 @@
+---
+import Base from "../layouts/Base.astro";
+import Hero from "../components/Hero.astro";
+import UebernahmeHinweis from "../components/UebernahmeHinweis.astro";
+import Stallgasse from "../components/Stallgasse.astro";
+import VertrauenLabels from "../components/VertrauenLabels.astro";
+import BesuchModul from "../components/BesuchModul.astro";
+---
+<Base title="Start">
+  <Hero />
+  <div class="mx-auto max-w-[1120px] px-5 md:px-8">
+    <div class="mt-8 max-w-[720px]"><UebernahmeHinweis /></div>
+  </div>
+  <div class="mt-14">
+    <div class="mx-auto max-w-[1120px] px-5 md:px-8">
+      <h2 class="font-display text-2xl font-extrabold tracking-tight md:text-3xl">Vier Türen stehen offen</h2>
+      <p class="mb-6 mt-2 max-w-[60ch] text-ink/70">[Intro TBD, ein Satz]</p>
+    </div>
+    <Stallgasse />
+  </div>
+  <div class="mt-16"><VertrauenLabels /></div>
+  <div class="mt-8"><BesuchModul /></div>
+</Base>

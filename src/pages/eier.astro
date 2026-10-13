@@ -1,0 +1,35 @@
+---
+import Base from "../layouts/Base.astro";
+import BesuchModul from "../components/BesuchModul.astro";
+---
+<Base title="Eier" description="Unsere Eierproduktion wurde übernommen – was bleibt, was ändert sich.">
+  <div class="mx-auto max-w-[1120px] px-5 pt-10 md:px-8">
+    <h1 class="text-3xl font-semibold md:text-5xl">Eier – neu vom Partner-Hof [TBD]</h1>
+    <div class="mt-6 grid gap-4 md:grid-cols-2">
+      <div class="rounded-[20px] border border-line bg-white/60 p-6">
+        <h2 class="font-semibold">Was bleibt gleich</h2>
+        <ul class="mt-2 list-disc pl-5 text-[15px]"> <li>Eierkühlschrank jederzeit, bar/QR</li><li>Abos / B2B laufen weiter</li><li>Ansprechpartner Hof Oberhusers</li></ul>
+      </div>
+      <div class="rounded-[20px] border border-line bg-white/60 p-6">
+        <h2 class="font-semibold">Was sich ändert</h2>
+        <p class="mt-2 text-[15px]">Produktion bei [Partner-Hof, TBD] – Haltung [TBD, 2–3 Sätze]. <a class="underline" href="#">Zum Partner-Hof</a></p>
+      </div>
+    </div>
+    <form class="mt-8 rounded-[20px] border border-line bg-white/60 p-6" data-event="eier-interesse-start">
+      <h2 class="font-semibold">Interesse an Eiern / Abo</h2>
+      <div class="mt-4 grid gap-3 md:grid-cols-2">
+        <input required placeholder="Name" class="rounded-xl border border-line bg-paper px-4 py-2.5" />
+        <input required placeholder="Kontakt (Tel/Mail)" class="rounded-xl border border-line bg-paper px-4 py-2.5" />
+        <input placeholder="Menge / Häufigkeit" class="rounded-xl border border-line bg-paper px-4 py-2.5" />
+        <select class="rounded-xl border border-line bg-paper px-4 py-2.5"><option>Haushalt</option><option>Geschäft</option></select>
+      </div>
+      <textarea placeholder="Nachricht (optional)" class="mt-3 w-full rounded-xl border border-line bg-paper px-4 py-2.5"></textarea>
+      <button class="mt-4 rounded-full bg-pine px-5 py-2.5 text-white">Interesse senden [Versand via PostHog TBD]</button>
+    </form>
+    <div class="mt-8 text-[15px]">
+      <h2 class="font-semibold">FAQ [TBD]</h2>
+      <p class="mt-2 text-ink/70">Warum neuer Hof? Ändert sich Preis/Abholung? Woher kommen die Eier jetzt?</p>
+    </div>
+  </div>
+  <div class="mt-8"><BesuchModul kompakt /></div>
+</Base>

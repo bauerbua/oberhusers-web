@@ -1,0 +1,45 @@
+@import "tailwindcss";
+@import "@fontsource-variable/archivo/wdth.css";
+@import "@fontsource/caveat/500.css";
+@import "@fontsource/caveat/600.css";
+
+@theme {
+  --color-paper: #FAF6EE;
+  --color-ink: #2A2620;
+  --color-sage: #7D8C6F;
+  --color-clay: #B08968;
+  --color-pine: #2F4A3C;
+  --color-line: #E7DFD2;
+  --color-sun: #E9C46A;
+  --color-holz: #9C6B43;
+  --color-holz-dunkel: #6E4A2C;
+  --color-stall: #33523F;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --font-display: "Archivo Variable", system-ui, sans-serif;
+  --font-hand: "Caveat", cursive;
+}
+
+html { scroll-behavior: smooth; }
+body { background: var(--color-paper); color: var(--color-ink); font-family: var(--font-sans); }
+.font-display { font-family: var(--font-display); font-stretch: 118%; letter-spacing: -0.02em; }
+.font-hand { font-family: var(--font-hand); }
+
+::selection { background: var(--color-pine); color: #fff; }
+:focus-visible { outline: 3px solid var(--color-clay); outline-offset: 2px; border-radius: 4px; }
+
+/* ——— Stallgasse: warmes Licht bei Berührung ——— */
+.gasse-band > a > div:first-child { transition: background 0.5s ease; }
+
+/* ——— Tier-Icons: dezent lebendig ——— */
+.tier-anim { transform-box: fill-box; }
+.huhn-kopf { transform-origin: 70% 80%; animation: picken 4.2s ease-in-out infinite; }
+@keyframes picken { 0%, 82%, 100% { transform: rotate(0deg); } 86% { transform: rotate(14deg); } 90% { transform: rotate(0deg); } 94% { transform: rotate(14deg); } }
+.hund-schwanz { transform-origin: 15% 85%; animation: wedeln 1.6s ease-in-out infinite; }
+@keyframes wedeln { 0%, 100% { transform: rotate(-9deg); } 50% { transform: rotate(11deg); } }
+.kuh-ohr { transform-origin: 20% 20%; animation: ohrzucken 6s ease-in-out infinite; }
+@keyframes ohrzucken { 0%, 90%, 100% { transform: rotate(0deg); } 93% { transform: rotate(-16deg); } 96% { transform: rotate(0deg); } }
+.apfel-blatt { transform-origin: 10% 90%; animation: wiegen 3.8s ease-in-out infinite; }
+@keyframes wiegen { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(7deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .huhn-kopf, .hund-schwanz, .kuh-ohr, .apfel-blatt { animation: none; }
+}

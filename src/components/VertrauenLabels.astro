@@ -1,0 +1,21 @@
+---
+const labels = [
+  { name: "Stallvisite", text: "Hof-Erlebnis & offene Stalltüren", href: "https://www.schweizerbauern.ch/bauernhof-erleben/ausfluege/stallvisite/" },
+  { name: "IP-Suisse", text: "Nachhaltige Hof-Zertifizierung", href: "https://www.ipsuisse.ch/" },
+  { name: "SEMAG", text: "Saatvermehrung Pflanzkartoffeln", href: "https://www.semag.ch/" },
+  { name: "Emmentaler AOP", text: "Käserei-Rohmilchlieferant", href: "https://www.emmentaler.ch/" },
+];
+const dreh = ["-rotate-1", "rotate-1", "-rotate-1", "rotate-1"];
+---
+<section class="mx-auto max-w-[1120px] px-5 md:px-8" aria-label="Partnerschaften und Qualität">
+  <h2 class="font-display text-2xl font-extrabold tracking-tight md:text-3xl">Mit Brief und Stempel</h2>
+  <div class="mt-5 grid grid-cols-2 gap-4 md:grid-cols-4">
+    {labels.map((l, i) => (
+      <a href={l.href} target="_blank" rel="noopener" class={`rounded-lg border-[2.5px] border-pine/70 bg-paper px-4 py-4 transition hover:rotate-0 ${dreh[i]}`}>
+        <div class="text-xs font-bold uppercase tracking-widest text-pine">Logo TBD</div>
+        <div class="font-display mt-1 font-bold">{l.name}</div>
+        <p class="mt-1 text-sm text-ink/70">{l.text}</p>
+      </a>
+    ))}
+  </div>
+</section>

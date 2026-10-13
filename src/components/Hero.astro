@@ -1,0 +1,50 @@
+---
+import { Image } from "astro:assets";
+import heroBild from "../../assets/DSC05469.JPG";
+---
+
+<section class="px-4 pt-5 md:px-7 md:pt-7" aria-labelledby="hero-titel">
+  <div class="grid items-end gap-5 md:grid-cols-12 md:gap-8">
+    <h1
+      id="hero-titel"
+      class="font-display text-[clamp(1.9rem,5.6vw,4.5rem)] font-extrabold leading-[1.04] tracking-[-0.02em] md:col-span-8"
+    >
+      Landwirtschaft, die man erleben darf.
+    </h1>
+    <div class="md:col-span-4 md:col-start-9 md:pb-2">
+      <p class="max-w-[34ch] text-[15px] leading-relaxed text-ink/70 md:text-base">
+        Hof Oberhusers im Emmental: 40 Milchkühe, 30 Hektaren Acker, Wald und Obst — und eine Familie, die zeigt, wie es läuft.
+      </p>
+      <a
+        href="#besuch"
+        class="mt-4 inline-flex items-center gap-2.5 rounded-xl border-2 border-pine bg-pine px-6 py-3 text-[14px] font-bold uppercase tracking-[0.06em] text-paper transition-colors hover:border-stall hover:bg-stall md:mt-5"
+      >
+        Vorbeikommen
+        <svg viewBox="0 0 20 20" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 10h13" />
+          <path d="M11 5l5 5-5 5" />
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <figure class="mt-6 md:mt-8">
+    <div class="h-[46vh] min-h-[280px] w-full overflow-hidden rounded-[24px] bg-line md:h-[62vh] md:min-h-[420px] lg:h-[640px]">
+      <Image
+        src={heroBild}
+        alt="Zwei Kälber stecken die Köpfe über die Krippe im Laufstall und schauen in die Kamera"
+        width={1920}
+        height={1200}
+        sizes="100vw"
+        class="h-full w-full object-cover"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </div>
+    <figcaption class="mt-3 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 px-1">
+      <span class="font-hand text-[1.25rem] leading-tight text-clay">Unsere zwei Neugierigen im Laufstall</span>
+      <span class="text-[13px] text-ink/55">Emmental · Kühe · offene Stalltür</span>
+    </figcaption>
+  </figure>
+</section>
