@@ -1,50 +1,117 @@
 ---
-import { Image } from "astro:assets";
-import heroBild from "../../assets/DSC05469.JPG";
+import { Picture } from "astro:assets";
+import hero from "../assets/hero/kaelber-2800.jpg";
+
+/**
+ * Hero der Startseite — erst die Schrift, dann das Bild.
+ *
+ * Der Kopf ist oben transparent (siehe Base.astro), darum beginnt die Bühne
+ * direkt darunter: die H1 in der 1120er-Spalte, darunter die Subzeile, dann
+ * EIN Handlungsband über einer Haarlinie — links die eine Handlung der Seite
+ * („Vorbeikommen“, unterstrichene Zeile, kein Kasten), rechts der zweite Weg
+ * zu den Eiern als Kreide-Notiz. Kein Kicker.
+ *
+ * Darunter das Foto: seitlich gefasst (`mx-3` / `md:mx-5`), 26px Radius —
+ * es überragt die Textspalte an den Seiten, bleibt aber ein gerahmtes Bild
+ * und wird kein Vollbild. Kein Text auf dem Foto, kein Scrim.
+ *
+ * Der Ruhezustand ist vollständig sichtbar: animiert wird allein das
+ * Handlungsband und auch das nur über `transform`. Ein `opacity: 0` im
+ * animation-fill-mode hatte das Hero-Bild in Headless, Print und bei
+ * deaktivierter Animation leer gelassen.
+ */
 ---
 
-<section class="px-4 pt-5 md:px-7 md:pt-7" aria-labelledby="hero-titel">
-  <div class="grid items-end gap-5 md:grid-cols-12 md:gap-8">
-    <h1
-      id="hero-titel"
-      class="font-display text-[clamp(1.9rem,5.6vw,4.5rem)] font-extrabold leading-[1.04] tracking-[-0.02em] md:col-span-8"
-    >
-      Landwirtschaft, die man erleben darf.
-    </h1>
-    <div class="md:col-span-4 md:col-start-9 md:pb-2">
-      <p class="max-w-[34ch] text-[15px] leading-relaxed text-ink/70 md:text-base">
-        Hof Oberhusers im Emmental: 40 Milchkühe, 30 Hektaren Acker, Wald und Obst — und eine Familie, die zeigt, wie es läuft.
-      </p>
-      <a
-        href="#besuch"
-        class="mt-4 inline-flex items-center gap-2.5 rounded-xl border-2 border-pine bg-pine px-6 py-3 text-[14px] font-bold uppercase tracking-[0.06em] text-paper transition-colors hover:border-stall hover:bg-stall md:mt-5"
-      >
-        Vorbeikommen
-        <svg viewBox="0 0 20 20" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M3 10h13" />
-          <path d="M11 5l5 5-5 5" />
-        </svg>
-      </a>
-    </div>
-  </div>
+<section class="pt-4 md:pt-7" aria-labelledby="hero-titel">
+    <div class="mx-auto max-w-[1120px] px-5 md:px-8">
+        <h1
+            id="hero-titel"
+            class="max-w-[20ch] text-balance font-display text-[clamp(2rem,9vw,4.25rem)] font-extrabold leading-[1.02] tracking-[-0.035em]"
+        >
+            Hof Oberhusers. Tür offen.
+        </h1>
 
-  <figure class="mt-6 md:mt-8">
-    <div class="h-[46vh] min-h-[280px] w-full overflow-hidden rounded-[24px] bg-line md:h-[62vh] md:min-h-[420px] lg:h-[640px]">
-      <Image
-        src={heroBild}
-        alt="Zwei Kälber stecken die Köpfe über die Krippe im Laufstall und schauen in die Kamera"
-        width={1920}
-        height={1200}
-        sizes="100vw"
-        class="h-full w-full object-cover"
-        loading="eager"
-        fetchpriority="high"
-        decoding="async"
-      />
+        <p class="mt-4 max-w-[52ch] text-[17px] leading-[1.6] text-ink/70 md:mt-5 md:text-[19px]">
+            Komm vorbei und entdecke unseren Hof: Freilandeier von unseren
+            Hühnern, Milch von 40 Kühen, Acker, Wald und Obst.
+        </p>
+
+        <!-- Das Handlungsband: die eine Handlung links, der zweite Weg rechts. -->
+        <div
+            class="mt-5 flex flex-col items-start gap-5 border-t border-line pt-4 motion-safe:animate-hero-in sm:flex-row sm:items-center sm:justify-between md:mt-7"
+        >
+            <a
+                href="#besuch"
+                class="group inline-flex min-h-12 items-center gap-2.5 text-[17px] font-bold text-pine"
+                data-cta="hero-vorbeikommen"
+            >
+                <span class="border-b border-pine/40 pb-1 transition-colors group-hover:border-pine">
+                    Vorbeikommen
+                </span>
+                <svg
+                    viewBox="0 0 20 20"
+                    width="16"
+                    height="16"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                    class="shrink-0 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                >
+                    <path d="M4 16 16 4" />
+                    <path d="M7.5 4H16v8.5" />
+                </svg>
+            </a>
+
+            <a
+                href="/eier"
+                class="group inline-flex items-start gap-1"
+                data-cta="hero-eier"
+            >
+                <svg
+                    viewBox="0 0 44 34"
+                    width="38"
+                    height="29"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.75"
+                    stroke-linecap="round"
+                    aria-hidden="true"
+                    class="mt-1 shrink-0 rotate-[-6deg] text-sun transition-transform duration-200 group-hover:translate-x-1"
+                >
+                    <path d="M3 31C7 18 17 8 31 4" />
+                    <path d="M31 12.5 31.5 3.5 22.5 4" />
+                </svg>
+                <span
+                    class="font-hand -rotate-1 text-[20px] font-semibold leading-[1.25] text-holz-dunkel underline decoration-holz-dunkel/35 decoration-2 underline-offset-[5px] transition-colors group-hover:decoration-holz-dunkel/80"
+                >
+                    Der Eierkühlschrank steht immer offen.
+                </span>
+            </a>
+        </div>
     </div>
-    <figcaption class="mt-3 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 px-1">
-      <span class="font-hand text-[1.25rem] leading-tight text-clay">Unsere zwei Neugierigen im Laufstall</span>
-      <span class="text-[13px] text-ink/55">Emmental · Kühe · offene Stalltür</span>
-    </figcaption>
-  </figure>
+
+    <!--
+    Die Platte: das Foto als Bühne, seitlich gefasst. Der Platzhalterton
+    liegt bewusst dunkler als das Foto — er soll als Tiefe wirken, nicht
+    als braune Karte.
+  -->
+    <div
+        class="relative mx-3 mt-6 h-[clamp(400px,64vh,680px)] overflow-hidden rounded-[26px] bg-barn-shadow md:mx-5 md:mt-8"
+    >
+        <Picture
+            src={hero}
+            formats={["avif", "jpg"]}
+            widths={[1200, 1600, 2800]}
+            sizes="calc(100vw - 24px)"
+            alt="Drei Kälber mit gelben Ohrmarken schauen über den Stallzaun in die Kamera. Dahinter ein Holzbalken und Stroh."
+            class="block h-full w-full object-cover object-[50%_34%] max-md:object-[58%_30%]"
+            pictureAttributes={{ class: "block h-full w-full" }}
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+        />
+    </div>
 </section>

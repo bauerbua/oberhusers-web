@@ -71,8 +71,9 @@ Warme Papierwelt mit Holzbraun und Stallgrün; ein Honig-Akzent für Lichtstimmu
 
 ### Neutral
 - **Warm Paper** (#FAF6EE): Seitengrund überall.
-- **Stable Ink** (#2A2620): Text, Icon-Striche.
+- **Stable Ink** (#2A2620): Text, Icon-Striche, Scrim über Fotos.
 - **Stall Line** (#E7DFD2): Feine Trennlinien, Platzhalter-Flächen.
+- **Barn Shadow** (#7C6A57): Platzhalterton hinter dem Hero-Foto. Bewusst dunkler als das Foto — er soll als Tiefe wirken, nicht als braune Karte.
 
 ### Named Rules
 **The Stamp Rule.** Pine gehört Aktionen und Stempeln; auf keiner Fläche liegt Pine dekorativ. Seine Seltenheit ist der Point.
@@ -86,17 +87,46 @@ Warme Papierwelt mit Holzbraun und Stallgrün; ein Honig-Akzent für Lichtstimmu
 **Character:** Breite Arbeits-Schrift für Titel, nüchterne System-Schrift für Text, ein Hauch Handschrift für Menschlichkeit.
 
 ### Hierarchy
-- **Display** (800, 36–60px, 1.02): H1 und Sektions-Titel, eng gesetzt.
-- **Headline** (800, 24–30px, 1.1): Sparten-Namen, Block-Titel.
-- **Body** (400, 15–18px, 1.6): Lauftext, max. 60ch.
-- **Label** (700, 12–14px, uppercase, wide tracking): Buttons, Stempel, Meta.
+Jede Stufe ist eine echte Klasse; kein Wert ausserhalb dieser Liste wird als Ausnahme gesetzt.
+
+| Stufe | Size | Weight | Line-height | Einsatz |
+|---|---|---|---|---|
+| **Display** | `clamp(2rem, 9vw, 4.25rem)` | 800 | 1.02 | H1 des Hero, eng gesetzt (`-0.035em`), `text-wrap: balance` |
+| **Headline** | 30px / 24px | 800 | 1.1 | Sektions-Titel (H2), Sparten-Namen |
+| **Wordmark** | 22px | 800 | 1.0 | Wortmarke im Kopf, nur dort |
+| **Body** | 17px | 400 | 1.6 | Lauftext, 52ch Subzeile im Hero, max. 60ch sonst |
+| **Lead** | 19px | 400 | 1.6 | Subzeile des Hero auf Desktop |
+| **Meta** | 15px | 400–700 | 1.5 | Footer, Bildunterschriften, Sekundärtext |
+| **Label** | 14px | 700 | 1.0 | Navigation, uppercase + `0.05em` tracking für Stempel und Buttons |
+| **Notiz** | 20px | 600 | 1.25 | Kreide-Notiz (Caveat), nur dort |
+
+**Named Rule.** Die Wortmarke ist eine eigene Stufe und lebt nur im Kopf. Sie wird nie
+in gleicher Grösse im Hero wiederholt: der Hero-H1 trägt den Hofnamen, der Kopf führt ihn
+als Signatur mit (22px gegen 68px). Konkurrieren zwei gleiche Namen im ersten Blick,
+sucht das Auge keiner von beiden – es liest sie als einen.
 
 ### Named Rules
 **The No-Kicker Rule.** Keine Eyebrow, kein Kicker über einer Headline — die Überschrift trägt sich selbst.
 
 ## Layout
 
-Ein Container (1120px), 20/32px Ränder, grosszügige Sektions-Abstände (64–96px). Die Startseite folgt der Stallgasse: Hero-Bild, H1-Brett, Schildchen, dann vier Bänder im Wechsel (Bild links/rechts), Marken-Zeile, Besuchs-Panel. Mehr Luft über einer Überschrift als darunter.
+Ein Container (1120px), 20/32px Ränder, grosszügige Sektions-Abstände (64–96px). Die Startseite folgt der Stallgasse: H1-Brett, Hero-Bild, Schildchen, dann vier Bänder im Wechsel (Bild links/rechts), Marken-Zeile, Besuchs-Panel. Mehr Luft über einer Überschrift als darunter.
+
+### Die linke Achse
+
+Der Text der gesamten Seite steht in derselben 1120er-Spalte — Kopf, Hero-H1, Sektions-Titel, Footer. Es gibt genau eine linke Kante. Das Hero-Foto ist das einzige Element, das über diese Spalte hinausragt: es geht über die Textbreite hinaus bis auf `12px` (mobil) beziehungsweise `20px` (md) an den Viewport-Rand, mit 26px Radius und ohne Schatten. Diese eine Ausnahme ist der Grund, warum das Bild wirkt; ohne sie wirkt es zufällig. Ein Vollbild ist es bewusst nicht — der schmale Papierrand fasst das Foto und hält es im selben Blatt wie die Schrift.
+
+### Hero
+
+**Erst die Schrift, dann das Bild. Das Foto ist der ruhige Anker unter der Einladung.**
+
+- Oben spannt sich das Foto als gerahmte Platte: `mx-3` (`md:mx-5`), 26px Radius, `clamp(400px, 64vh, 680px)`, `object-position: 50% 34%` (mobil `58% 30%`). Kein Text auf dem Bild, kein Scrim, kein Rahmen aus Holz.
+- Darüber in der 1120er-Spalte, jede Ebene eine eigene Zeile: **H1** (20ch, `text-wrap: balance`), darunter die **Subzeile** (52ch, 17/19px), darunter ein **Handlungsband** über einer Haarlinie.
+- **Die H1 nennt den Hof und das Versprechen:** „Hof Oberhusers. Tür offen." Der Name steht in der grössten Schrift der Seite, das Versprechen im selben Atemzug. Die Subzeile trägt die Einladung und die Fakten (Freilandeier, 40 Kühe, Acker, Wald, Obst); der Name wird nicht wiederholt, die Zahlen auch nicht.
+- Das Handlungsband trägt links genau **einen** Primär-CTA als ruhige unterstrichene Zeile mit Pfeil, nie als Kasten; rechts den zweiten Weg (Eier) als **Kreide-Notiz**, kein zweiter Button. Auf `sm` liegen beide auf einer Grundlinie, mobil gestapelt.
+- **Nichts ist über eine Animation versteckt.** Der Ruhezustand ist vollständig sichtbar; animiert wird allein das Handlungsband, und auch das nur über `transform`. Mit `animation-fill-mode: both` und `opacity: 0` blieb das Hero-Bild in Headless, Print und bei deaktivierter Animation leer.
+
+**Warum die Schrift über dem Bild und nicht darauf:** die Einladung zuerst zu lesen macht den Hof zum Ziel, nicht zum Hintergrund; das Foto antwortet darunter in voller Ruhe und trägt die Stimmung, ohne dass Schrift auf den Kälbern liegt. Der erste Blick bleibt das Bild, der erste Satz die Handlung.
 
 ## Elevation & Depth
 
@@ -109,9 +139,9 @@ Runde, ruhige Geometrie: Bänder und Panels (24px), Boxen (20px), Bild-Innen (18
 ## Components
 
 ### Buttons
-- **Shape:** eckig-ruhig (12px), 2px Kontur.
-- **Primary:** Pine-Fläche, Papier-Text, uppercase, fett. Hover: unverändert (Farbe trägt).
-- **Hover / Focus:** Fokus-Ring in Clay (3px, 2px Offset). Kein Bewegungs-Feuerwerk.
+- **CTAs sind Zeilen, keine Kästen.** Der Hero-CTA ist Pine auf Papier: 17px fett, Haarlinie (`1px`, 7px Abstand), Pfeil, `min-height: 48px`. Der Nav-CTA ist Pine-Text mit Pfeil, ohne Fläche.
+- **Primary:** Pine-Fläche, Papier-Text, uppercase, fett. Reserviert für Formulare und Unterseiten — nie im Hero.
+- **Hover / Focus:** Fokus-Ring in Clay (3px, 2px Offset, 12px Radius). Kein Bewegungs-Feuerwerk.
 - **Secondary:** Papier-Fläche, Holz-Kontur, Holz-Text; Hover füllt Pine.
 
 ### Stempel-Labels
@@ -130,19 +160,28 @@ Runde, ruhige Geometrie: Bänder und Panels (24px), Boxen (20px), Bild-Innen (18
 ### Übernahme-Schildchen
 - **Style:** Papier, 2px Holz-Kontur, zwei Nieten-Punkte links, 12px Radius.
 
+### Kreide-Notiz
+- **Style:** Caveat 20px in Holz-Dunkel, 2px Unterstrich, `rotate(-1deg)`. Der Pfeil in Honey Sun.
+- **Zustand:** Hover hellt Schrift und Pfeil auf, richtet sich nicht auf — die Drehung bleibt, sie gehört zum Notiz-Charakter.
+
 ### Navigation
-- **Style:** Sticky, Papier mit Blur, Holz-Linie unten; Display-Wordmark, 15px Links, Pine-Stempel als CTA.
+- **Style:** Sticky, oben **transparent** (keine Fläche, keine Linie — Teil des Heros, nicht eine Leiste davor). Erst ab 8px Scroll (`nav-scrolled`) legt sie Papier mit Blur unter und zieht die Holz-Linie; ohne JavaScript steht sie sofort solid (`<noscript>`). Lockup aus gezeichnetem Stalltor (Pine) + Wortmarke (22px), 14px Links, CTA „Vorbeikommen" als Pine-Text mit Pfeil — kein Kasten. Touch-Ziele `min-h-[44px]`.
 
 ## Do's and Don'ts
 
 ### Do:
 - **Do** Bilder vom echten Hof und echte Menschen an den Anfang stellen (Platzhalter nur bis Ersatz da ist).
+- **Do** das Hero-Foto seitlich fassen (`12px` / `md: 20px` Papierrand, 26px Radius) — der Rahmen hält es im selben Blatt wie die Schrift.
+- **Do** den Kopf oben transparent lassen und ihn erst beim Scrollen zur Leiste machen.
 - **Do** Pine sparsam und nur für Aktion und Stempel nutzen (Stamp Rule).
 - **Do** Tier-Icons in einer Strichstärke und einem Animations-Loop pro Tier halten.
 - **Do** Türen nur dort zeigen, wo sie helfen (Besuch, Details) — Gefühl statt Deko.
 
 ### Don't:
 - **Don't** Kicker oder Eyebrows über Headlines setzen (No-Kicker Rule).
+- **Don't** Inhalte über `animation-fill-mode: both` + `opacity: 0` verstecken — der Ruhezustand ist immer vollständig sichtbar.
+- **Don't** den Hero-CTA als Kasten bauen — er bleibt eine unterstrichene Zeile.
+- **Don't** das Hero-Foto als Vollbild über die ganze Breite ziehen — der Papierrand gehört dazu.
 - **Don't** Stock-Fotos, Folklore oder knallige Flächen verwenden (Brief-Ban).
 - **Don't** harte Offset-Schatten ausserhalb der einen Portrait-Ausnahme nutzen.
 - **Don't** Emoji oder Unicode-Zeichen statt gezeichneter Icons verwenden.

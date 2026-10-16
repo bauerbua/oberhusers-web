@@ -14,22 +14,47 @@
   --color-holz: #9C6B43;
   --color-holz-dunkel: #6E4A2C;
   --color-stall: #33523F;
+  --color-barn-shadow: #7C6A57;
   --font-sans: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
   --font-display: "Archivo Variable", system-ui, sans-serif;
   --font-hand: "Caveat", cursive;
+
+  /* Der eine gesetzte Moment der Startseite: die Typografie steigt ein.
+     Rein über `transform`, damit der Ruhezustand vollständig sichtbar ist —
+     mit `opacity: 0` blieb das Hero-Bild in Headless, Print und bei
+     deaktivierter Animation leer. Angewandt wird das über
+     `motion-safe:animate-hero-in` in Hero.astro. */
+  --animate-hero-in: hero-in 760ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  @keyframes hero-in {
+    from { transform: translateY(14px); }
+  }
 }
 
-html { scroll-behavior: smooth; }
+/* Der Sticky-Kopf ist 60px hoch: Anker-Sprünge (z. B. #besuch) landen
+   sonst unter der Leiste. */
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
 body { background: var(--color-paper); color: var(--color-ink); font-family: var(--font-sans); }
 .font-display { font-family: var(--font-display); font-stretch: 118%; letter-spacing: -0.02em; }
 .font-hand { font-family: var(--font-hand); }
 
-::selection { background: var(--color-pine); color: #fff; }
-:focus-visible { outline: 3px solid var(--color-clay); outline-offset: 2px; border-radius: 4px; }
+/* Der Kopf trägt oben keine Fläche (Teil des Heros). Beim Scrollen legt er
+   sich Papier unter, damit der Inhalt nicht unter den Links durchläuft. */
+.nav-scrolled {
+  background-color: color-mix(in srgb, var(--color-paper) 96%, transparent);
+  border-bottom-color: var(--color-line);
+  backdrop-filter: blur(6px);
+}
 
-/* ——— Stallgasse: warmes Licht bei Berührung ——— */
-.gasse-band > a > div:first-child { transition: background 0.5s ease; }
+::selection { background: var(--color-pine); color: var(--color-paper); }
+:focus-visible { outline: 3px solid var(--color-clay); outline-offset: 2px; border-radius: 12px; }
 
+/* Der Hero der Startseite hat kein Stylesheet mehr: H1, Textbahn, CTA,
+   Kreide-Notiz und die Bildplatte sind Tailwind-Utilities in
+   `src/components/Hero.astro`. Was hier noch steht, gilt projektweit:
+   Grundpapier, Fokusring, die beiden Schrift-Utilities und die
+   Keyframes der Tier-Icons.
+   Die Uebergangsregel der Stallgasse-Icon-Buehne liegt als Utility
+   am Element (`transition-[background] duration-500`). */
 /* ——— Tier-Icons: dezent lebendig ——— */
 .tier-anim { transform-box: fill-box; }
 .huhn-kopf { transform-origin: 70% 80%; animation: picken 4.2s ease-in-out infinite; }

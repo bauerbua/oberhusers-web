@@ -1,2 +1,12 @@
 /node_modules
 /dist
+
+# Astro-Generat: Types, Dev-Server-Zustand, Preview-Logs
+/.astro/
+
+# Impeccable-Arbeitsbereich: Review-Captures, Live-Sessions und Critique
+# sind Sitzungsartefakte, keine Projektdateien. Getrackt bleiben die
+# dauerhaften Stücke (.impeccable/surfaces, /decision, /refs, design.json).
+/.impeccable/review/
+/.impeccable/live/
+/.impeccable/critique/
