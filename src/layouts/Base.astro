@@ -1,152 +1,195 @@
 ---
-export interface Props { title: string; description?: string; }
-const { title, description = "Familienhof im Emmental – zum Erleben." } = Astro.props;
+export interface Props {
+    title: string;
+    description?: string;
+}
+const { title, description = "Familienhof im Emmental – zum Erleben." } =
+    Astro.props;
 import "../styles/global.css";
 
 const navLinks = [
-  { href: "/eier", label: "Eier" },
-  { href: "/kindernachmittage", label: "Kindernachmittage" },
-  { href: "/milch", label: "Milch" },
-  { href: "/ackerbau", label: "Ackerbau" },
-  { href: "/ueber-uns", label: "Über uns" },
+    { href: "/eier", label: "Eier" },
+    { href: "/kindernachmittage", label: "Kindernachmittage" },
+    { href: "/milch", label: "Milch" },
+    { href: "/ackerbau", label: "Ackerbau" },
+    { href: "/ueber-uns", label: "Über uns" },
 ];
 ---
 
 <!doctype html>
 <html lang="de-CH">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{title} – Hof Oberhusers</title>
-  <meta name="description" content={description} />
-</head>
-<body class="min-h-screen antialiased">
-  <!--
-    Die Navigation ist Teil des Heros, nicht eine Leiste davor: sie trägt
-    oben keine Fläche und keine Linie und liegt auf demselben Papier wie die
-    Bühne. Erst wenn gescrollt wird, legt sie das Papier unter (Klasse
-    `nav-scrolled`, gesetzt vom Skript unten), damit Inhalt nicht unter den
-    Links durchläuft. Die Wortmarke ist ein echtes Lockup (gezeichnetes
-    Stalltor + Name), damit der Hof als Marke und nicht als Überschrift liest.
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{title} – Oberhusers Burehof</title>
+        <meta name="description" content={description} />
+    </head>
+    <body class="min-h-screen antialiased">
+        <!--
+    Die Navigation trägt den Hofnamen gross und scrollt mit der Seite davon —
+    sie ist bewusst nicht sticky. Das Lockup aus gezeichnetem Stalltor und
+    Wortmarke steht hier ein einziges Mal in grosser Schrift; das Hero darunter
+    wiederholt den Namen nicht, sondern lässt zuerst das Foto sprechen. Der
+    Kopf liegt in derselben 1120er-Spalte wie der übrige Inhalt.
   -->
-  <header
-    id="site-header"
-    class="sticky top-0 z-20 border-b border-transparent transition-[background-color,border-bottom-color,backdrop-filter] duration-300"
-  >
-    <nav class="mx-auto flex max-w-[1120px] items-center justify-between gap-6 px-5 py-3 md:px-8">
-      <a
-        href="/"
-        class="group flex items-center gap-2.5 text-ink"
-        aria-label="Hof Oberhusers – zur Startseite"
-      >
-        <svg
-          viewBox="0 0 24 24"
-          width="24"
-          height="24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-          class="shrink-0 text-pine transition-transform duration-200 group-hover:-translate-y-px"
-        >
-          <path d="M2.6 10.4 12 3.6l9.4 6.8" />
-          <path d="M5.2 10.4h13.6" />
-          <path d="M5.2 15.4h13.6" />
-          <path d="M5.2 10.4v10" />
-          <path d="M18.8 10.4v10" />
-        </svg>
-        <span class="font-display text-[22px] font-extrabold leading-none tracking-[-0.025em]">
-          Hof Oberhusers
-        </span>
-      </a>
+        <header id="site-header" class="relative z-20">
+            <nav class="mx-auto flex items-center justify-between gap-6 px-5 py-4 md:px-8 md:py-5">
+                <a
+                    href="/"
+                    class="group flex items-center gap-3 text-ink"
+                    aria-label="Oberhusers Burehof – zur Startseite"
+                >
+                    <svg
+                        viewBox="0 0 24 24"
+                        width="30"
+                        height="30"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                        class="shrink-0 text-weide transition-transform duration-200 group-hover:-translate-y-px md:h-[36px] md:w-[36px]"
+                    >
+                        <path d="M2.6 10.4 12 3.6l9.4 6.8" />
+                        <path d="M5.2 10.4h13.6" />
+                        <path d="M5.2 15.4h13.6" />
+                        <path d="M5.2 10.4v10" />
+                        <path d="M18.8 10.4v10" />
+                    </svg>
+                    <span class="font-display text-[23px] font-extrabold leading-none tracking-[-0.025em] sm:text-[27px] md:text-[32px]">
+                        Oberhusers Burehof
+                    </span>
+                </a>
 
-      <!--
+                <!--
         Die Navigation bleibt ein Bühne-Spieler: Textlinks plus genau eine
-        Aktion in Pine. Sie bekommt keinen Kasten — der Stempel im Hero
+        Aktion in Weide. Sie bekommt keinen Kasten — der Stempel im Hero
         ist die einzige Aktion der Seite und soll der einzige bleiben.
         Ab lg, weil Wortmarke und Aktionslink in der Breite nicht
         nebeneinander in ein 768er-Fenster passen.
       -->
-      <div class="hidden items-center gap-6 text-[14px] leading-none text-ink/70 lg:flex">
-        {navLinks.map((l) => (
-          <a href={l.href} class="py-2 transition-colors hover:text-ink">{l.label}</a>
-        ))}
-        <a
-          href="#besuch"
-          class="group flex items-center gap-1.5 py-2 font-bold text-pine"
-          data-cta="nav-vorbeikommen"
-        >
-          Vorbeikommen
-          <svg viewBox="0 0 20 20" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-            <path d="M4 16 16 4" />
-            <path d="M7.5 4H16v8.5" />
-          </svg>
-        </a>
-      </div>
+                <div class="hidden items-center gap-6 text-[14px] leading-none text-ink/70 lg:flex">
+                    {navLinks.map((l) => (
+                        <a
+                            href={l.href}
+                            class="py-2 transition-colors hover:text-ink"
+                        >
+                            {l.label}
+                        </a>
+                    ))}
+                    <a
+                        href="#besuch"
+                        class="group flex items-center gap-1.5 py-2 font-bold text-weide"
+                        data-cta="nav-vorbeikommen"
+                    >
+                        Vorbeikommen
+                        <svg
+                            viewBox="0 0 20 20"
+                            width="14"
+                            height="14"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                            class="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                        >
+                            <path d="M4 16 16 4" />
+                            <path d="M7.5 4H16v8.5" />
+                        </svg>
+                    </a>
+                </div>
 
-      <details class="group lg:hidden">
-        <summary
-          class="flex min-h-[44px] cursor-pointer list-none items-center gap-1.5 text-[14px] font-bold text-ink/70 marker:hidden [&::-webkit-details-marker]:hidden"
-        >
-          Menü
-          <svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
-            <path d="M2.5 4.5 6 8l3.5-3.5" />
-          </svg>
-        </summary>
-        <div class="absolute left-0 right-0 top-full z-30 border-b border-line bg-paper px-5 pb-5 pt-1">
-          <div class="flex flex-col items-start gap-1 text-[16px] text-ink/80">
-            {navLinks.map((l) => <a href={l.href} class="py-2">{l.label}</a>)}
-            <a href="#besuch" class="py-2 font-bold text-pine" data-cta="nav-vorbeikommen">Vorbeikommen</a>
-          </div>
-        </div>
-      </details>
-    </nav>
-  </header>
+                <details class="group lg:hidden">
+                    <summary class="flex min-h-[44px] cursor-pointer list-none items-center gap-1.5 text-[14px] font-bold text-ink/70 marker:hidden [&::-webkit-details-marker]:hidden">
+                        Menü
+                        <svg
+                            viewBox="0 0 12 12"
+                            width="11"
+                            height="11"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.75"
+                            stroke-linecap="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M2.5 4.5 6 8l3.5-3.5" />
+                        </svg>
+                    </summary>
+                    <div class="absolute left-0 right-0 top-full z-30 border-b border-line bg-chalk px-5 pb-5 pt-1">
+                        <div class="flex flex-col items-start gap-1 text-[16px] text-ink/80">
+                            {navLinks.map((l) => (
+                                <a href={l.href} class="py-2">
+                                    {l.label}
+                                </a>
+                            ))}
+                            <a
+                                href="#besuch"
+                                class="py-2 font-bold text-weide"
+                                data-cta="nav-vorbeikommen"
+                            >
+                                Vorbeikommen
+                            </a>
+                        </div>
+                    </div>
+                </details>
+            </nav>
+        </header>
 
-  <noscript>
-    <style>
-      #site-header {
-        background-color: var(--color-paper);
-        border-bottom-color: var(--color-line);
-      }
-    </style>
-  </noscript>
-  <main><slot /></main>
+        <main>
+            <slot />
+        </main>
 
-  <footer class="mt-24 border-t border-line">
-    <div class="mx-auto grid max-w-[1120px] gap-6 px-5 py-10 text-sm text-ink/70 md:grid-cols-3 md:px-8">
-      <div><strong class="font-display text-ink">Hof Oberhusers</strong><br />Emmental · Nähe Langnau/Emmenmatt</div>
-      <div>Eierkühlschrank: jederzeit, bar/QR<br /><a class="underline underline-offset-4" href="#besuch">Anfahrt &amp; Kontakt</a></div>
-      <div>Cookieless Analytics via PostHog (keine Cookies). Details: Datenschutz [TBD].</div>
-    </div>
-  </footer>
+        <footer class="mt-24 border-t border-line">
+            <div class="mx-auto grid max-w-[1120px] gap-6 px-5 py-10 text-sm text-ink/70 md:grid-cols-3 md:px-8">
+                <div>
+                    <strong class="font-display text-ink">
+                        Hof Oberhusers
+                    </strong>
+                    <br />
+                    Emmental · Nähe Langnau/Emmenmatt
+                </div>
+                <div>
+                    Eierkühlschrank: jederzeit, bar/QR
+                    <br />
+                    <a class="underline underline-offset-4" href="#besuch">
+                        Anfahrt &amp; Kontakt
+                    </a>
+                </div>
+                <div>
+                    Cookieless Analytics via PostHog (keine Cookies). Details:
+                    Datenschutz [TBD].
+                </div>
+            </div>
+        </footer>
 
-  <script>
-    // Cookieless Analytics – Queue ohne Cookies und ohne PII. PostHog wird hier
-    // initialisiert, sobald Host/Key gesetzt sind (siehe SHAPE.md, offene Punkte).
-    const q: Array<Record<string, string>> = ((window as any).__hofQueue ??= []);
-    document.addEventListener("click", (event) => {
-      const el = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-cta]");
-      if (!el) return;
-      q.push({ event: "cta_click", cta: el.dataset.cta ?? "", href: el.getAttribute("href") ?? "" });
-    });
+        <script>
+            // Cookieless Analytics – Queue ohne Cookies und ohne PII. PostHog wird hier
+            // initialisiert, sobald Host/Key gesetzt sind (siehe SHAPE.md, offene Punkte).
+            const q: Array<Record<string, string>> = ((
+                window as any
+            ).__hofQueue ??= []);
+            document.addEventListener("click", (event) => {
+                const el = (
+                    event.target as HTMLElement | null
+                )?.closest<HTMLElement>("[data-cta]");
+                if (!el) return;
+                q.push({
+                    event: "cta_click",
+                    cta: el.dataset.cta ?? "",
+                    href: el.getAttribute("href") ?? "",
+                });
+            });
 
-    // Die Navigation wird erst beim Scrollen zur Leiste: oben liegt sie
-    // transparent auf dem Papier des Heros, ab 8px unterlegt sie sich.
-    const header = document.getElementById("site-header");
-    if (header) {
-      const onScroll = () => header.classList.toggle("nav-scrolled", window.scrollY > 8);
-      onScroll();
-      window.addEventListener("scroll", onScroll, { passive: true });
-    }
-
-    // Offenes Mobile-Menü nach einer Auswahl wieder schliessen.
-    const menu = document.querySelector<HTMLDetailsElement>("details.group");
-    menu?.addEventListener("click", (event) => {
-      if ((event.target as HTMLElement | null)?.closest("a")) menu.open = false;
-    });
-  </script>
-</body>
+            // Offenes Mobile-Menü nach einer Auswahl wieder schliessen.
+            const menu =
+                document.querySelector<HTMLDetailsElement>("details.group");
+            menu?.addEventListener("click", (event) => {
+                if ((event.target as HTMLElement | null)?.closest("a"))
+                    menu.open = false;
+            });
+        </script>
+    </body>
 </html>

@@ -1,22 +1,30 @@
 @import "tailwindcss";
-@import "@fontsource-variable/archivo/wdth.css";
+
+/* Schriften selbst gehostet via Fontsource: nur Titel (variable Fraunces) und
+   die handschriftlichen Notizen (Caveat) werden geladen — der Lauftext ist
+   System-Arial. Vite bündelt die woff2-Dateien und liefert sie von der eigenen
+   Domain aus; es gibt keinen Fremd-Request. */
+@import "@fontsource-variable/fraunces/wght.css";
 @import "@fontsource/caveat/500.css";
 @import "@fontsource/caveat/600.css";
 
 @theme {
-  --color-paper: #FAF6EE;
-  --color-ink: #2A2620;
-  --color-sage: #7D8C6F;
-  --color-clay: #B08968;
-  --color-pine: #2F4A3C;
-  --color-line: #E7DFD2;
-  --color-sun: #E9C46A;
-  --color-holz: #9C6B43;
-  --color-holz-dunkel: #6E4A2C;
-  --color-stall: #33523F;
-  --color-barn-shadow: #7C6A57;
-  --font-sans: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
-  --font-display: "Archivo Variable", system-ui, sans-serif;
+  /* Hofschild Chrom — gewählt am 17.10.2026 auf dem Entscheidungsboard
+     (Runde 2: dieselbe Kreide-/Weide-Welt mit deutlich intensiverem Akzent).
+     Hergeleitet aus den Hoffotos: die weisse Kalkwand, das Weidegras und die
+     chromgelbe Ohrmarke am Kalb. */
+  --color-chalk: #F2F5F0;
+  --color-surface: #FFFFFF;
+  --color-ink: #15211A;
+  --color-weide: #2C6A46;
+  --color-weide-tief: #1B452D;
+  --color-dotter: #FFC61A;
+  --color-dotter-ink: #241B00;
+  --color-kastanie: #8A6A3A;
+  --color-line: #DCE4DA;
+  --color-tiefe: #798675;
+  --font-sans: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  --font-display: "Fraunces Variable", Georgia, "Times New Roman", serif;
   --font-hand: "Caveat", cursive;
 
   /* Der eine gesetzte Moment der Startseite: die Typografie steigt ein.
@@ -30,27 +38,30 @@
   }
 }
 
-/* Der Sticky-Kopf ist 60px hoch: Anker-Sprünge (z. B. #besuch) landen
-   sonst unter der Leiste. */
-html { scroll-behavior: smooth; scroll-padding-top: 76px; }
-body { background: var(--color-paper); color: var(--color-ink); font-family: var(--font-sans); }
-.font-display { font-family: var(--font-display); font-stretch: 118%; letter-spacing: -0.02em; }
+/* Der Kopf ist nicht sticky und scrollt mit der Seite davon: ein Anker-Sprung
+   (z. B. #besuch) braucht darum nur wenig Luft über dem Ziel. */
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body { background: var(--color-chalk); color: var(--color-ink); font-family: var(--font-sans); }
+.font-display { font-family: var(--font-display); letter-spacing: -0.015em; }
 .font-hand { font-family: var(--font-hand); }
 
-/* Der Kopf trägt oben keine Fläche (Teil des Heros). Beim Scrollen legt er
-   sich Papier unter, damit der Inhalt nicht unter den Links durchläuft. */
-.nav-scrolled {
-  background-color: color-mix(in srgb, var(--color-paper) 96%, transparent);
-  border-bottom-color: var(--color-line);
-  backdrop-filter: blur(6px);
+::selection { background: var(--color-weide); color: var(--color-chalk); }
+:focus-visible { outline: 3px solid var(--color-weide); outline-offset: 2px; border-radius: 12px; }
+
+/* Die Hero-Platte der Startseite: das Foto ist der grösste Block des ersten
+   Bildschirms. Sie nimmt die Höhe bis kurz über die Falte ein und lässt
+   darunter bewusst Platz, damit die H1 darunter vollständig lesbar wird statt
+   als angeschnittene Zeile unter der Falte zu hängen. `svh`, damit die mobile
+   Adressleiste die Höhe nicht verzerrt. */
+.hero-foto { height: clamp(360px, calc(100vh - 290px), 780px); }
+@supports (height: 100svh) {
+  .hero-foto { height: clamp(360px, calc(100svh - 290px), 780px); }
 }
 
-::selection { background: var(--color-pine); color: var(--color-paper); }
-:focus-visible { outline: 3px solid var(--color-clay); outline-offset: 2px; border-radius: 12px; }
-
-/* Der Hero der Startseite hat kein Stylesheet mehr: H1, Textbahn, CTA,
+/* Der Hero der Startseite hat kein eigenes Stylesheet: H1, Textbahn, CTA,
    Kreide-Notiz und die Bildplatte sind Tailwind-Utilities in
-   `src/components/Hero.astro`. Was hier noch steht, gilt projektweit:
+   `src/components/Hero.astro` (die Plattenhöhe oben ist die Ausnahme, weil
+   sie von der Viewport-Höhe abhängt). Was hier noch steht, gilt projektweit:
    Grundpapier, Fokusring, die beiden Schrift-Utilities und die
    Keyframes der Tier-Icons.
    Die Uebergangsregel der Stallgasse-Icon-Buehne liegt als Utility
