@@ -62,7 +62,7 @@ const HeavyChart = lazy(() => import('./HeavyChart'));
 - Use CSS containment for independent regions
 
 **Optimize Fonts**:
-- Use `font-display: swap` or `optional`
+- Use `font-heading: swap` or `optional`
 - Subset fonts (only characters you need)
 - Preload critical fonts
 - Use system fonts when appropriate
@@ -72,7 +72,7 @@ const HeavyChart = lazy(() => import('./HeavyChart'));
 @font-face {
   font-family: 'CustomFont';
   src: url('/fonts/custom.woff2') format('woff2');
-  font-display: swap; /* Show fallback immediately */
+  font-heading: swap; /* Show fallback immediately */
   unicode-range: U+0020-007F; /* Basic Latin only */
 }
 ```

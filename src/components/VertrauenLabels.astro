@@ -1,21 +1,48 @@
 ---
 const labels = [
-  { name: "Stallvisite", text: "Hof-Erlebnis & offene Stalltüren", href: "https://www.schweizerbauern.ch/bauernhof-erleben/ausfluege/stallvisite/" },
-  { name: "IP-Suisse", text: "Nachhaltige Hof-Zertifizierung", href: "https://www.ipsuisse.ch/" },
-  { name: "SEMAG", text: "Saatvermehrung Pflanzkartoffeln", href: "https://www.semag.ch/" },
-  { name: "Emmentaler AOP", text: "Käserei-Rohmilchlieferant", href: "https://www.emmentaler.ch/" },
+    {
+        name: "Stallvisite",
+        text: "Hof-Erlebnis & offene Stalltüren",
+        href: "https://www.schweizerbauern.ch/bauernhof-erleben/ausfluege/stallvisite/",
+    },
+    {
+        name: "IP-Suisse",
+        text: "Nachhaltige Hof-Zertifizierung",
+        href: "https://www.ipsuisse.ch/",
+    },
+    {
+        name: "SEMAG",
+        text: "Saatvermehrung Pflanzkartoffeln",
+        href: "https://www.semag.ch/",
+    },
+    {
+        name: "Emmentaler AOP",
+        text: "Käserei-Rohmilchlieferant",
+        href: "https://www.emmentaler.ch/",
+    },
 ];
-const dreh = ["-rotate-1", "rotate-1", "-rotate-1", "rotate-1"];
 ---
+
 <section class="px-5 md:px-8" aria-label="Partnerschaften und Qualität">
-  <h2 class="font-display text-2xl font-extrabold tracking-tight md:text-3xl">Mit Brief und Stempel</h2>
-  <div class="mt-5 grid grid-cols-2 gap-4 md:grid-cols-4">
-    {labels.map((l, i) => (
-      <a href={l.href} target="_blank" rel="noopener" class={`rounded-[20px] border-[2.5px] border-weide/70 bg-chalk px-4 py-5 transition hover:rotate-0 md:px-5 ${dreh[i]}`}>
-        <div class="text-xs font-bold uppercase tracking-widest text-weide">Logo TBD</div>
-        <div class="font-display mt-1 font-bold">{l.name}</div>
-        <p class="mt-1 text-sm text-ink/70">{l.text}</p>
-      </a>
-    ))}
-  </div>
+    <h2 class="font-heading text-4xl font-bold leading-[1.05] md:text-5xl">
+        Mit Brief und Stempel
+    </h2>
+    <div class="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4">
+        {labels.map((l, i) => (
+            <a
+                href={l.href}
+                target="_blank"
+                rel="noopener"
+                class={`rounded-[18px] border-[2.5px] border-gruen/70 bg-chalk px-4 py-5 transition hover:rotate-0 md:px-5`}
+            >
+                <div class="text-xs font-bold uppercase tracking-widest text-braun">
+                    Logo TBD
+                </div>
+                <div class="font-heading mt-1.5 text-2xl font-bold leading-[1.05]">
+                    {l.name}
+                </div>
+                <p class="mt-1 text-sm text-braun/70">{l.text}</p>
+            </a>
+        ))}
+    </div>
 </section>

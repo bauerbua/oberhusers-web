@@ -6,14 +6,8 @@ export interface Props {
 const { title, description = "Familienhof im Emmental – zum Erleben." } =
     Astro.props;
 import "../styles/global.css";
-
-const navLinks = [
-    { href: "/eier", label: "Eier" },
-    { href: "/kindernachmittage", label: "Kindernachmittage" },
-    { href: "/milch", label: "Milch" },
-    { href: "/ackerbau", label: "Ackerbau" },
-    { href: "/ueber-uns", label: "Über uns" },
-];
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
 ---
 
 <!doctype html>
@@ -23,199 +17,14 @@ const navLinks = [
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{title} – Oberhusers Burehof</title>
         <meta name="description" content={description} />
-        <script>
-            document.documentElement.classList.add("js");
-        </script>
     </head>
     <body class="min-h-screen antialiased">
-        <!--
-    Die Navigation ist oben minimal und wird beim Scrollen zur Papier-Leiste;
-    der Hero-Titel wandert dabei in die Wortmarke. Das Lockup aus gezeichnetem
-    Stalltor und Wortmarke steht hier ein einziges Mal; das Hero darunter
-    wiederholt den Namen als grosse Headline. Der Kopf liegt in derselben
-    1120er-Spalte wie der übrige Inhalt.
-  -->
-        <header id="site-header" class="sticky top-0 z-30 border-b border-transparent transition-[background-color,backdrop-filter,border-color] duration-200">
-            <nav class="mx-auto flex items-center justify-between gap-6 px-5 py-4 md:px-8 md:py-5">
-                <a
-                    href="/"
-                    class="group flex items-center gap-3 text-ink"
-                    aria-label="Oberhusers Burehof – zur Startseite"
-                >
-                    <svg
-                        viewBox="0 0 24 24"
-                        width="30"
-                        height="30"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                        class="shrink-0 text-weide transition-transform duration-200 group-hover:-translate-y-px md:h-[36px] md:w-[36px]"
-                    >
-                        <path d="M2.6 10.4 12 3.6l9.4 6.8" />
-                        <path d="M5.2 10.4h13.6" />
-                        <path d="M5.2 15.4h13.6" />
-                        <path d="M5.2 10.4v10" />
-                        <path d="M18.8 10.4v10" />
-                    </svg>
-                    <span data-nav-title class="font-display text-[23px] font-extrabold leading-none tracking-[-0.025em] sm:text-[27px] md:text-[32px]">
-                        Oberhusers Burehof
-                    </span>
-                </a>
-
-                <!--
-        Die Navigation bleibt ein Bühne-Spieler: Textlinks plus genau eine
-        Aktion in Weide. Sie bekommt keinen Kasten — der Stempel im Hero
-        ist die einzige Aktion der Seite und soll der einzige bleiben.
-        Ab lg, weil Wortmarke und Aktionslink in der Breite nicht
-        nebeneinander in ein 768er-Fenster passen.
-      -->
-                <div class="hidden items-center gap-6 text-[14px] leading-none text-ink/70 lg:flex">
-                    {navLinks.map((l) => (
-                        <a
-                            href={l.href}
-                            class="py-2 transition-colors hover:text-ink"
-                        >
-                            {l.label}
-                        </a>
-                    ))}
-                    <a
-                        href="#besuch"
-                        class="group flex items-center gap-1.5 py-2 font-bold text-weide"
-                        data-cta="nav-vorbeikommen"
-                    >
-                        Vorbeikommen
-                        <svg
-                            viewBox="0 0 20 20"
-                            width="14"
-                            height="14"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            aria-hidden="true"
-                            class="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                        >
-                            <path d="M4 16 16 4" />
-                            <path d="M7.5 4H16v8.5" />
-                        </svg>
-                    </a>
-                </div>
-
-                <details class="group lg:hidden">
-                    <summary class="flex min-h-[44px] cursor-pointer list-none items-center gap-1.5 text-[14px] font-bold text-ink/70 marker:hidden [&::-webkit-details-marker]:hidden">
-                        Menü
-                        <svg
-                            viewBox="0 0 12 12"
-                            width="11"
-                            height="11"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="1.75"
-                            stroke-linecap="round"
-                            aria-hidden="true"
-                        >
-                            <path d="M2.5 4.5 6 8l3.5-3.5" />
-                        </svg>
-                    </summary>
-                    <div class="absolute left-0 right-0 top-full z-30 border-b border-line bg-chalk px-5 pb-5 pt-1">
-                        <div class="flex flex-col items-start gap-1 text-[16px] text-ink/80">
-                            {navLinks.map((l) => (
-                                <a href={l.href} class="py-2">
-                                    {l.label}
-                                </a>
-                            ))}
-                            <a
-                                href="#besuch"
-                                class="py-2 font-bold text-weide"
-                                data-cta="nav-vorbeikommen"
-                            >
-                                Vorbeikommen
-                            </a>
-                        </div>
-                    </div>
-                </details>
-            </nav>
-        </header>
+        <Navigation />
 
         <main>
             <slot />
         </main>
 
-        <footer class="mt-24 border-t border-line">
-            <div class="mx-auto grid gap-6 px-5 py-10 text-sm text-ink/70 md:grid-cols-3 md:px-8">
-                <div>
-                    <strong class="font-display text-ink">
-                        Hof Oberhusers
-                    </strong>
-                    <br />
-                    Emmental · Nähe Langnau/Emmenmatt
-                </div>
-                <div>
-                    Eierkühlschrank: jederzeit, bar/QR
-                    <br />
-                    <a class="underline underline-offset-4" href="#besuch">
-                        Anfahrt &amp; Kontakt
-                    </a>
-                </div>
-                <div>
-                    Cookieless Analytics via PostHog (keine Cookies). Details:
-                    Datenschutz [TBD].
-                </div>
-            </div>
-        </footer>
-
-        <script>
-            // Cookieless Analytics – Queue ohne Cookies und ohne PII. PostHog wird hier
-            // initialisiert, sobald Host/Key gesetzt sind (siehe SHAPE.md, offene Punkte).
-            const q: Array<Record<string, string>> = ((
-                window as any
-            ).__hofQueue ??= []);
-            document.addEventListener("click", (event) => {
-                const el = (
-                    event.target as HTMLElement | null
-                )?.closest<HTMLElement>("[data-cta]");
-                if (!el) return;
-                q.push({
-                    event: "cta_click",
-                    cta: el.dataset.cta ?? "",
-                    href: el.getAttribute("href") ?? "",
-                });
-            });
-
-            // Offenes Mobile-Menü nach einer Auswahl wieder schliessen.
-            const menu =
-                document.querySelector<HTMLDetailsElement>("details.group");
-            menu?.addEventListener("click", (event) => {
-                if ((event.target as HTMLElement | null)?.closest("a"))
-                    menu.open = false;
-            });
-
-            // Kopf wird beim Scrollen zur Papier-Leiste.
-            const header = document.getElementById("site-header");
-
-            function updateNav() {
-                const y = window.scrollY;
-                header?.classList.toggle("is-scrolled", y > 8);
-            }
-
-            let ticking = false;
-            window.addEventListener(
-                "scroll",
-                () => {
-                    if (ticking) return;
-                    ticking = true;
-                    requestAnimationFrame(() => {
-                        updateNav();
-                        ticking = false;
-                    });
-                },
-                { passive: true }
-            );
-            updateNav();
-        </script>
+        <Footer />
     </body>
 </html>

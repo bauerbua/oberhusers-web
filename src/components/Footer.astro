@@ -1,0 +1,36 @@
+---
+import { Picture } from "astro:assets";
+import wave from "../../assets/design-system/huegel-4-gelb.svg";
+---
+
+<footer class="mt-24 border-t border-braun/20">
+    <Picture
+        src={wave}
+        formats={["svg"]}
+        widths={[1200, 1600, 2400]}
+        sizes="100vw"
+        alt=""
+        class="block w-full"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+    />
+    <div class="mx-auto grid gap-6 px-5 py-10 text-sm text-braun/70 md:grid-cols-3 md:px-8">
+        <div>
+            <strong class="font-bold text-braun">Hof Oberhusers</strong>
+            <br />
+            Emmental · Nähe Langnau/Emmenmatt
+        </div>
+        <div>
+            Eierkühlschrank: jederzeit, bar/QR
+            <br />
+            <a class="underline underline-offset-4" href="#besuch">
+                Anfahrt &amp; Kontakt
+            </a>
+        </div>
+        <div>
+            Cookieless Analytics via PostHog (keine Cookies). Details:
+            Datenschutz [TBD].
+        </div>
+    </div>
+</footer>

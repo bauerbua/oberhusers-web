@@ -1,0 +1,97 @@
+{
+  "title": "Redesign der Startseite — Komposition wählen",
+  "question": "Drei grosse Struktur-Karten der Würfelrunde, zwei breitgeprüfte Herausforderer, ein unterlegener mit geschenkter Disziplin. Bitte eine Struktur wählen, oder neu würfeln.",
+  "buildPath": { "value": "code", "toggle": false },
+  "reroll": true,
+  "steer": true,
+  "options": [
+    {
+      "id": "assigned",
+      "kind": "assigned",
+      "kicker": "THE ROLL",
+      "label": "Ein Tag uf de Bure",
+      "lineage": "Eritage — der Tagesverlauf als Kapitel-Zeitung",
+      "thesis": "Die Startseite erzählt einen echten Tag auf dem Hof: Stunde für Stunde bis zum offenen Stalltür-Montag.",
+      "palette": ["#FAF6EC", "#593930", "#FFD222", "#ACC969", "#ECC4BE"],
+      "materials": ["warmes Papier", "braune Tusche", "Stempel", "Zeitleiste als gezeichnete Naht"],
+      "viewport": "Wortmarke-n-Hürde: grosse Amatic-H1 'Ein Tag uf de Bure.', rechts der Gelb-Stempel; darunter die fünfstündige Zeitleiste (07:00 Melken … 18:00 Stalltüre) und das erste Tageskapitel als Bildplatte mit Kiesel-Ziffer.",
+      "risk": "Die Zeitleiste darf keine ausgedachte Fiktion zeigen — echte Arbeitszeiten (Melken, Weide, Kinder) muss prüfen. Kippt in Werbe-Verpackung, wenn die Stunden dekorativ werden.",
+      "raised": [
+        { "from": "challenger-hofplan", "raise": "Eine Geometrie führt Layout und Kunst: die gezeichnete Zeitlinie läuft als eine einzige Linie durch jede Sektion." },
+        { "from": "challenger-kurse", "raise": "Kursmass: jede Sektion sitzt in ihrem Band mit gestrichelter Naht, Masse an der Bandbreite." },
+        { "from": "challenger-schalter", "raise": "Zählschritt-Disziplin des unterlegenen Anmeldeschalters: Zeitstempel tragen Zustände, die Anmeldung wird nummeriert geführt." }
+      ],
+      "html": ".impeccable/mocks/sketches/sketch-tag-auf-dem-bure.html"
+    },
+    {
+      "id": "dealt-faltbroschuere",
+      "kind": "dealt",
+      "label": "Die Faltbroschüre",
+      "lineage": "Touristen-Faltblätter / Daptone-Plattenkultur",
+      "thesis": "Die Startseite ist die gefaltete Hof-Broschüre: Randmuster, mittige Wendetafel, nummerierte Etappen.",
+      "palette": ["#FAF6EC", "#FFFFFF", "#593930", "#FFD222", "#ECC4BE"],
+      "materials": ["Randleiste-Fischgrät", "Eingerahmte Bildkunst", "Runde Deckstempel"],
+      "viewport": "Klein-zentriertes Lockup, Haarregel, Weg-Navigation; darunter die grosse gerahmte Titelplatte mit Stempel am oberen Rand und vier nummerierten Etappen-Tiles.",
+      "risk": "Kann wie ein Fortheflyer wirken, wenn die Etappen zu gleichen Kacheln ausfallen und keine echte Hierarchie zeigen.",
+      "html": ".impeccable/mocks/sketches/sketch-faltbroschuere.html"
+    },
+    {
+      "id": "dealt-was-bleibt-gleich",
+      "kind": "dealt",
+      "label": "Was bleibt gleich?",
+      "lineage": "Der Übergangs-Bogen — Bestandskunden zuerst",
+      "thesis": "Die Startseite beginnt mit der ehrlichsten Karte des Hofs: der Eier-Übergabe — und leitet daraus die Beruhigung ab.",
+      "palette": ["#FAF6EC", "#FFFFFF", "#ACC969", "#FFD222", "#593930"],
+      "materials": ["Karte mit Kiesel-Niete", "gestrichelte Keep-Schleifen", "große Farbplättchen"],
+      "viewport": "Oben die grossr Übernahme-Karte mit vier Keep-Loops, darunter die Amatic-H1 'Lieber guet statt gross' und drei Farbplatt erst duje Eier/Kinder/Milch.",
+      "risk": "Besucher ohne Eier-Bezug merken zuerst Fast Food--Neutralität statt Hof-Breite; die restlichen Sparten müssen sofort nachziehen.",
+      "html": ".impeccable/mocks/sketches/sketch-was-bleibt-gleich.html"
+    },
+    {
+      "id": "challenger-hofplan",
+      "kind": "challenger",
+      "catalogId": "aww2-zoo-gardens-guide-map",
+      "verdict": "competitive",
+      "label": "Der Hofplan",
+      "lineage": "Zoo & Gärten Guide-Map — schwellende Farb-Loben",
+      "thesis": "Der erste Bildschirm ist die Landkarte des Hofs: vier gel-Schwüsse Kiesel-Loben, eine Fläche je Sparte, Etiketten als Kapseln.",
+      "palette": ["#FAF6EC", "#ACC969", "#ECC4BE", "#FFD222", "#593930"],
+      "materials": ["ebene SVG-Kiesel", "Kapseln-Etiketten", "Küstenlinie als Trenner"],
+      "viewport": "Headline über der flächigen Hofplan-Karte: vier organische kolorierte Loben (Eier/Kinder/Milch/Acker), Kapseln als Wegweiser, darunter der Folge-Absatz als Küstenstreifen.",
+      "case": "Fügt sich sauber ein: Kiesel-Organik trifft Karten-Nav; verliert knapper auf Führung der Lese-Reihenfolge.",
+      "risk": "Wird gerollt nicht als Bild abschliessen — Loben müssen savant Links mit hover und klaren Zielen sein.",
+      "html": ".impeccable/mocks/sketches/sketch-hofplan.html"
+    },
+    {
+      "id": "challenger-kurse",
+      "kind": "challenger",
+      "catalogId": "clay-ceramics-fracture-coiled-earth-tower",
+      "verdict": "competitive",
+      "label": "Kurse des Bure",
+      "lineage": "Aufgewundener Erd-Turm — Schichten mit Naht",
+      "thesis": "Die Startseite stapelt sich wie die Handwerke Ton-Schichten: Boden, Tier, Mensch, Besuch — je eine Kurs-Band mit Naht.",
+      "palette": ["#FAF6EC", "#593930", "#ACC969", "#FFD222", "#ECC4BE"],
+      "materials": ["Tunnel-Kopfbalken", "gestrichete Kursnaht", "aktuelle Ring-WIP"],
+      "viewport": "Kopf in Bandmass mit WIP-Kapsel, Kurs-1-4 Naohe-Streifen, dann Kurs 2 (Tier) als grosse Bildband mit Unterplatte.",
+      "case": "Rhythmisch stark und die Kursnamen tragen abstrakte Sachlage mit Reihen-Leerzeichen; verliert eng auf Emotion.",
+      "risk": "Kippt in Reihen-Monotonie — jede Band braucht eigene Mass-Provi, sonst liest sich alles als gleiche Platten.",
+      "html": ".impeccable/mocks/sketches/sketch-kurse.html"
+    },
+    {
+      "id": "challenger-schalter",
+      "kind": "challenger",
+      "catalogId": "digital-design-canon-shareware-installer-screens",
+      "verdict": "declined",
+      "label": "Anmeldeschalter '94",
+      "lineage": "Shareware-Installations-Assistant, 1994",
+      "thesis": "Anmeldung als bevelleds 90er-Fenster: Schritt-Wizard mit Bannern, Serienfeld-Logik und Blockfortschritt.",
+      "palette": ["#FFFFFF", "#593930", "#FFD222", "#ACC969", "#7A4C3B"],
+      "materials": ["Bevelled Dialog", "geditherter Seitenbanner", "Blockfortschrittsbalken"],
+      "viewport": "Ein schmales Dialogfenster mit drittem Schritt, Feldreihen und Fortschritts-Baustein am linken Dither-Banner.",
+      "case": "Unterlegen: Produktklarheit light (nummerierte Formular-Schritte), aber Ironie passt nicht zur warmen Vertrauensstimmung eines Familienhofs.",
+      "risk": "Liest als SpassFake — für Eierkunden im 60+ Adam eher irritierend als einladend.",
+      "keepLine": "Geschenkt: die nummerierte Schritt-Zustands-Sprache (‘Schritt 2 von 3’) wandert in die Zeitleiste und Formulare der beherrschenden Richtung.",
+      "html": ".impeccable/mocks/sketches/sketch-anmeldeschalter.html"
+    }
+  ]
+}

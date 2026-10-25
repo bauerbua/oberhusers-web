@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="de-CH"><head><meta charset="utf-8"><title>Skizze: Ein Tag uf de Bure</title>
+<style>
+@font-face{font-family:'Amatic SC';font-weight:700;src:url(../../../../node_modules/@fontsource/amatic-sc/files/amatic-sc-latin-700-normal.woff2) format('woff2');}
+*{margin:0;box-sizing:border-box}
+body{width:1440px;height:900px;overflow:hidden;background:#FAF6EC;color:#593930;font-family:Arial,Helvetica,sans-serif;position:relative}
+.disp{font-family:'Amatic SC',cursive;font-weight:700;letter-spacing:.02em;line-height:.95}
+nav{display:flex;justify-content:space-between;align-items:center;padding:22px 56px 0}
+.navlinks{display:flex;gap:26px;font-size:15px;color:#7a4c3b}
+.stamp{display:inline-block;background:#FFD222;color:#4E3121;padding:12px 22px;border-radius:14px;transform:rotate(-1.5deg);box-shadow:5px 6px 0 rgba(89,57,48,.25);font-weight:700;font-size:16px}
+.wrap{padding:0 56px}
+h1{font-size:150px;margin-top:26px;max-width:14ch}
+.sub{font-size:19px;color:#7a4c3b;max-width:44ch;margin-top:18px}
+.headgrid{display:flex;justify-content:space-between;align-items:flex-end;gap:40px}
+.timedeal{margin-top:44px;border-top:2px solid #593930;border-bottom:2px solid #593930;display:flex;gap:0}
+.hour{flex:1;padding:16px 20px;border-right:2px dashed rgba(89,57,48,.35);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#593930;display:flex;flex-direction:column;gap:4px}
+.hour b{font-size:30px;font-family:'Amatic SC',cursive;font-weight:700;letter-spacing:.03em}
+.hour:last-child{border-right:none}
+.chapt{margin-top:46px;display:flex;gap:28px;align-items:flex-start}
+.plate{width:760px;height:300px;border-radius:36px;background:linear-gradient(120deg,#bcd380,#8fa84b 55%,#c9e08e);position:relative;flex-shrink:0}
+.plate .kiesel{position:absolute;right:-14px;top:-22px;width:110px;height:90px;background:#FFD222;border-radius:52% 48% 45% 55%/60% 63% 37% 40%;transform:rotate(8deg);box-shadow:5px 6px 0 rgba(89,57,48,.18)}
+.plate .badge{position:absolute;left:20px;top:20px;background:#ECC4BE;width:64px;height:54px;border-radius:52% 48% 45% 55%/60% 63% 37% 40%;display:flex;align-items:center;justify-content:center;font-family:'Amatic SC',cursive;font-size:26px;box-shadow:4px 5px 0 rgba(89,57,48,.25);transform:rotate(-3deg)}
+.chapttext{padding-top:8px}
+.chapttext .num{font-family:'Amatic SC',cursive;font-size:44px;font-weight:700}
+.chapttext h2{font-family:'Amatic SC',cursive;font-size:64px;font-weight:700;line-height:.98}
+.chapttext p{font-size:17px;line-height:1.6;color:#593930;max-width:34ch;margin-top:10px}
+.zeit{position:absolute;left:56px;top:452px;width:3px;height:400px;background:repeating-linear-gradient(#593930 0 10px,transparent 10px 18px);opacity:.25}
+</style></head>
+<body>
+<nav>
+  <div style="display:flex;align-items:center;gap:12px"><span style="font-family:'Amatic SC',cursive;font-size:34px;font-weight:700;letter-spacing:.04em">Oberhusers Burehof</span></div>
+  <div class="navlinks"><span>Eier</span><span>Kindernachmittage</span><span>Milch</span><span>Ackerbau</span><span>Über uns</span></div>
+</nav>
+<div class="wrap">
+  <div class="headgrid">
+    <div>
+      <p style="font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:#7a4c3b;margin-top:30px">Hof Oberhusers · Emmental · offen jeden Tag</p>
+      <h1 class="disp" style="text-transform:none">Ein Tag uf de Bure.</h1>
+      <p class="sub">Vom erste Juchzen am Morgen bis zum Nachtessen: hier zeiged wir, wie Landwirtschaft lebt — und eusch sind dabi.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:14px;margin-bottom:8px">
+      <span class="stamp">Vorbeikommen →</span>
+      <span style="font-family:'Caveat',cursive;font-size:20px;color:#7a4c3b;transform:rotate(-1deg)">Hennar-Übergang: was ändert sich für eus?</span>
+    </div>
+  </div>
+
+  <!-- Zeitleiste: der Tag als Band, die Naht führt die Sektionen -->
+  <div class="timedeal">
+    <div class="hour"><span>07:00 · Melken</span><b>40 Kühe</b></div>
+    <div class="hour"><span>10:00 · Weide & Acker</span><b>30 ha</b></div>
+    <div class="hour"><span>14:30 · Kinder ufem Hof</span><b>1× Mo</b></div>
+    <div class="hour"><span>Immer · Eier us Chaschte</span><b>bar/QR</b></div>
+    <div class="hour"><span>18:00 · Stalltüre zu… nie ganz</span><b>offen</b></div>
+  </div>
+
+  <div class="chapt">
+    <div class="plate"><div class="kiesel"></div><div class="badge">07</div></div>
+    <div class="chapttext">
+      <span class="num">— 07:00</span>
+      <h2>7:00 — Melken, einmal richtig.</h2>
+      <p>Morgens geht Fritz in den Freilaufstall: 40 Kühe, Weide, Milch für echten Emmentaler.</p>
+      <p style="margin-top:14px;font-weight:700;text-decoration:underline">Milch & Kühe →</p>
+    </div>
+  </div>
+</div>
+<div class="zeit"></div>
+</body></html>
+<!-- nachgeladen 1792929263 -->

@@ -1,89 +1,20 @@
 @import "tailwindcss";
-
-/* Schriften selbst gehostet via Fontsource: nur Titel (variable Fraunces) und
-   die handschriftlichen Notizen (Caveat) werden geladen — der Lauftext ist
-   System-Arial. Vite bündelt die woff2-Dateien und liefert sie von der eigenen
-   Domain aus; es gibt keinen Fremd-Request. */
-@import "@fontsource-variable/fraunces/wght.css";
-@import "@fontsource/caveat/500.css";
-@import "@fontsource/caveat/600.css";
+@import "@fontsource/amatic-sc/400.css";
+@import "@fontsource/amatic-sc/700.css";
 
 @theme {
-  /* Hofschild Chrom — gewählt am 17.10.2026 auf dem Entscheidungsboard
-     (Runde 2: dieselbe Kreide-/Weide-Welt mit deutlich intensiverem Akzent).
-     Hergeleitet aus den Hoffotos: die weisse Kalkwand, das Weidegras und die
-     chromgelbe Ohrmarke am Kalb. */
-  --color-chalk: #F2F5F0;
-  --color-surface: #FFFFFF;
-  --color-ink: #15211A;
-  --color-weide: #2C6A46;
-  --color-weide-tief: #1B452D;
-  --color-dotter: #FFC61A;
-  --color-dotter-ink: #241B00;
-  --color-kastanie: #8A6A3A;
-  --color-line: #DCE4DA;
-  --color-tiefe: #798675;
+  --color-chalk: #FAF6EC;
+  --color-gelb: #FFD222;    /* Gelb    RGB 255/210/34 */
+  --color-gruen: #ACC969;   /* Grün    RGB 172/201/105 */
+  --color-altrosa: #ECC4BE; /* Altrosa RGB 236/196/190 */
+  --color-braun: #593930;   /* Braun   RGB 89/57/48 — auch die Tusche aller
+                               gezeichneten Grafiken */
   --font-sans: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  --font-display: "Fraunces Variable", Georgia, "Times New Roman", serif;
-  --font-hand: "Caveat", cursive;
-
-  /* Der eine gesetzte Moment der Startseite: die Typografie steigt ein.
-     Rein über `transform`, damit der Ruhezustand vollständig sichtbar ist —
-     mit `opacity: 0` blieb das Hero-Bild in Headless, Print und bei
-     deaktivierter Animation leer. Angewandt wird das über
-     `motion-safe:animate-hero-in` in Hero.astro. */
-  --animate-hero-in: hero-in 760ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  @keyframes hero-in {
-    from { transform: translateY(14px); }
-  }
+  --font-heading: "Amatic SC", "Segoe Print", cursive;
 }
 
-/* Der Kopf ist nicht sticky und scrollt mit der Seite davon: ein Anker-Sprung
-   (z. B. #besuch) braucht darum nur wenig Luft über dem Ziel. */
-html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+/* TODO: Check if this is the correct way with tailwind to define the standard properties */
+body { background: var(--color-chalk); color: var(--color-braun); font-family: var(--font-sans); }
 
-/* Minimaler Kopf, der beim Scrollen zur Papier-Leiste wird. Die Wortmarke
-   bleibt stets sichtbar. Ohne JS bleibt der Kopf solid. */
-html.js #site-header { background-color: transparent; border-bottom-color: transparent; }
-html.js #site-header.is-scrolled {
-    background-color: rgb(242 245 240 / 0.82);
-    backdrop-filter: blur(10px);
-    border-bottom-color: var(--color-line);
-}
-body { background: var(--color-chalk); color: var(--color-ink); font-family: var(--font-sans); overflow-x: hidden; }
-.font-display { font-family: var(--font-display); letter-spacing: -0.015em; }
-.font-hand { font-family: var(--font-hand); }
-
-::selection { background: var(--color-weide); color: var(--color-chalk); }
-:focus-visible { outline: 3px solid var(--color-weide); outline-offset: 2px; border-radius: 12px; }
-
-/* Die Hero-Platte der Startseite: das Foto ist die Bühne des ersten Bildschirms
-   und trägt die H1 auf sich. Sie füllt die Höhe bis kurz unter die Falte — der
-   Kopf und ein schmaler Rand bleiben sichtbar, das Bild dominiert. `svh`, damit
-   die mobile Adressleiste die Höhe nicht verzerrt. */
-.hero-foto { height: clamp(440px, calc(100vh - 200px), 860px); }
-@supports (height: 100svh) {
-  .hero-foto { height: clamp(440px, calc(100svh - 200px), 860px); }
-}
-
-/* Der Hero der Startseite hat kein eigenes Stylesheet: H1, Textbahn, CTA,
-   Kreide-Notiz und die Bildplatte sind Tailwind-Utilities in
-   `src/components/Hero.astro` (die Plattenhöhe oben ist die Ausnahme, weil
-   sie von der Viewport-Höhe abhängt). Was hier noch steht, gilt projektweit:
-   Grundpapier, Fokusring, die beiden Schrift-Utilities und die
-   Keyframes der Tier-Icons.
-   Die Uebergangsregel der Stallgasse-Icon-Buehne liegt als Utility
-   am Element (`transition-[background] duration-500`). */
-/* ——— Tier-Icons: dezent lebendig ——— */
-.tier-anim { transform-box: fill-box; }
-.huhn-kopf { transform-origin: 70% 80%; animation: picken 4.2s ease-in-out infinite; }
-@keyframes picken { 0%, 82%, 100% { transform: rotate(0deg); } 86% { transform: rotate(14deg); } 90% { transform: rotate(0deg); } 94% { transform: rotate(14deg); } }
-.hund-schwanz { transform-origin: 15% 85%; animation: wedeln 1.6s ease-in-out infinite; }
-@keyframes wedeln { 0%, 100% { transform: rotate(-9deg); } 50% { transform: rotate(11deg); } }
-.kuh-ohr { transform-origin: 20% 20%; animation: ohrzucken 6s ease-in-out infinite; }
-@keyframes ohrzucken { 0%, 90%, 100% { transform: rotate(0deg); } 93% { transform: rotate(-16deg); } 96% { transform: rotate(0deg); } }
-.apfel-blatt { transform-origin: 10% 90%; animation: wiegen 3.8s ease-in-out infinite; }
-@keyframes wiegen { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(7deg); } }
-@media (prefers-reduced-motion: reduce) {
-  .huhn-kopf, .hund-schwanz, .kuh-ohr, .apfel-blatt { animation: none; }
-}
+::selection { background: var(--color-gelb); color: var(--color-braun); }
+:focus-visible { outline: 3px solid var(--color-braun); outline-offset: 2px; border-radius: 12px; }

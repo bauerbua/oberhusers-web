@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="de-CH"><head><meta charset="utf-8"><title>Skizze: Der Hofplan</title>
+<style>
+@font-face{font-family:'Amatic SC';font-weight:700;src:url(../../../../node_modules/@fontsource/amatic-sc/files/amatic-sc-latin-700-normal.woff2) format('woff2');}
+*{margin:0;box-sizing:border-box}
+body{width:1440px;height:900px;overflow:hidden;background:#FAF6EC;color:#593930;font-family:Arial,Helvetica,sans-serif;position:relative}
+.disp{font-family:'Amatic SC',cursive;font-weight:700;letter-spacing:.02em}
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 56px 0;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#7a4c3b}
+.maphead{display:flex;justify-content:space-between;align-items:flex-end;padding:10px 56px 0;gap:40px}
+h1{font-size:96px;max-width:13ch}
+.stamp{background:#FFD222;padding:12px 22px;border-radius:14px;transform:rotate(-1.5deg);box-shadow:5px 6px 0 rgba(89,57,48,.25);font-weight:700;font-size:16px;color:#4E3121}
+.map{position:relative;margin:20px 0 0;height:520px}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.lobe{cursor:pointer}
+.lobe path{stroke:#593930;stroke-width:2.5;transition:transform .25s cubic-bezier(.22,1,.36,1);transform-origin:center}
+.lobe:hover path{transform:scale(1.02)}
+.capsule{position:absolute;padding:7px 14px;border-radius:999px;font-size:14px;font-weight:700;border:2px solid #593930;color:#593930;display:inline-flex;gap:8px;align-items:center}
+.capsule i{width:11px;height:11px;border-radius:50%;border:1.5px solid #593930;display:inline-block}
+.legend{position:absolute;right:56px;bottom:18px;display:flex;gap:12px;font-size:13px;color:#7a4c3b}
+.next{position:absolute;left:56px;bottom:14px;max-width:44ch;font-size:15px;line-height:1.55;color:#593930;border-top:2px solid #593930;padding-top:10px}
+</style></head>
+<body>
+<nav><span class="disp" style="font-size:40px;text-transform:none;color:#593930">Oberhusers Burehof</span><span>Eier · Kinder · Milch · Acker · Über uns · Vorbeikommen</span></nav>
+<div class="maphead">
+  <div>
+    <p style="font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:#7a4c3b">Hof Oberhusers · Emmental — der Hofplan, zum Ufe-Lug</p>
+    <h1 class="disp">Chunt und lueg: unser Hof uf eim Blick.</h1>
+  </div>
+  <span class="stamp">Vorbeikommen →</span>
+</div>
+
+<div class="map">
+  <svg viewBox="0 0 1440 520" preserveAspectRatio="none">
+    <!-- Kuhweide (Altrosa) -->
+    <g class="lobe"><path d="M60 300 C 170 150 430 120 560 240 C 690 360 500 470 330 460 C 180 452 90 400 60 300 Z" fill="#ECC4BE"/></g>
+    <!-- Ackerbau (Weidegrün) -->
+    <g class="lobe"><path d="M640 140 C 830 60 1120 90 1190 220 C 1260 350 1050 430 880 400 C 720 373 610 300 640 140 Z" fill="#ACC969"/></g>
+    <!-- Eier (Gelb) -->
+    <g class="lobe"><path d="M520 200 C 610 150 700 165 730 240 C 758 315 690 370 600 360 C 520 352 460 250 520 200 Z" fill="#FFD222"/></g>
+    <!-- Kinder (Neutral-Kalk mit Kontur) -->
+    <g class="lobe"><path d="M960 40 C 1120 10 1290 60 1300 160 C 1310 250 1160 280 1050 240 C 960 207 880 90 960 40 Z" fill="#FFFDF6"/></g>
+  </svg>
+
+  <span class="capsule" style="left:250px;top:290px"><i style="background:#ECC4BE"></i>Kühlälle · 40 Kühe & Kalber</span>
+  <span class="capsule" style="left:840px;top:250px"><i style="background:#ACC969"></i>Agger · Futer, Huder & Oste</span>
+  <span class="capsule" style="left:560px;top:245px"><i style="background:#FFD222"></i>Eier-Chaschte · jederzeit bar/QR</span>
+  <span class="capsule" style="left:1060px;top:120px"><i style="background:#FFFDF6"></i>Chind · 1× im Moet</span>
+
+  <p class="next"><b>Der Hofplan isch uufver:</b> jede Fläebe isch ih Link. Eier buetchned, Kinder anmelde, Kühe b'schribe und — nach der Stadtbesichtig — reind in Besuch, noh noch meh:</p>
+  <p class="legend">Auf dem weg no meh: Stalltüre · Partnerr-Hof · Menschen 3 · Labels & Stempla</p>
+</div>
+</body></html>
+<!-- nachgeladen 1792929263 -->
