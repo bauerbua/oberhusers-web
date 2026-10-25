@@ -1,11 +1,56 @@
 ---
 import Base from "../layouts/Base.astro";
-import BesuchModul from "../components/BesuchModul.astro";
 ---
+
 <Base title="kindernachmittage">
-  <div class="px-5 pt-10 md:px-8">
-    <h1 class="text-3xl font-semibold md:text-5xl">[kindernachmittage – Inhalt TBD]</h1>
-    <p class="mt-3 text-braun/70">Platzhalter gemäss SHAPE.md. Echte Texte/Bilder folgen.</p>
-  </div>
-  <div class="mt-8"><BesuchModul kompakt /></div>
+    <div class="px-5 pt-10 md:px-8">
+        <h1 class="text-3xl font-semibold md:text-5xl">
+            [kindernachmittage – Inhalt TBD]
+        </h1>
+        <!--TODO: Add labels and correct autocomplete tags-->
+        <form action="">
+            <label>
+                Name
+                <input
+                    type="text"
+                    name="name"
+                    required
+                    autocomplete="lastname"
+                />
+            </label>
+            <input
+                type="text"
+                name="vorname"
+                required
+                autocomplete="firstname"
+            />
+            <input
+                type="text"
+                name="adresse"
+                required
+                autocomplete="street-address"
+            />
+            <input type="text" name="email" required autocomplete="email" />
+            <input type="text" name="telPrivat" required autocomplete="tel" />
+            <input type="text" name="natel" required />
+            <input
+                type="text"
+                name="geburtsdatum"
+                required
+                autocomplete="bday"
+            />
+            <textarea name="allergien" id="allergien"></textarea>
+            <textarea name="bemerkungen" id="bemerkungen"></textarea>
+
+            <label>
+                <input type="checkbox" />
+                Wir sind einverstanden, wenn Fotos von unserem Kind auf der
+                Website
+                <span>
+                    <a href="www.oberhusers.ch">www.oberhusers.ch</a>
+                </span>
+                veröffentlicht werden.
+            </label>
+        </form>
+    </div>
 </Base>

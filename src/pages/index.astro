@@ -1,32 +1,28 @@
 ---
 import Base from "../layouts/Base.astro";
 import Hero from "../components/Hero.astro";
-import UebernahmeHinweis from "../components/UebernahmeHinweis.astro";
 import Angebot from "../components/Angebot.astro";
 import VertrauenLabels from "../components/VertrauenLabels.astro";
 import BesuchModul from "../components/BesuchModul.astro";
 import MenschenTeaser from "../components/MenschenTeaser.astro";
-import SaisonalerHinweis from "../components/SaisonalerHinweis.astro";
 ---
 
 <Base title="Start">
     <Hero />
 
-    <div class="mx-auto mt-16 px-5 md:mt-24 md:px-8">
-        <UebernahmeHinweis />
-    </div>
-
-    <div class="mt-12 md:mt-16">
+    <div class="content-section">
         <Angebot />
     </div>
 
-    <div class="mt-24 md:mt-36">
+    <div class="content-section">
         <VertrauenLabels />
     </div>
-    <div class="mt-24 md:mt-32">
-        <BesuchModul />
-    </div>
-    <div class="mt-24 md:mt-32">
+
+    <div class="content-section">
         <MenschenTeaser />
+    </div>
+
+    <div class="content-section">
+        <BesuchModul />
     </div>
 </Base>

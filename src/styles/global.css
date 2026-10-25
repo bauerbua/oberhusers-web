@@ -13,8 +13,28 @@
   --font-heading: "Amatic SC", "Segoe Print", cursive;
 }
 
+::selection { background: var(--color-gelb); color: var(--color-braun); }
+:focus-visible { outline: 3px solid var(--color-braun); outline-offset: 2px; border-radius: 12px; }
+
+.content-section {
+    @apply my-12 md:my-16 px-4 sm:px-8 md:px-24;
+}
+
 /* TODO: Check if this is the correct way with tailwind to define the standard properties */
 body { background: var(--color-chalk); color: var(--color-braun); font-family: var(--font-sans); }
 
-::selection { background: var(--color-gelb); color: var(--color-braun); }
-:focus-visible { outline: 3px solid var(--color-braun); outline-offset: 2px; border-radius: 12px; }
+/* TODO: Apply styling for smooth background hover, which looks similar to the logo background
+The background should be offset to the right and bottom a little,
+and maybe even include an uneven shape if easily possible.
+Or also include a drawn line/ circle as a style element
+*/
+a:not(.logo):not(.card) {
+    width: fit-content;
+    border-radius: 1rem;
+    padding: .25rem .5rem;
+    transition: all 150ms;
+}
+
+a:not(.logo):not(.card):hover {
+ background-color: var(--color-gelb);
+}

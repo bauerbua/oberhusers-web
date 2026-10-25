@@ -1,9 +1,20 @@
 ---
 import { Picture } from "astro:assets";
-import wave from "../../assets/design-system/huegel-4-gelb.svg";
+import wave from "../../assets/design-system/huegel-1-umriss.svg";
+import logo from "../../assets/design-system/logo-abzeichen.svg";
+import herz from "../../assets/design-system/herz.svg";
+
+// TODO: Make it a shared const for Navigation & Footer
+export const navLinks = [
+    { href: "/eier", label: "Eier" },
+    { href: "/kindernachmittage", label: "Kindernachmittage" },
+    { href: "/milch", label: "Milch" },
+    { href: "/ackerbau", label: "Ackerbau" },
+    { href: "/ueber-uns", label: "Über uns" },
+];
 ---
 
-<footer class="mt-24 border-t border-braun/20">
+<footer>
     <Picture
         src={wave}
         formats={["svg"]}
@@ -15,22 +26,40 @@ import wave from "../../assets/design-system/huegel-4-gelb.svg";
         fetchpriority="high"
         decoding="async"
     />
-    <div class="mx-auto grid gap-6 px-5 py-10 text-sm text-braun/70 md:grid-cols-3 md:px-8">
-        <div>
-            <strong class="font-bold text-braun">Hof Oberhusers</strong>
-            <br />
-            Emmental · Nähe Langnau/Emmenmatt
+    <div class="content-section">
+        <div class="grid gap-4 items-center md:grid-cols-3">
+            <div class="flex flex-col justify-center w-fit">
+                <Picture
+                    src={logo}
+                    formats={["svg"]}
+                    alt=""
+                    class="block w-60"
+                    loading="eager"
+                    fetchpriority="high"
+                    decoding="async"
+                />
+                <strong class="font-heading text-6xl text-center mt-2">
+                    Oberhusers <br />
+                    Burehof
+                </strong>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                {navLinks.map((l) => (
+                    <a href={l.href}>{l.label}</a>
+                ))}
+            </div>
+            <div>
+                <!--TODO: addresse-->
+                Addresse
+            </div>
         </div>
-        <div>
-            Eierkühlschrank: jederzeit, bar/QR
-            <br />
-            <a class="underline underline-offset-4" href="#besuch">
-                Anfahrt &amp; Kontakt
-            </a>
-        </div>
-        <div>
-            Cookieless Analytics via PostHog (keine Cookies). Details:
-            Datenschutz [TBD].
-        </div>
+    </div>
+    <div class="px-4 sm:px-8 md:px-24">
+        <hr class="text-gray-400/70 border-t-2" />
+    </div>
+    <div class="px-4 sm:px-8 md:px-24 py-4 text-sm flex gap-4 items-center justify-end">
+        <a href="/impressum">Impressum</a>
+        <!-- TODO: Add current year dynamically-->
+        <span>Alle Rechte Vorbehalten ® 2026</span>
     </div>
 </footer>

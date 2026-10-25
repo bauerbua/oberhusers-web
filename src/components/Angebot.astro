@@ -52,12 +52,16 @@ const sparten = [
 ] as const;
 ---
 
-<section class="px-5 md:px-8" aria-label="Unsere Sparten">
+<section>
     <h2 class="font-heading text-5xl font-bold">Das gibts bei uns</h2>
 
-    <div class="grid grid-cols-4 gap-6">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 py-6">
         {sparten.map((sparte) => (
-            <a href={sparte.href} class={`rounded-2xl p-4 ${sparte.farbe}`}>
+            /* TODO: apply bg color only on hover, and maybe use a bit of opactiy to make the color lighter. Why does only bg-gelb work with hover currently? */
+            <a
+                href={sparte.href}
+                class={`card rounded-2xl p-4 transition-all duration-300 hover:${sparte.farbe}`}
+            >
                 <div class="aspect-square">
                     <Picture
                         src={sparte.bild}
@@ -65,7 +69,9 @@ const sparten = [
                         class="object-cover w-full h-full rounded-2xl"
                     />
                 </div>
-                <h4 class="text-xl pt-4 pb-2">{sparte.name}</h4>
+                <h4 class="text-4xl pt-4 pb-2 font-bold font-heading">
+                    {sparte.name}
+                </h4>
                 <p>{sparte.text}</p>
             </a>
         ))}

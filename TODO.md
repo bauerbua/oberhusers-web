@@ -1,0 +1,12 @@
+- [ ] Add global styling for headings (especially h1 & h2)
+  - [ ] Spacing
+  - [ ] Font-size
+  - [ ] Font-family
+  - [ ] Margin-bottom
+- [ ] Add global styling + hover + focus styling for anchor-buttons
+- [ ] Add icons library and use arrows for links
+- [ ] Add global styling for layout bounding widths
+  - [ ] Create full screen section styles
+  - [ ] Create content bound section styles
+- [ ] Subpages should get the color from the link/ defined in the frontmatter of the page
+- [ ] Add global styling for form elements including error state

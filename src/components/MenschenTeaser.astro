@@ -1,47 +1,37 @@
 ---
-// Menschen-Teaser auf der Startseite: drei Porträts, je Name/Rolle/ein Satz.
-// Porträt-Fotos sind noch nicht im Projekt (TODO: fritz.jpg, barbara.jpg,
-// anne-lea.jpg in src/assets/fotos/ ablegen und hier einbinden). Bis dahin
-// Platzhalter-Flächen, damit Layout und Rhythmus stehen.
 import PlatzhalterBild from "./PlatzhalterBild.astro";
 
 const menschen = [
     {
         name: "Fritz",
         rolle: "Betriebsleiter · Meisterlandwirt",
-        text: "Führt den Hof seit [Jahr, TBD] und kennt jeden Stein, jede Kuh, jedes Feld. [Entwurf – persönlicher Satz TBD]",
+        text: "Führt den Hof seit [Jahr, TBD] und kennt jeden Stein, jede Kuh, jedes Feld.",
         alt: "Porträt Fritz (Platzhalter)",
     },
     {
         name: "Barbara",
         rolle: "Lehrerin (Volks-/Heilpädagogik) · Kindernachmittage",
-        text: "Bringt Kinder und Tiere zusammen — mit Geduld, Struktur und viel Draussen. [Entwurf – persönlicher Satz TBD]",
+        text: "Bringt Kinder und Tiere zusammen — mit Geduld, Struktur und viel Draussen.",
         alt: "Porträt Barbara (Platzhalter)",
     },
     {
         name: "Anne-Lea",
         rolle: "Fachfrau Kinderbetreuung · Landwirtin",
-        text: "Zwischen Stall und Kindergruppe zuhause — organisiert die Nachmittage mit. [Entwurf – persönlicher Satz TBD]",
+        text: "Zwischen Stall und Kindergruppe zuhause — organisiert die Nachmittage mit.",
         alt: "Porträt Anne-Lea (Platzhalter)",
     },
 ] as const;
 ---
 
-<section class="px-5 md:px-8" aria-label="Die Menschen hinter dem Hof">
+<section aria-label="Die Menschen hinter dem Hof">
     <div class="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
         <h2 class="font-heading text-4xl font-bold leading-[1.05] md:text-5xl">
             Hinter dem Hof stehen Menschen
         </h2>
-        <a
-            href="/ueber-uns"
-            class="text-[15px] font-semibold text-braun underline underline-offset-4"
-        >
-            Alle kennenlernen →
-        </a>
+        <a href="/ueber-uns">Den Hof kennenlernen</a>
     </div>
     <p class="mt-3 max-w-[60ch] text-[17px] leading-relaxed text-braun/70">
         Drei Generationen, klare Verantwortlichkeiten — und ein offenes Tor.
-        [Entwurf]
     </p>
     <div class="mt-8 grid gap-6 sm:grid-cols-2 md:mt-10 md:grid-cols-3 md:gap-8">
         {menschen.map((m) => (
@@ -49,19 +39,12 @@ const menschen = [
                 <PlatzhalterBild
                     label={m.alt}
                     ratio="aspect-[4/5]"
-                    class="rounded-[24px]"
+                    class="rounded-3xl"
                 />
-                <h3 class="mt-4 font-heading text-3xl font-bold leading-[1.05]">
-                    {m.name}
-                </h3>
-                <p class="mt-1 text-[14px] font-semibold text-braun">
-                    {m.rolle}
-                </p>
-                <p class="mt-2 text-[15px] leading-relaxed text-braun/75">
-                    {m.text}
-                </p>
+                <h3 class="mt-4 font-heading text-3xl font-bold">{m.name}</h3>
+                <p class="mt-1 font-semibold">{m.rolle}</p>
+                <p class="mt-2 leading-relaxed">{m.text}</p>
             </article>
         ))}
     </div>
 </section>
----
