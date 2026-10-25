@@ -17,13 +17,23 @@ typography:
     fontFamily: "Fraunces Variable, Georgia, serif"
     fontWeight: 800
     letterSpacing: "-0.015em"
+  headline:
+    fontSize: "30px"
   body:
     fontFamily: "Arial, Helvetica, sans-serif"
-    fontSize: "16px"
+    fontSize: "17px"
     lineHeight: 1.6
-  hand:
+  lead:
+    fontSize: "19px"
+  meta:
+    fontSize: "15px"
+  label:
+    fontSize: "14px"
+  note:
     fontFamily: "Caveat, cursive"
+    fontSize: "20px"
 rounded:
+  photo: "36px"
   band: "24px"
   box: "20px"
   inner: "18px"
@@ -114,23 +124,23 @@ sucht das Auge keiner von beiden – es liest sie als einen.
 
 ## Layout
 
-Ein Container (1120px), 20/32px Ränder, grosszügige Sektions-Abstände (64–96px). Die Startseite folgt der Stallgasse: H1-Brett, Hero-Bild, Schildchen, dann vier Bänder im Wechsel (Bild links/rechts), Marken-Zeile, Besuchs-Panel. Mehr Luft über einer Überschrift als darunter.
+Ein Container (1120px), 20/32px Ränder, grosszügige Sektions-Abstände (96–144px). Die Startseite ist eine Folge grosser, gerundeter Bildplatten: Hero, Schildchen, vier Sparten-Bänder im Wechsel (Bild links/rechts), Marken-Zeile, Besuchs-Panel. Mehr Luft über einer Überschrift als darunter.
 
 ### Die linke Achse
 
-Der Text der gesamten Seite steht in derselben 1120er-Spalte — Kopf, Hero-H1, Sektions-Titel, Footer. Es gibt genau eine linke Kante. Das Hero-Foto ist das einzige Element, das über diese Spalte hinausragt: es geht über die Textbreite hinaus bis auf `12px` (mobil) beziehungsweise `20px` (md) an den Viewport-Rand, mit 26px Radius und ohne Schatten. Diese eine Ausnahme ist der Grund, warum das Bild wirkt; ohne sie wirkt es zufällig. Ein Vollbild ist es bewusst nicht — der schmale Kalkrand fasst das Foto und hält es im selben Blatt wie die Schrift.
+Der Text der gesamten Seite steht in derselben 1120er-Spalte — Kopf, Sektions-Titel, Footer und auch die H1, die auf dem Hero-Foto liegt (sie sitzt in einem absolut positionierten 1120er-Band auf der Platte). Es gibt genau eine linke Kante. Die Bilder sind die Ausnahme: das Hero-Foto ragt bis auf `10px` (mobil) beziehungsweise `16px` (md) an den Viewport-Rand, die Sparten-Bilder füllen ihre Rasterspalte. Kein Schatten, nirgends.
 
 ### Hero
 
-**Erst die Schrift, dann das Bild. Das Foto ist der ruhige Anker unter der Einladung.**
+**Das Bild ist die Bühne, die H1 steht auf ihm.**
 
-- Oben spannt sich das Foto als gerahmte Platte: `mx-3` (`md:mx-5`), 26px Radius, `clamp(400px, 64vh, 680px)`, `object-position: 50% 34%` (mobil `58% 30%`). Kein Text auf dem Bild, kein Scrim, kein dekorativer Rahmen.
-- Darüber in der 1120er-Spalte, jede Ebene eine eigene Zeile: **H1** (20ch, `text-wrap: balance`), darunter die **Subzeile** (52ch, 17/19px), darunter ein **Handlungsband** über einer Haarlinie.
-- **Die H1 nennt den Hof und das Versprechen:** „Hof Oberhusers. Tür offen." Der Name steht in der grössten Schrift der Seite, das Versprechen im selben Atemzug. Die Subzeile trägt die Einladung und die Fakten (Freilandeier, 40 Kühe, Acker, Wald, Obst); der Name wird nicht wiederholt, die Zahlen auch nicht.
-- Das Handlungsband trägt links genau **einen** Primär-CTA als ruhige unterstrichene Zeile mit Pfeil, nie als Kasten; rechts den zweiten Weg (Eier) als **Kreide-Notiz**, kein zweiter Button. Auf `sm` liegen beide auf einer Grundlinie, mobil gestapelt.
-- **Nichts ist über eine Animation versteckt.** Der Ruhezustand ist vollständig sichtbar; animiert wird allein das Handlungsband, und auch das nur über `transform`. Mit `animation-fill-mode: both` und `opacity: 0` blieb das Hero-Bild in Headless, Print und bei deaktivierter Animation leer.
+- Das Foto spannt sich als grosse Platte fast über den ganzen ersten Bildschirm: `mx-2.5` (`md:mx-4`), 28px Radius (`md: 36px`), Höhe `clamp(440px, calc(100svh - 200px), 860px)`. Der Kopf bleibt oben auf dem Kalk — das Bild beginnt darunter, nicht hinter ihm.
+- Die **H1** liegt unten links auf dem Foto, in einem absolut positionierten 1120er-Band, damit sie auf derselben Achse steht wie der übrige Text. Ein weicher Ink-Scrim (`from-ink/85` über die unteren zwei Drittel) trägt sie; ohne ihn verschwindet Chalk auf hellem Foto. Display-Grösse `clamp(2.25rem, 7.5vw, 5.5rem)`, `text-wrap: balance`.
+- **Nur die H1 liegt auf dem Bild.** Keine Subzeile, keine Chips, kein Scroll-Cue, kein zweiter Text — die Platte bleibt ruhig.
+- Darunter auf dem Kalk, in der 1120er-Spalte: die **Subzeile** (46ch, 17/19px) und ein **Handlungsband** über einer Haarlinie — links genau ein CTA als unterstrichene Zeile mit Pfeil, rechts der zweite Weg (Eier) als **Kreide-Notiz**.
+- **Nichts ist über eine Animation versteckt.** Der Ruhezustand ist vollständig sichtbar; animiert wird allein das Handlungsband, und auch das nur über `transform`.
 
-**Warum die Schrift über dem Bild und nicht darauf:** die Einladung zuerst zu lesen macht den Hof zum Ziel, nicht zum Hintergrund; das Foto antwortet darunter in voller Ruhe und trägt die Stimmung, ohne dass Schrift auf den Kälbern liegt. Der erste Blick bleibt das Bild, der erste Satz die Handlung.
+**Warum die H1 auf dem Bild liegt:** die Referenz-Richtung des Kunden (grosses Bild, grosszügige Rundungen, ruhige Bildsprache) macht das Foto zur Bühne; die H1 sitzt als einzige Schrift darauf und macht den Hof zum Ziel statt zum Hintergrund. Alles Lesbare — Subzeile und Handlung — bleibt auf dem Kalk.
 
 ## Elevation & Depth
 
@@ -138,7 +148,7 @@ Flach als Prinzip: Tiefe entsteht durch den Dotter-Verlauf der Icon-Bühnen und 
 
 ## Shapes
 
-Runde, ruhige Geometrie: Bänder und Panels (24px), Boxen (20px), Bild-Innen (18px), Controls eckiger (12px). Tür- und Brett-Motive nur als Rahmen und Regeln, nie als Clip-Path-Deko.
+Runde, ruhige Geometrie: grosse Foto-Platten (36px), Bänder und Panels (24px), Boxen (20px), Bild-Innen (18px), Controls eckiger (12px). Tür- und Brett-Motive nur als Rahmen und Regeln, nie als Clip-Path-Deko.
 
 ## Components
 
@@ -152,13 +162,16 @@ Runde, ruhige Geometrie: Bänder und Panels (24px), Boxen (20px), Bild-Innen (18
 - **Style:** Chalk, 2.5px Weide-Kontur (`/70`), leicht gedreht (±1deg), uppercase Meta-Zeile in Weide.
 - **State:** Hover richtet auf (0deg).
 
-### Stallgasse-Band
-- **Corner Style:** Icon-Bühne 24px, sonst offene Kanten mit 4px Weide-Regeln oben/unten.
-- **Background:** Kalk; Icon-Bühne mit Dotter-Verlauf (`80→35%` nach Chalk, bei Hover voller).
-- **Internal Padding:** 32–40px vertikal, Icon-Bühne 160–176px.
+### Sparten-Band (Stallgasse)
+- **Aufbau:** Alternierende Bänder — die grosse, gerundete Foto-Platte (24px mobil, 30px md, `aspect-[4/3]`, `object-cover`, `scale-[1.035]` bei Hover) wechselt links/rechts, daneben der Text.
+- **Bild:** ein echtes Hof-Foto je Sparte; Hover zoomt minimal, sonst keine Bewegung.
+- **Icon:** die Tier-Identität bleibt als kleines Chalk-Badge oben links auf dem Foto (48px mobil, 56px md, `ring-1 ring-ink/10`) — der einzige Ort, an dem das Tier-Icon noch auftritt.
+- **Text:** Name (Headline), ein Satz (17px), darunter der gefüllte Dotter-Stempel und rechts die Kreide-Notiz.
+- **Rhythmus:** keine Balken-Regeln mehr; die Bänder trennt grosszügiger Weissraum (56px mobil, 96px md).
 
 ### Tier-Icons
 - **Style:** Einheitliche 3px Kontur in Ink, Weiss-Flächen, je ein Farb-Akzent (Kamm und Blatt in Weide, Schnabel in Dotter, Ohren/Ruten/Stiel in Kastanie).
+- **Einsatz:** als kleines Chalk-Badge auf den Sparten-Fotos; sonst nirgends.
 - **State:** Dezent animiert (Picken 4.2s, Wedeln 1.6s, Ohrzucken 6s, Wiegen 3.8s); ohne Motion-Einstellung statisch.
 
 ### Übernahme-Schildchen
@@ -174,19 +187,22 @@ Runde, ruhige Geometrie: Bänder und Panels (24px), Boxen (20px), Bild-Innen (18
 ## Do's and Don'ts
 
 ### Do:
-- **Do** Bilder vom echten Hof und echte Menschen an den Anfang stellen (Platzhalter nur bis Ersatz da ist).
-- **Do** das Hero-Foto seitlich fassen (`12px` / `md: 20px` Kalkrand, 26px Radius) — der Rahmen hält es im selben Blatt wie die Schrift.
+- **Do** Bilder vom echten Hof und echte Menschen an den Anfang stellen (echte Fotos statt Platzhalter).
+- **Do** das Hero-Foto als grosse Platte fassen (`10px` / `md: 16px` Kalkrand, 28/36px Radius) und die H1 darauf setzen.
+- **Do** die H1 mit einem weichen Ink-Scrim tragen, damit Chalk auf jedem Foto lesbar bleibt.
+- **Do** die Sparten als grosse, gerundete Foto-Platten zeigen; das Tier-Icon lebt nur noch als kleines Badge darauf.
 - **Do** den Kopf oben transparent lassen und ihn erst beim Scrollen zur Leiste machen.
 - **Do** Weide sparsam und nur für Aktion, Regel und Stempel-Kontur nutzen (Stamp Rule).
-- **Do** Dotter nur für Icon-Bühne, gefüllten Sparten-Stempel und Notiz-Pfeil einsetzen (Dotter Rule).
+- **Do** Dotter nur für den gefüllten Sparten-Stempel und den Notiz-Pfeil einsetzen (Dotter Rule).
 - **Do** Tier-Icons in einer Strichstärke und einem Animations-Loop pro Tier halten.
 - **Do** Türen nur dort zeigen, wo sie helfen (Besuch, Details) — Gefühl statt Deko.
 
 ### Don't:
 - **Don't** Kicker oder Eyebrows über Headlines setzen (No-Kicker Rule).
+- **Don't** ausser der H1 Text auf das Hero-Foto legen — keine Subzeile, keine Chips, kein Scroll-Cue auf der Platte.
 - **Don't** Inhalte über `animation-fill-mode: both` + `opacity: 0` verstecken — der Ruhezustand ist immer vollständig sichtbar.
 - **Don't** den Hero-CTA als Kasten bauen — er bleibt eine unterstrichene Zeile.
-- **Don't** das Hero-Foto als Vollbild über die ganze Breite ziehen — der Kalkrand gehört dazu.
+- **Don't** das Hero-Foto randlos über die ganze Breite ziehen — der Kalkrand gehört dazu.
 - **Don't** Stock-Fotos, Folklore oder knallige Flächen verwenden (Brief-Ban).
 - **Don't** Dotter zur Sektionsfläche machen oder als Textfarbe auf Kalk setzen (Dotter Rule).
 - **Don't** harte Offset-Schatten ausserhalb der einen Portrait-Ausnahme nutzen.

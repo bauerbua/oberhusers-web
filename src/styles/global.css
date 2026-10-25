@@ -41,21 +41,29 @@
 /* Der Kopf ist nicht sticky und scrollt mit der Seite davon: ein Anker-Sprung
    (z. B. #besuch) braucht darum nur wenig Luft über dem Ziel. */
 html { scroll-behavior: smooth; scroll-padding-top: 24px; }
-body { background: var(--color-chalk); color: var(--color-ink); font-family: var(--font-sans); }
+
+/* Minimaler Kopf, der beim Scrollen zur Papier-Leiste wird. Die Wortmarke
+   bleibt stets sichtbar. Ohne JS bleibt der Kopf solid. */
+html.js #site-header { background-color: transparent; border-bottom-color: transparent; }
+html.js #site-header.is-scrolled {
+    background-color: rgb(242 245 240 / 0.82);
+    backdrop-filter: blur(10px);
+    border-bottom-color: var(--color-line);
+}
+body { background: var(--color-chalk); color: var(--color-ink); font-family: var(--font-sans); overflow-x: hidden; }
 .font-display { font-family: var(--font-display); letter-spacing: -0.015em; }
 .font-hand { font-family: var(--font-hand); }
 
 ::selection { background: var(--color-weide); color: var(--color-chalk); }
 :focus-visible { outline: 3px solid var(--color-weide); outline-offset: 2px; border-radius: 12px; }
 
-/* Die Hero-Platte der Startseite: das Foto ist der grösste Block des ersten
-   Bildschirms. Sie nimmt die Höhe bis kurz über die Falte ein und lässt
-   darunter bewusst Platz, damit die H1 darunter vollständig lesbar wird statt
-   als angeschnittene Zeile unter der Falte zu hängen. `svh`, damit die mobile
-   Adressleiste die Höhe nicht verzerrt. */
-.hero-foto { height: clamp(360px, calc(100vh - 290px), 780px); }
+/* Die Hero-Platte der Startseite: das Foto ist die Bühne des ersten Bildschirms
+   und trägt die H1 auf sich. Sie füllt die Höhe bis kurz unter die Falte — der
+   Kopf und ein schmaler Rand bleiben sichtbar, das Bild dominiert. `svh`, damit
+   die mobile Adressleiste die Höhe nicht verzerrt. */
+.hero-foto { height: clamp(440px, calc(100vh - 200px), 860px); }
 @supports (height: 100svh) {
-  .hero-foto { height: clamp(360px, calc(100svh - 290px), 780px); }
+  .hero-foto { height: clamp(440px, calc(100svh - 200px), 860px); }
 }
 
 /* Der Hero der Startseite hat kein eigenes Stylesheet: H1, Textbahn, CTA,

@@ -1,0 +1,48 @@
+---
+// Menschen-Teaser auf der Startseite: drei Porträts, je Name/Rolle/ein Satz.
+// Porträt-Fotos sind noch nicht im Projekt (TODO: fritz.jpg, barbara.jpg,
+// anne-lea.jpg in src/assets/fotos/ ablegen und hier einbinden). Bis dahin
+// Platzhalter-Flächen, damit Layout und Rhythmus stehen.
+import PlatzhalterBild from "./PlatzhalterBild.astro";
+
+const menschen = [
+  {
+    name: "Fritz",
+    rolle: "Betriebsleiter · Meisterlandwirt",
+    text: "Führt den Hof seit [Jahr, TBD] und kennt jeden Stein, jede Kuh, jedes Feld. [Entwurf – persönlicher Satz TBD]",
+    alt: "Porträt Fritz (Platzhalter)",
+  },
+  {
+    name: "Barbara",
+    rolle: "Lehrerin (Volks-/Heilpädagogik) · Kindernachmittage",
+    text: "Bringt Kinder und Tiere zusammen — mit Geduld, Struktur und viel Draussen. [Entwurf – persönlicher Satz TBD]",
+    alt: "Porträt Barbara (Platzhalter)",
+  },
+  {
+    name: "Anne-Lea",
+    rolle: "Fachfrau Kinderbetreuung · Landwirtin",
+    text: "Zwischen Stall und Kindergruppe zuhause — organisiert die Nachmittage mit. [Entwurf – persönlicher Satz TBD]",
+    alt: "Porträt Anne-Lea (Platzhalter)",
+  },
+] as const;
+---
+<section class="px-5 md:px-8" aria-label="Die Menschen hinter dem Hof">
+  <div class="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+    <h2 class="font-display text-2xl font-extrabold tracking-tight md:text-3xl">Hinter dem Hof stehen Menschen</h2>
+    <a href="/ueber-uns" class="text-[15px] font-semibold text-weide underline underline-offset-4">Alle kennenlernen →</a>
+  </div>
+  <p class="mt-2 max-w-[60ch] text-[17px] leading-relaxed text-ink/70">
+    Drei Generationen, klare Verantwortlichkeiten — und ein offenes Tor. [Entwurf]
+  </p>
+  <div class="mt-8 grid gap-6 sm:grid-cols-2 md:mt-10 md:grid-cols-3 md:gap-8">
+    {menschen.map((m) => (
+      <article class="group">
+        <PlatzhalterBild label={m.alt} ratio="aspect-[4/5]" class="rounded-[24px]" />
+        <h3 class="mt-4 font-display text-xl font-extrabold tracking-tight">{m.name}</h3>
+        <p class="mt-1 text-[14px] font-semibold text-weide">{m.rolle}</p>
+        <p class="mt-2 text-[15px] leading-relaxed text-ink/75">{m.text}</p>
+      </article>
+    ))}
+  </div>
+</section>
+---

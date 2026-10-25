@@ -26,6 +26,18 @@ Stable Door"). Gesammelt am 2026-10-13.
 - Lapa Ninja – Farbfilter Grün: https://www.lapa.ninja/color/green/
 - Land-book: https://land-book.com/
 
+## Hero-Referenzen (Pinterest, 2026-10-20) — Headline über dem Hero-Bild
+
+Nutzer-Steer für den Hero: Headline über dem Hero-Bild, minimaler Navbar oben,
+beim Scrollen wandert der Titel „Oberhusers" in die Navbar (Scroll-Animation).
+Erst einfache Umsetzung, dann verfeinern.
+
+| Site | Link | Warum passend |
+|---|---|---|
+| Pinterest Pin | https://at.pinterest.com/pin/682365781089927546/ | Hero mit Headline über dem Bild, minimaler Kopf |
+| Pinterest Pin | https://at.pinterest.com/pin/682365781089927593/ | Hero mit Headline über dem Bild, minimaler Kopf |
+| Pinterest Pin | https://at.pinterest.com/pin/682365781089927531/ | Hero mit Headline über dem Bild, minimaler Kopf |
+
 ## Awwwards-Beispiele aus dem Themenfeld
 
 - Farm Minerals (Site of the Day): https://www.awwwards.com/sites/farm-minerals — agrar-thematisch, aber sehr animiert/bunt; als Gegenprobe nützlich

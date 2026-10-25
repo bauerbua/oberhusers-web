@@ -5,22 +5,27 @@ import UebernahmeHinweis from "../components/UebernahmeHinweis.astro";
 import Stallgasse from "../components/Stallgasse.astro";
 import VertrauenLabels from "../components/VertrauenLabels.astro";
 import BesuchModul from "../components/BesuchModul.astro";
+import MenschenTeaser from "../components/MenschenTeaser.astro";
+import SaisonalerHinweis from "../components/SaisonalerHinweis.astro";
 ---
 <Base title="Start">
   <Hero />
 
-  <div class="mx-auto max-w-[1120px] px-5 pt-14 md:px-8 md:pt-20">
+  <div class="mx-auto mt-16 px-5 md:mt-24 md:px-8">
     <UebernahmeHinweis />
   </div>
 
-  <div class="mt-20 md:mt-28">
-    <div class="mx-auto max-w-[1120px] px-5 md:px-8">
-      <h2 class="font-display text-2xl font-extrabold tracking-tight md:text-3xl">Vier Türen stehen offen</h2>
-      <p class="mt-2 max-w-[60ch] text-ink/70">[Intro TBD, ein Satz]</p>
-    </div>
+  <section class="mx-auto mt-24 px-5 md:mt-36 md:px-8">
+    <h2 class="font-display text-2xl font-extrabold tracking-tight md:text-3xl">Vier Türen stehen offen</h2>
+    <p class="mt-2 max-w-[60ch] text-[17px] leading-relaxed text-ink/70">Vier Wege führen auf den Hof — wählt, was euch interessiert. [Entwurf]</p>
+  </section>
+  <div class="mt-12 md:mt-16">
     <Stallgasse />
   </div>
 
-  <div class="mt-16"><VertrauenLabels /></div>
-  <div class="mt-8"><BesuchModul /></div>
+  <div class="mt-24 md:mt-36"><VertrauenLabels /></div>
+  <div class="mt-24 md:mt-32"><BesuchModul /></div>
+  <div class="mt-24 md:mt-32"><MenschenTeaser /></div>
+  <div class="mt-16 md:mt-24"><SaisonalerHinweis /></div>
 </Base>
+---

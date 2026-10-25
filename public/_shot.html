@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>shot</title>
+<style>
+  html, body { margin: 0; padding: 0; background: #F2F5F0; }
+  #stage { overflow: hidden; }
+  iframe { border: 0; transform-origin: top left; display: block; }
+</style>
+</head>
+<body>
+  <div id="stage"><iframe id="f" src="/"></iframe></div>
+  <script>
+    const p = new URLSearchParams(location.search);
+    const W = parseInt(p.get('w') || '1440', 10);
+    const VIEW = parseInt(p.get('view') || '800', 10);
+    const scale = Math.min(1, VIEW / W);
+    const f = document.getElementById('f');
+    const stage = document.getElementById('stage');
+    f.style.width = W + 'px';
+    f.style.transform = 'scale(' + scale + ')';
+    const wait = (ms) => new Promise(r => setTimeout(r, ms));
+
+    function fit() {
+      let h = 4000;
+      try { h = f.contentDocument.documentElement.scrollHeight; } catch (e) {}
+      f.style.height = h + 'px';
+      stage.style.width = (W * scale) + 'px';
+      stage.style.height = (h * scale) + 'px';
+    }
+
+    async function warm() {
+      fit();
+      const total = stage.offsetHeight;
+      for (let y = 0; y <= total; y += 300) { window.scrollTo(0, y); await wait(60); }
+      window.scrollTo(0, 0);
+      await wait(400);
+      fit();
+      await wait(600);
+    }
+
+    f.addEventListener('load', async () => {
+      await wait(600);
+      await warm();
+      document.title = 'ready';
+    });
+  </script>
+</body>
+</html>

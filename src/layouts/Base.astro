@@ -23,16 +23,19 @@ const navLinks = [
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{title} – Oberhusers Burehof</title>
         <meta name="description" content={description} />
+        <script>
+            document.documentElement.classList.add("js");
+        </script>
     </head>
     <body class="min-h-screen antialiased">
         <!--
-    Die Navigation trägt den Hofnamen gross und scrollt mit der Seite davon —
-    sie ist bewusst nicht sticky. Das Lockup aus gezeichnetem Stalltor und
-    Wortmarke steht hier ein einziges Mal in grosser Schrift; das Hero darunter
-    wiederholt den Namen nicht, sondern lässt zuerst das Foto sprechen. Der
-    Kopf liegt in derselben 1120er-Spalte wie der übrige Inhalt.
+    Die Navigation ist oben minimal und wird beim Scrollen zur Papier-Leiste;
+    der Hero-Titel wandert dabei in die Wortmarke. Das Lockup aus gezeichnetem
+    Stalltor und Wortmarke steht hier ein einziges Mal; das Hero darunter
+    wiederholt den Namen als grosse Headline. Der Kopf liegt in derselben
+    1120er-Spalte wie der übrige Inhalt.
   -->
-        <header id="site-header" class="relative z-20">
+        <header id="site-header" class="sticky top-0 z-30 border-b border-transparent transition-[background-color,backdrop-filter,border-color] duration-200">
             <nav class="mx-auto flex items-center justify-between gap-6 px-5 py-4 md:px-8 md:py-5">
                 <a
                     href="/"
@@ -57,7 +60,7 @@ const navLinks = [
                         <path d="M5.2 10.4v10" />
                         <path d="M18.8 10.4v10" />
                     </svg>
-                    <span class="font-display text-[23px] font-extrabold leading-none tracking-[-0.025em] sm:text-[27px] md:text-[32px]">
+                    <span data-nav-title class="font-display text-[23px] font-extrabold leading-none tracking-[-0.025em] sm:text-[27px] md:text-[32px]">
                         Oberhusers Burehof
                     </span>
                 </a>
@@ -143,7 +146,7 @@ const navLinks = [
         </main>
 
         <footer class="mt-24 border-t border-line">
-            <div class="mx-auto grid max-w-[1120px] gap-6 px-5 py-10 text-sm text-ink/70 md:grid-cols-3 md:px-8">
+            <div class="mx-auto grid gap-6 px-5 py-10 text-sm text-ink/70 md:grid-cols-3 md:px-8">
                 <div>
                     <strong class="font-display text-ink">
                         Hof Oberhusers
@@ -190,6 +193,29 @@ const navLinks = [
                 if ((event.target as HTMLElement | null)?.closest("a"))
                     menu.open = false;
             });
+
+            // Kopf wird beim Scrollen zur Papier-Leiste.
+            const header = document.getElementById("site-header");
+
+            function updateNav() {
+                const y = window.scrollY;
+                header?.classList.toggle("is-scrolled", y > 8);
+            }
+
+            let ticking = false;
+            window.addEventListener(
+                "scroll",
+                () => {
+                    if (ticking) return;
+                    ticking = true;
+                    requestAnimationFrame(() => {
+                        updateNav();
+                        ticking = false;
+                    });
+                },
+                { passive: true }
+            );
+            updateNav();
         </script>
     </body>
 </html>

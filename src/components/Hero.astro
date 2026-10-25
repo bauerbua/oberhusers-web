@@ -1,87 +1,50 @@
 ---
 import { Picture } from "astro:assets";
-import hero from "../assets/hero/kaelber-2800.jpg";
-
-/**
- * Hero der Startseite — das Bild führt, die Einladung folgt.
- *
- * Der Kopf trägt den Hofnamen gross (Lockup aus gezeichnetem Stalltor und
- * Wortmarke, siehe Base.astro) und scrollt mit der Seite davon. Darunter
- * steht das Foto als Bühne: seitlich gefasst (`mx-3` / `md:mx-5`), 26px
- * Radius, fast bildschirmhoch — es darf für sich sprechen, und der Kopf
- * wiederholt den Namen darum nicht.
- *
- * Erst danach kommen H1, Subzeile und das Handlungsband: die kürzeste Fassung
- * der Einladung, in derselben 1120er-Spalte wie der übrige Seiteninhalt.
- * Kein Text auf dem Foto, kein Scrim, kein Kicker.
- *
- * Der Ruhezustand ist vollständig sichtbar: animiert wird allein das
- * Handlungsband und auch das nur über `transform`. Ein `opacity: 0` im
- * animation-fill-mode hatte das Hero-Bild in Headless, Print und bei
- * deaktivierter Animation leer gelassen.
- */
+import hero from "../assets/fotos/garten.jpg";
 ---
 
-<section class="pt-2 md:pt-4" aria-labelledby="hero-titel">
-    <!--
-      Das Foto zuerst: gross, seitlich gefasst, runde Ecken. Der Platzhalterton
-      liegt bewusst dunkler als das Foto — er soll als Tiefe wirken, nicht als
-      braune Karte.
-    -->
-    <div class="hero-foto relative mx-3 overflow-hidden rounded-4xl bg-tiefe md:mx-5">
-        <Picture
-            src={hero}
-            formats={["avif", "jpg"]}
-            widths={[1200, 1600, 2800]}
-            sizes="calc(100vw - 24px)"
-            alt="Drei Kälber mit gelben Ohrmarken schauen über den Stallzaun in die Kamera. Dahinter ein Holzbalken und Stroh."
-            class="block h-full w-full object-cover object-[50%_36%] max-md:object-[56%_32%]"
-            pictureAttributes={{ class: "block h-full w-full" }}
-            loading="eager"
-            fetchpriority="high"
-            decoding="async"
-        />
-    </div>
-
-    <div class="mx-auto mt-7 max-w-[1120px] px-5 md:mt-9 md:px-8">
-        <h1
-            id="hero-titel"
-            class="max-w-[16ch] text-balance font-display text-[clamp(2rem,7.5vw,3.75rem)] font-extrabold leading-[1.02] tracking-[-0.035em]"
-        >
-            Landwirtschaft zum Erleben.
-        </h1>
-
-        <p class="mt-4 max-w-[48ch] text-[17px] leading-[1.6] text-ink/70 md:mt-5 md:text-[19px]">
-            Entdecke unseren vielseitigen Familienbetrieb im Emmental.
-        </p>
-
-        <!-- Das Handlungsband: die eine Handlung links, der zweite Weg rechts. -->
-        <div class="mt-5 flex flex-col items-start gap-5 border-t border-line pt-4 motion-safe:animate-hero-in sm:flex-row sm:items-center sm:justify-between md:mt-7">
-            <a
-                href="#besuch"
-                class="group inline-flex min-h-12 items-center gap-2.5 text-[17px] font-bold text-weide"
-                data-cta="hero-vorbeikommen"
+<section class="overflow-hidden pt-2 md:pt-4" aria-labelledby="hero-titel">
+    <div class="px-5 pb-10 md:px-8 md:pb-16">
+        <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between md:gap-8">
+            <h1
+                id="hero-titel"
+                class="max-w-full text-balance break-words font-display text-[clamp(2.75rem,8vw,6rem)] font-extrabold leading-[0.9] tracking-[-0.03em]"
             >
-                <span class="border-b border-weide/40 pb-1 transition-colors group-hover:border-weide">
-                    Vorbeikommen
-                </span>
-                <svg
-                    viewBox="0 0 20 20"
-                    width="16"
-                    height="16"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                    class="shrink-0 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                >
-                    <path d="M4 16 16 4" />
-                    <path d="M7.5 4H16v8.5" />
-                </svg>
-            </a>
+                Landwirtschaft zum Erleben.
+            </h1>
 
+            <div class="mb-2 shrink-0 text-right md:text-right">
+                <p class="mb-2 text-[14px] leading-[1.4] text-ink/55">
+                    Entdecke unseren vielseitigen Familienbetrieb im Emmental.
+                </p>
+                <a
+                    href="#besuch"
+                    class="group inline-flex min-h-12 items-center gap-2.5 text-[17px] font-bold text-weide"
+                    data-cta="hero-vorbeikommen"
+                >
+                    <span class="border-b border-weide/40 pb-1 transition-colors group-hover:border-weide">
+                        Vorbeikommen
+                    </span>
+                    <svg
+                        viewBox="0 0 20 20"
+                        width="16"
+                        height="16"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                        class="shrink-0 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                    >
+                        <path d="M4 16 16 4" />
+                        <path d="M7.5 4H16v8.5" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <!-- Das Handlungsband: der zweite Weg (Eier) als Kreide-Notiz, oben. -->
+        <div class="mt-6 border-t border-line pt-4 motion-safe:animate-hero-in md:mt-8">
             <a
                 href="/eier"
                 class="group inline-flex items-start gap-1"
@@ -102,9 +65,25 @@ import hero from "../assets/hero/kaelber-2800.jpg";
                     <path d="M31 12.5 31.5 3.5 22.5 4" />
                 </svg>
                 <span class="font-hand -rotate-1 text-[20px] font-semibold leading-[1.25] text-kastanie underline decoration-kastanie/35 decoration-2 underline-offset-[5px] transition-colors group-hover:decoration-kastanie/80">
-                    Der Eierkühlschrank steht immer offen.
+                    Eier-Übernahme: von welchem Partnerhof? Was ändert sich?
                 </span>
             </a>
+        </div>
+    </div>
+    <div class="mx-auto mt-8 max-w-[1400px] px-5 md:mt-12 md:px-8">
+        <div class="hero-foto relative overflow-hidden rounded-[28px] bg-tiefe md:rounded-[36px]">
+            <Picture
+                src={hero}
+                formats={["avif", "jpg"]}
+                widths={[1200, 1600, 2400]}
+                sizes="calc(100vw - 20px)"
+                alt="Der Hof im Sommerlicht: ein Holzbarn mit bunter Girlande, ein grosser Baum und blühende Stauden im Vordergrund."
+                class="block h-full w-full object-cover object-[58%_62%]"
+                pictureAttributes={{ class: "block h-full w-full" }}
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+            />
         </div>
     </div>
 </section>
