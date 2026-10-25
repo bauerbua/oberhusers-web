@@ -16,6 +16,17 @@
 ::selection { background: var(--color-gelb); color: var(--color-braun); }
 :focus-visible { outline: 3px solid var(--color-braun); outline-offset: 2px; border-radius: 12px; }
 
+@layer base {
+  h1, h2, h3 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+  h1 { font-size: clamp(3.5rem, 7vw + 1rem, 7rem);  margin-bottom: 1.5rem; }
+  h2 { font-size: clamp(2.75rem, 5vw + .5rem, 5rem); margin-bottom: 1rem; }
+  h3 { font-size: clamp(2rem, 3.5vw + .5rem, 3rem); margin-bottom: .75rem; }
+}
+
 .content-section {
     @apply my-12 md:my-16 px-4 sm:px-8 md:px-24;
 }
