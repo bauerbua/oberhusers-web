@@ -3,11 +3,16 @@ import logo from "../../assets/design-system/mini-kuh.svg";
 import { Picture } from "astro:assets";
 
 export const navLinks = [
-    { href: "/eier", label: "Eier" },
-    { href: "/kindernachmittage", label: "Kindernachmittage" },
-    { href: "/milch", label: "Milch" },
-    { href: "/ackerbau", label: "Ackerbau" },
-    { href: "/ueber-uns", label: "Über uns" },
+    { href: "/eier", label: "Eier", shape: "s1", tone: "var(--color-gelb)" },
+    {
+        href: "/kindernachmittage",
+        label: "Kindernachmittage",
+        shape: "s2",
+        tone: "var(--color-gruen)",
+    },
+    { href: "/milch", label: "Milch", shape: "s3", tone: "var(--color-altrosa)" },
+    { href: "/ackerbau", label: "Ackerbau", shape: "s1", tone: "var(--color-gruen)" },
+    { href: "/ueber-uns", label: "Über uns", shape: "s2", tone: "var(--color-altrosa)" },
 ];
 ---
 
@@ -32,15 +37,16 @@ export const navLinks = [
             {navLinks.map((l) => (
                 <a
                     href={l.href}
-                    class="py-2 transition-colors hover:text-braun"
+                    class={`lk py-2 ${l.shape}`}
+                    style={`--c: ${l.tone}`}
                 >
                     {l.label}
                 </a>
             ))}
             <a
                 href="#besuch"
-                class="group flex items-center gap-1.5 py-2 font-bold text-braun"
-                data-cta="nav-vorbeikommen"
+                class="lk s3 py-2 font-bold"
+                style="--c: var(--color-gelb)"
             >
                 Vorbeikommen
             </a>
@@ -63,16 +69,20 @@ export const navLinks = [
                 </svg>
             </summary>
             <div class="absolute left-0 right-0 top-full z-30 border-b border-braun/20 bg-chalk px-5 pb-5 pt-1">
-                <div class="flex flex-col items-start gap-1 text-[16px] text-braun/80">
+                <div class="flex flex-col items-start gap-3 text-[16px] text-braun/80">
                     {navLinks.map((l) => (
-                        <a href={l.href} class="py-2">
+                        <a
+                            href={l.href}
+                            class={`lk py-2 ${l.shape}`}
+                            style={`--c: ${l.tone}`}
+                        >
                             {l.label}
                         </a>
                     ))}
                     <a
                         href="#besuch"
-                        class="py-2 font-bold text-braun"
-                        data-cta="nav-vorbeikommen"
+                        class="lk s3 py-2 font-bold"
+                        style="--c: var(--color-gelb)"
                     >
                         Vorbeikommen
                     </a>

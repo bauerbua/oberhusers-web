@@ -10,3 +10,7 @@
   - [ ] Create content bound section styles
 - [ ] Subpages should get the color from the link/ defined in the frontmatter of the page
 - [ ] Add global styling for form elements including error state
+- [ ] Mobile menu fix
+- [ ] Hero section accessible name
+- [ ] hero padding
+- [ ] card hover

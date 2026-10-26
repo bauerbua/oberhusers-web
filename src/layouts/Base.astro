@@ -19,9 +19,16 @@ import Footer from "../components/Footer.astro";
         <meta name="description" content={description} />
     </head>
     <body class="min-h-screen antialiased">
+        <a
+            href="#main"
+            class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:bg-chalk focus:px-4 focus:py-2 focus:text-braun"
+        >
+            Zum Inhalt springen
+        </a>
+
         <Navigation />
 
-        <main>
+        <main id="main">
             <slot />
         </main>
 

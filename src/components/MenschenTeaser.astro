@@ -28,14 +28,14 @@ const menschen = [
         <h2>
             Hinter dem Hof stehen Menschen
         </h2>
-        <a href="/ueber-uns">Den Hof kennenlernen</a>
+        <a href="/ueber-uns" class="btn btn-ghost s3 [--c:var(--color-altrosa)]">Den Hof kennenlernen</a>
     </div>
     <p class="mt-3 max-w-[60ch] text-[17px] leading-relaxed text-braun/70">
         Drei Generationen, klare Verantwortlichkeiten — und ein offenes Tor.
     </p>
     <div class="mt-8 grid gap-6 sm:grid-cols-2 md:mt-10 md:grid-cols-3 md:gap-8">
         {menschen.map((m) => (
-            <article class="group">
+            <article>
                 <PlatzhalterBild
                     label={m.alt}
                     ratio="aspect-[4/5]"

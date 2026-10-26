@@ -24,7 +24,7 @@ import Base from "../layouts/Base.astro";
                 <p class="mt-2 text-[15px]">
                     Produktion bei [Partner-Hof, TBD] – Haltung [TBD, 2–3
                     Sätze].{" "}
-                    <a class="underline" href="#">
+                    <a class="il [--c:var(--color-gelb)]" href="#">
                         Zum Partner-Hof
                     </a>
                 </p>
@@ -32,7 +32,6 @@ import Base from "../layouts/Base.astro";
         </div>
         <form
             class="mt-8 rounded-[20px] border border-braun/20 bg-chalk/60 p-6"
-            data-event="eier-interesse-start"
         >
             <h2>Interesse an Eiern / Abo</h2>
             <div class="mt-4 grid gap-3 md:grid-cols-2">
@@ -59,9 +58,7 @@ import Base from "../layouts/Base.astro";
                 placeholder="Nachricht (optional)"
                 class="mt-3 w-full rounded-xl border border-braun/20 bg-chalk px-4 py-2.5"
             ></textarea>
-            <button class="mt-4 rounded-full bg-gruen px-5 py-2.5 text-chalk">
-                Interesse senden [Versand via PostHog TBD]
-            </button>
+            <button class="btn s1 [--c:var(--color-gelb)] mt-4">Interesse senden [Versand via PostHog TBD]</button>
         </form>
         <div class="mt-8 text-[15px]">
             <h2>FAQ [TBD]</h2>
