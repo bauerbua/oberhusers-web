@@ -35,28 +35,17 @@ import Base from "../layouts/Base.astro";
         >
             <h2>Interesse an Eiern / Abo</h2>
             <div class="mt-4 grid gap-3 md:grid-cols-2">
-                <input
-                    required
-                    placeholder="Name"
-                    class="rounded-xl border border-braun/20 bg-chalk px-4 py-2.5"
-                />
-                <input
-                    required
-                    placeholder="Kontakt (Tel/Mail)"
-                    class="rounded-xl border border-braun/20 bg-chalk px-4 py-2.5"
-                />
-                <input
-                    placeholder="Menge / Häufigkeit"
-                    class="rounded-xl border border-braun/20 bg-chalk px-4 py-2.5"
-                />
-                <select class="rounded-xl border border-braun/20 bg-chalk px-4 py-2.5">
+                <input required placeholder="Name" />
+                <input required placeholder="Kontakt (Tel/Mail)" />
+                <input placeholder="Menge / Häufigkeit" />
+                <select>
                     <option>Haushalt</option>
                     <option>Geschäft</option>
                 </select>
             </div>
             <textarea
                 placeholder="Nachricht (optional)"
-                class="mt-3 w-full rounded-xl border border-braun/20 bg-chalk px-4 py-2.5"
+                class="mt-3"
             ></textarea>
             <button class="btn s1 [--c:var(--color-gelb)] mt-4">Interesse senden [Versand via PostHog TBD]</button>
         </form>

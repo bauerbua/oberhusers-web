@@ -55,6 +55,12 @@ components:
     textColor: "{colors.braun}"
     outline: "2px solid {colors.braun}"
     minHeight: "44px"
+  input:
+    backgroundColor: "{colors.chalk}"
+    textColor: "{colors.braun}"
+    borderColor: "color-mix(in srgb, {colors.braun} 60%, {colors.chalk})"
+    rounded: "{rounded.control}"
+    minHeight: "44px"
 ---
 
 # Design System: Hof Oberhusers
@@ -160,6 +166,20 @@ Gemeinsames Formsystem: Farb-Blob und braune Linie liegen absichtlich nicht deck
 - **Bewegung:** Hover-Regeln nur unter `@media (hover: hover)`; `prefers-reduced-motion: reduce` schaltet alle Übergänge ab.
 - **Abstände:** Die Formen ragen über das Element hinaus — benachbarte Links/Buttons mit ca. `gap-x-6` setzen.
 - **Farbzuordnung:** Gelb = Eier, Grün = Ackerbau & Kindernachmittage, Altrosa = Milch, Menschen & Kontakt.
+
+### Form-Felder
+
+Ein System für alle Eingaben (Text, E-Mail, Telefon, Datum, Select, Textarea) — Arial, nie Amatic.
+
+- **Struktur:** Jedes Feld sitzt in `.field` (Label über dem Control, ~6px Abstand). Labels: 14px/700, uppercase, `0.08em` Laufweite, Braun.
+- **Ruhezustand:** Chalk-Fläche, 2px Braun-Rahmen (`color-mix` Braun 60% + Chalk, 3.25:1), 14px Radius, `min-height: 44px`, 16px Arial in Braun. Select bekommt denselben Rahmen plus braunen Chevron (native Pfeil ersetzt, damit die Form auf allen Plattformen gleich sitzt).
+- **Platzhalter:** Braun 75% + Chalk (4.77:1) — lesbar, aber klar sekundär.
+- **Fokus:** globaler 3px-Braun-Outline mit 2px Abstand; der Feld-Radius bleibt (kein Snap auf einen anderen Radius).
+- **Fehler:** `[aria-invalid="true"]` oder `:user-invalid` (greift erst nach Interaktion) → voller Braun-Rahmen + Altrosa-Tönung (`color-mix` Altrosa 35% + Chalk). Die Meldung (`.field-error`, 14px/700 in Braun) steht im `.field`, ist per `aria-describedby` mit dem Feld verbunden und wird per `:has(:user-invalid)` eingeblendet — nie nur Farbe. Die native Validierung bleibt als Fallback aktiv.
+- **Aktion:** Submit ist ein `.btn` in der Spartenfarbe (Kindernachmittage = Grün), `type="submit"`.
+- **Deaktiviert:** 55% Deckkraft, `not-allowed`.
+- **Checkbox/Radio:** `accent-color` Braun; die Klickfläche liefert das umschliessende Label.
+- **Keine** eigenen Schatten, Verläufe oder zusätzlichen Farben — der Fehlerzustand nutzt Altrosa aus der Palette, kein Rot.
 
 ### Kiesel-Badge (Sparten-Identität)
 - **Aufbau:** Kiesel-Form (uneben gerundet, leicht rotiert ±3–4deg), Füllung in der Sparten-Farbe (Eier Gelb, Kinder Chalk + 2px Braun-Ring, Milch Altrosa, Ackerbau Grün), dahinter der harte Schatten in Halbraun. Innen das Tier-Icon in Braun-Strich.

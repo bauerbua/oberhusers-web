@@ -2,55 +2,146 @@
 import Base from "../layouts/Base.astro";
 ---
 
-<Base title="kindernachmittage">
-    <div class="px-5 pt-10 md:px-8">
-        <h1>
-            [kindernachmittage – Inhalt TBD]
-        </h1>
-        <!--TODO: Add labels and correct autocomplete tags-->
-        <form action="">
-            <label>
-                Name
+<Base title="Kindernachmittage">
+    <div class="content-section">
+        <h1>Kindernachmittage</h1>
+        <form action="" method="post" class="mt-6 grid gap-3">
+            <div class="field">
+                <label for="name">Nachname</label>
                 <input
+                    id="name"
                     type="text"
                     name="name"
                     required
-                    autocomplete="lastname"
+                    autocomplete="family-name"
+                    aria-describedby="name-error"
                 />
-            </label>
-            <input
-                type="text"
-                name="vorname"
-                required
-                autocomplete="firstname"
-            />
-            <input
-                type="text"
-                name="adresse"
-                required
-                autocomplete="street-address"
-            />
-            <input type="text" name="email" required autocomplete="email" />
-            <input type="text" name="telPrivat" required autocomplete="tel" />
-            <input type="text" name="natel" required />
-            <input
-                type="text"
-                name="geburtsdatum"
-                required
-                autocomplete="bday"
-            />
-            <textarea name="allergien" id="allergien"></textarea>
-            <textarea name="bemerkungen" id="bemerkungen"></textarea>
+                <p class="field-error" id="name-error">
+                    Bitte Nachnamen angeben.
+                </p>
+            </div>
+
+            <div class="field">
+                <label for="vorname">Vorname</label>
+                <input
+                    id="vorname"
+                    type="text"
+                    name="vorname"
+                    required
+                    autocomplete="given-name"
+                    aria-describedby="vorname-error"
+                />
+                <p class="field-error" id="vorname-error">
+                    Bitte Vornamen angeben.
+                </p>
+            </div>
+
+            <div class="field">
+                <label for="adresse">Adresse</label>
+                <input
+                    id="adresse"
+                    type="text"
+                    name="adresse"
+                    required
+                    autocomplete="street-address"
+                    aria-describedby="adresse-error"
+                />
+                <p class="field-error" id="adresse-error">
+                    Bitte Adresse angeben.
+                </p>
+            </div>
+
+            <div class="field">
+                <label for="email">E-Mail</label>
+                <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    required
+                    autocomplete="email"
+                    aria-describedby="email-error"
+                />
+                <p class="field-error" id="email-error">
+                    Bitte eine gültige E-Mail-Adresse angeben.
+                </p>
+            </div>
+
+            <div class="field">
+                <label for="tel-privat">Telefon privat</label>
+                <input
+                    id="tel-privat"
+                    type="tel"
+                    name="telPrivat"
+                    required
+                    autocomplete="tel"
+                    aria-describedby="tel-privat-error"
+                />
+                <p class="field-error" id="tel-privat-error">
+                    Bitte Telefonnummer angeben.
+                </p>
+            </div>
+
+            <div class="field">
+                <label for="natel">Natel</label>
+                <input
+                    id="natel"
+                    type="tel"
+                    name="natel"
+                    required
+                    autocomplete="tel"
+                    aria-describedby="natel-error"
+                />
+                <p class="field-error" id="natel-error">
+                    Bitte Natelnummer angeben.
+                </p>
+            </div>
+
+            <div class="field">
+                <label for="geburtsdatum">Geburtsdatum</label>
+                <input
+                    id="geburtsdatum"
+                    type="date"
+                    name="geburtsdatum"
+                    required
+                    autocomplete="bday"
+                    aria-describedby="geburtsdatum-error"
+                />
+                <p class="field-error" id="geburtsdatum-error">
+                    Bitte Geburtsdatum angeben.
+                </p>
+            </div>
+
+            <div class="field">
+                <label for="allergien">Allergien</label>
+                <textarea id="allergien" name="allergien"></textarea>
+            </div>
+
+            <div class="field">
+                <label for="bemerkungen">Bemerkungen</label>
+                <textarea id="bemerkungen" name="bemerkungen"></textarea>
+            </div>
 
             <label>
-                <input type="checkbox" />
+                <input type="checkbox" name="fotoerlaubnis" />
                 Wir sind einverstanden, wenn Fotos von unserem Kind auf der
                 Website
                 <span>
-                    <a class="il [--c:var(--color-gruen)]" href="www.oberhusers.ch">www.oberhusers.ch</a>
+                    <a
+                        class="il [--c:var(--color-gruen)]"
+                        href="https://www.oberhusers.ch"
+                    >
+                        www.oberhusers.ch
+                    </a>
                 </span>
                 veröffentlicht werden.
             </label>
+
+            <button
+                type="submit"
+                class="btn s1 [--c:var(--color-gruen)] mt-2 justify-self-start"
+            >
+                Anmeldung senden
+            </button>
         </form>
     </div>
 </Base>
