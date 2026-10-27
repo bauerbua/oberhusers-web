@@ -18,5 +18,5 @@
 - [ ] Re-work existing text and think about relatievly useful text for each section
 - [x] Anfahrt: gezeichnete Skizze statt Karten-Embed (OSM nur als Datenquelle geprüft, kein iframe)
 - [x] Adresse in `BesuchModul.astro` ergänzt: Bembrunnen 7, 3535 Schüpbach
-- [ ] Add Github pages deploy
-- [ ] More spacing for each section on index.astro to make the content pop better
+- [x] Add Github pages deploy
+- [x] More spacing for each section on index.astro to make the content pop better
