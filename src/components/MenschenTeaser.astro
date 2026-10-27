@@ -28,7 +28,7 @@ const menschen = [
         <h2>
             Hinter dem Hof stehen Menschen
         </h2>
-        <a href={`${import.meta.env.BASE_URL}/ueber-uns`} class="btn btn-ghost s3 [--c:var(--color-altrosa)]">Den Hof kennenlernen</a>
+        <a href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/ueber-uns`} class="btn btn-ghost s3 [--c:var(--color-altrosa)]">Den Hof kennenlernen</a>
     </div>
     <p class="mt-3 max-w-[60ch] text-[17px] leading-relaxed text-braun/70">
         Drei Generationen, klare Verantwortlichkeiten — und ein offenes Tor.

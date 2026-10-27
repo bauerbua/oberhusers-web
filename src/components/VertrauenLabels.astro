@@ -9,7 +9,7 @@ interface Label {
 
 // Texte sind Platzhalter für die Kundenformulierung: je ein Satz zur Beziehung Hof ↔ Organisation.
 // Logos sind Platzhalter in /public/logos/ und werden 1:1 durch die echten Dateien ersetzt.
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 const labels: Label[] = [
     {

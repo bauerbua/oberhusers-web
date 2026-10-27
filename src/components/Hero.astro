@@ -18,7 +18,7 @@ import hero from "../assets/fotos/garten-blumen.jpg";
             <div class="mt-5 flex flex-wrap items-center gap-x-6 gap-y-4">
                 <a href="#besuch" class="btn s1 [--c:var(--color-gruen)]">Vorbeikommen</a>
                 <a
-                    href={`${import.meta.env.BASE_URL}/eier`}
+                    href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/eier`}
                     class="btn btn-ghost s2 [--c:var(--color-gelb)]"
                     >Auf der Suche nach Langis Eiern?</a
                 >
