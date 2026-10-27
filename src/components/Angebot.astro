@@ -13,7 +13,7 @@ const sparten = [
         href: "/eier",
         cta: "Eier entdecken",
         bild: eier,
-        farbe: "bg-gelb",
+        hoverClass: "hover:bg-gelb/40",
         alt: "Braune Eier liegen dicht an dicht in einer Schicht aus Spelzen.",
     },
     {
@@ -24,7 +24,7 @@ const sparten = [
         cta: "Kühe kennenlernen",
         notiz: "40 Kühe",
         bild: milch,
-        farbe: "bg-altrosa",
+        hoverClass: "hover:bg-altrosa/40",
         alt: "Drei Kälber mit gelben Ohrmarken schauen über den Stallzaun in die Kamera.",
     },
     {
@@ -35,7 +35,7 @@ const sparten = [
         cta: "Feld & Obst sehen",
         notiz: "30 ha",
         bild: acker,
-        farbe: "bg-gruen",
+        hoverClass: "hover:bg-gruen/40",
         alt: "Ein Beet mit gelben und rosa Blüten vor einer Holzfassade mit bunter Girlande.",
     },
     {
@@ -46,7 +46,7 @@ const sparten = [
         cta: "Nachmittag finden",
         notiz: "1× im Monet",
         bild: kinder,
-        farbe: "bg-gelb",
+        hoverClass: "hover:bg-gelb/40",
         alt: "Eine Reihe bunter Tret-Traktoren steht vor einer Holzwand im Stall.",
     },
 ] as const;
@@ -57,10 +57,9 @@ const sparten = [
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 py-6">
         {sparten.map((sparte) => (
-            /* TODO: apply bg color only on hover, and maybe use a bit of opactiy to make the color lighter. Why does only bg-gelb work with hover currently? */
             <a
                 href={sparte.href}
-                class={`card rounded-2xl p-4 transition-all duration-300 hover:${sparte.farbe}`}
+                class={`rounded-2xl p-4 transition-colors duration-300 ${sparte.hoverClass}`}
             >
                 <div class="aspect-square">
                     <Picture
