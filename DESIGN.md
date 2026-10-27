@@ -93,7 +93,7 @@ Die neue Identität kommt vom Logo: drei handgezeichnete Kiesel (Gelb-Huhn, Grü
 - **Chalk** (#FAF6EC): Seitengrund — warmes MEHL-Papier statt Kaltkalk. Auch Basis für Karten und Eingabefelder.
 - **Gelb** (#FFD222): die Huhn-Kiesel. Der eine intensive Ton — Aktionen, Kiesel-Badges, Notiz-Pfeile.
 - **Grün** (#ACC969): die Kleeblatt-Kiesel. Gefüllte Flächen (Buttons, Kiesel-Badges) mit **Braun-Text** — nie Weiss-Text auf Grün, der Kontrast trägt nicht.
-- **Altrosa** (#ECC4BE): die Kuh-Kiesel. Zarte Panels und Kiesel-Tönung (Besuch-Modul).
+- **Altrosa** (#ECC4BE): die Kuh-Kiesel und die Milch-Sparte. Zarte Tönungen nur als Mischung (Formular-Fehlerzustand, Feldflächen der Anfahrtsskizze).
 - **Braun** (#593930): die Tusche. **Textfarbe, Linienfarbe, Doodle-Farbe, Icon-Striche** — alles, was gezeichnet ist, ist Braun. Kein Schwarz nirgends.
 
 ### Abgeleitete Varianten (keine eigenen Tokens)
@@ -213,8 +213,14 @@ Ein System für alle Eingaben (Text, E-Mail, Telefon, Datum, Select, Textarea) �
 ### Navigation
 - **Style:** Sticky, transparent oben; ab 8px Scrollen legt sie Chalk mit Blur und Haarlinie unter. Lockup: gezeichnetes Stalltor (Braun) + Wortmarke in **Amatic 28px**. Links Arial 14px in Braun/70, CTA „Vorbeikommen" als Zeile in Braun. Touch-Ziele `min-h-[44px]`.
 
-### Besuch-Modul
-- **Style:** Panels auf einer **Altrosa-Tönung** (`from-altrosa/40 to-chalk`), 2px braune Kontur (`color-mix` Braun + Chalk), zwei Eck-Doodles (Zweig oben links, Blumen unten rechts, Braun-Strich, aria-hidden). Das ist das zarte Rosa-Panel der Seite — die eine weiche Sektion.
+### Besuch-Modul (Anfahrt)
+- **Aufbau:** Überschrift, ein Satz Einladung, darunter zweispaltig (ab `lg`): links die gezeichnete Anfahrtsskizze, rechts Adresse, Route-Links und Anreise-Angaben. Mobil steht die Skizze über dem Text.
+- **Skizze statt Embed:** handgezeichnetes Inline-SVG (600 × 430) — Parzellen in Grün/Altrosa mit 2px Braun-Kontur, Strasse als Chalk-Band mit brauner Kante und gestrichelter Mitte, Bahnlinie gestrichelt, zwei Stationspunkte, der Hof als Stalltor-Motiv mit Gelb-Dach, Ortsnamen in Amatic 28–32. Kein iframe, kein Tile-Layer, keine Fremd-Requests, keine Cookies, kein Leaflet. Das ist der eine gezeichnete Moment der Seite — deshalb **kein** Altrosa-Panel und **keine** Eck-Doodles daneben (Doodle-Stapel-Verbot).
+- **Ehrlichkeit:** Die Bildunterschrift sagt „schematisch, nicht massstäblich". Die Skizze zeigt die Reihenfolge Langnau → Emmenmatt → Hof, nicht die echte Geografie. Route und Adresse leisten die Navigation, nicht die Zeichnung.
+- **Adresse:** echtes `<address>`, 19px, Name + PLZ/Ort. Keine erfundene Strasse; solange sie fehlt, steht nur der Hofname mit Ort.
+- **Route:** primärer `.btn` „Route planen" als Google-Maps-Universal-Link (`maps/dir/?api=1&destination=…`), sekundär `.btn-ghost` „Apple Maps". Beide `target="_blank"` + `rel="noopener noreferrer"`, Screenreader-Zusatz „öffnet in neuem Tab".
+- **Anreise:** Definitionsliste, 15px, Zeilen mit Haarlinie — mobil Label über Wert, ab `sm` 7rem-Labelspalte.
+- **Kein** Google-Maps-Embed: die Navigation passiert in der App der Nutzerin, die Seite bleibt cookielos.
 
 ## Do's and Don'ts
 

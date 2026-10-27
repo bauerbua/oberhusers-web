@@ -76,7 +76,7 @@ Start (inkl. Übernahme-Hinweis, Labels, Besuch-Modul) / Eier / Kindernachmittag
 - Labels-Block Home (4 Logos + je 1 Satz + externe Links, eine Reihe)
 - Eier-Interesse-Formular: Name, Kontakt, Menge/Häufigkeit, Haushalt/Geschäft, Nachricht (kein „Jetzt abonnieren“)
 - Kindernachmittage Anfrage/Anmeldung (Referenz: Hof Bisibiel)
-- Kontakt + Anfahrt als Besuch-Modul (Maps, ÖV Langnau/Emmenmatt)
+- Kontakt + Anfahrt als Besuch-Modul (gezeichnete Anfahrtsskizze, Route-Links Google/Apple Maps, ÖV Bahnhof Emmenmatt)
 - PostHog cookieless Analytics (CTA/Form-Events, keine PII) + Mail-Versand für Formulare
 - Später: Anfrage-Management, Webshop, Milchabholung
 

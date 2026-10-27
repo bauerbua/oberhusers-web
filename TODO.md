@@ -16,6 +16,7 @@
 - [x] card hover
 - [ ] Partner-Logos durch echte ersetzen (Platzhalter liegen in `/public/logos/`)
 - [ ] Re-work existing text and think about relatievly useful text for each section
-- [ ] OSM should be includede to show the location maybe
+- [x] Anfahrt: gezeichnete Skizze statt Karten-Embed (OSM nur als Datenquelle geprüft, kein iframe)
+- [x] Adresse in `BesuchModul.astro` ergänzt: Bembrunnen 7, 3535 Schüpbach
 - [ ] Add Github pages deploy
 - [ ] More spacing for each section on index.astro to make the content pop better
