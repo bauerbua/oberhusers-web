@@ -9,8 +9,11 @@
   - [x] Create full screen section styles
   - [x] Create content bound section styles
 - [ ] Subpages should get the color from the link/ defined in the frontmatter of the page
-- [ ] Add global styling for form elements including error state
+- [x] Add global styling for form elements including error state
 - [x] Mobile menu fix
 - [ ] Hero section accessible name
-- [ ] hero padding
+- [x] hero padding
 - [ ] card hover
+- [ ] Re-work existing text and think about relatievly useful text for each section
+- [ ] OSM should be includede to show the location maybe
+- [ ] Add Github pages deploy
