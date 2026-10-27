@@ -1,48 +1,94 @@
 ---
-const labels = [
+interface Label {
+    name: string;
+    text: string;
+    href: string;
+    /** Optional: Datei in /public/logos/. Ohne Logo steht der Name als Wortmarke. */
+    logo?: string;
+}
+
+// Texte sind Platzhalter für die Kundenformulierung: je ein Satz zur Beziehung Hof ↔ Organisation.
+// Logos sind Platzhalter in /public/logos/ und werden 1:1 durch die echten Dateien ersetzt.
+const base = import.meta.env.BASE_URL;
+
+const labels: Label[] = [
     {
         name: "Stallvisite",
-        text: "Hof-Erlebnis & offene Stalltüren",
+        text: "Wir öffnen unsere Stalltüren und zeigen, wie die Tiere bei uns leben.",
         href: "https://www.schweizerbauern.ch/bauernhof-erleben/ausfluege/stallvisite/",
+        logo: `${base}logos/stallvisite.svg`,
     },
     {
         name: "IP-Suisse",
-        text: "Nachhaltige Hof-Zertifizierung",
+        text: "Unser Hof ist nach IP-Suisse zertifiziert.",
         href: "https://www.ipsuisse.ch/",
+        logo: `${base}logos/ip-suisse.svg`,
     },
     {
         name: "SEMAG",
-        text: "Saatvermehrung Pflanzkartoffeln",
+        text: "Wir vermehren Pflanzkartoffeln für die SEMAG.",
         href: "https://www.semag.ch/",
+        logo: `${base}logos/semag.svg`,
     },
     {
         name: "Emmentaler AOP",
-        text: "Käserei-Rohmilchlieferant",
+        text: "Unsere Rohmilch wird zu Emmentaler AOP verkäst.",
         href: "https://www.emmentaler.ch/",
+        logo: `${base}logos/emmentaler-aop.svg`,
     },
 ];
 ---
 
-<section aria-label="Partnerschaften und Qualität">
-    <h2>
-        Mit Brief und Stempel
-    </h2>
-    <div class="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4">
-        {labels.map((l, i) => (
-            <a
-                href={l.href}
-                target="_blank"
-                rel="noopener"
-                class={`rounded-[18px] border-[2.5px] border-gruen/70 bg-chalk px-4 py-5 md:px-5`}
-            >
-                <div class="text-xs font-bold uppercase tracking-widest text-braun">
-                    Logo TBD
-                </div>
-                <div class="font-heading mt-1.5 text-2xl font-bold leading-[1.05]">
-                    {l.name}
-                </div>
-                <p class="mt-1 text-sm text-braun/70">{l.text}</p>
-            </a>
+<section aria-labelledby="partner-titel">
+    <h2 id="partner-titel">Partner &amp; Zertifizierungen</h2>
+
+    <ul class="mt-8 grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+        {labels.map((l) => (
+            <li>
+                <a
+                    href={l.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="group flex h-full flex-col"
+                >
+                    <span class="flex min-h-14 items-end pb-3">
+                        {l.logo ? (
+                            <img
+                                src={l.logo}
+                                alt={l.name}
+                                class="max-h-14 w-auto max-w-full object-contain object-left"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                        ) : (
+                            <span class="font-heading text-[26px] font-bold leading-none group-hover:underline group-focus-visible:underline decoration-2 underline-offset-[6px]">
+                                {l.name}
+                            </span>
+                        )}
+                    </span>
+
+                    <span class="max-w-[32ch] text-[15px] leading-relaxed">
+                        {l.text}
+                    </span>
+
+                    <span class="mt-auto inline-flex items-center gap-1.5 pt-4 text-[12px] font-bold uppercase tracking-[0.1em]">
+                        Zur Website
+                        <svg
+                            class="size-3 transition-transform duration-200 motion-reduce:transition-none group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                            viewBox="0 0 12 12"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.75"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M3 9 9 3M4 3h5v5"></path>
+                        </svg>
+                        <span class="sr-only"> (öffnet in neuem Tab)</span>
+                    </span>
+                </a>
+            </li>
         ))}
-    </div>
+    </ul>
 </section>

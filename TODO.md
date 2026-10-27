@@ -13,7 +13,9 @@
 - [x] Mobile menu fix
 - [ ] Hero section accessible name
 - [x] hero padding
-- [ ] card hover
+- [x] card hover
+- [ ] Partner-Logos durch echte ersetzen (Platzhalter liegen in `/public/logos/`)
 - [ ] Re-work existing text and think about relatievly useful text for each section
 - [ ] OSM should be includede to show the location maybe
 - [ ] Add Github pages deploy
+- [ ] More spacing for each section on index.astro to make the content pop better

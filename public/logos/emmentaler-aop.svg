@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 40" height="56" width="182">
+  <g stroke="#593930" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 32.5V9.5C5 7.3 7.6 6.1 9.3 7.5L34 24.5C35.6 25.8 35 28.4 33 28.7L8.5 33.8C6.6 34.1 5 33.5 5 32.5Z" fill="#FFD222" stroke-width="2"/>
+    <g fill="#FAF6EC" stroke-width="1.2">
+      <circle cx="14" cy="27" r="2"/>
+      <circle cx="21" cy="21.5" r="2.4"/>
+      <circle cx="27" cy="27.5" r="1.6"/>
+      <circle cx="18" cy="31.5" r="1.2"/>
+    </g>
+  </g>
+  <text x="42" y="20" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#593930">Emmentaler</text>
+  <text x="42" y="31" font-family="Arial, Helvetica, sans-serif" font-size="8" font-weight="700" letter-spacing="1.6" fill="#593930">AOP</text>
+</svg>

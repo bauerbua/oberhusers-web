@@ -73,7 +73,7 @@ Start (inkl. Übernahme-Hinweis, Labels, Besuch-Modul) / Eier / Kindernachmittag
 
 ## 9. Funktionen MVP
 - Eier-Übernahme-Box + Eier-Seite (Was bleibt / Was ändert sich, FAQ)
-- Labels-Block Home (4 Kacheln + externe Links)
+- Labels-Block Home (4 Logos + je 1 Satz + externe Links, eine Reihe)
 - Eier-Interesse-Formular: Name, Kontakt, Menge/Häufigkeit, Haushalt/Geschäft, Nachricht (kein „Jetzt abonnieren“)
 - Kindernachmittage Anfrage/Anmeldung (Referenz: Hof Bisibiel)
 - Kontakt + Anfahrt als Besuch-Modul (Maps, ÖV Langnau/Emmenmatt)
