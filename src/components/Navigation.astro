@@ -3,16 +3,16 @@ import logo from "../../assets/design-system/mini-kuh.svg";
 import { Picture } from "astro:assets";
 
 export const navLinks = [
-    { href: "/eier", label: "Eier", shape: "s1", tone: "var(--color-gelb)" },
+    { href: `${import.meta.env.BASE_URL}/eier`, label: "Eier", shape: "s1", tone: "var(--color-gelb)" },
     {
-        href: "/kindernachmittage",
+        href: `${import.meta.env.BASE_URL}/kindernachmittage`,
         label: "Kindernachmittage",
         shape: "s2",
         tone: "var(--color-gruen)",
     },
-    { href: "/milch", label: "Milch", shape: "s3", tone: "var(--color-altrosa)" },
-    { href: "/ackerbau", label: "Ackerbau", shape: "s1", tone: "var(--color-gruen)" },
-    { href: "/ueber-uns", label: "Über uns", shape: "s2", tone: "var(--color-altrosa)" },
+    { href: `${import.meta.env.BASE_URL}/milch`, label: "Milch", shape: "s3", tone: "var(--color-altrosa)" },
+    { href: `${import.meta.env.BASE_URL}/ackerbau`, label: "Ackerbau", shape: "s1", tone: "var(--color-gruen)" },
+    { href: `${import.meta.env.BASE_URL}/ueber-uns`, label: "Über uns", shape: "s2", tone: "var(--color-altrosa)" },
 ];
 ---
 
@@ -22,7 +22,7 @@ export const navLinks = [
         class="relative mx-auto flex items-center justify-between gap-6 px-4 py-4 sm:px-8 md:px-24 md:py-5"
     >
         <a
-            href="/"
+            href={`${import.meta.env.BASE_URL}/`}
             class="logo"
             aria-label="Oberhusers Burehof – zur Startseite"
         >
@@ -47,7 +47,7 @@ export const navLinks = [
                 </a>
             ))}
             <a
-                href="/#besuch"
+                href={`${import.meta.env.BASE_URL}/#besuch`}
                 class="lk s3 py-2 font-bold"
                 style="--c: var(--color-gelb)"
             >
@@ -84,7 +84,7 @@ export const navLinks = [
                         </a>
                     ))}
                     <a
-                        href="/#besuch"
+                        href={`${import.meta.env.BASE_URL}/#besuch`}
                         class="lk flex min-h-[44px] items-center py-2 font-bold s3"
                         style="--c: var(--color-gelb)"
                     >
