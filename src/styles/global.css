@@ -103,7 +103,7 @@
 }
 
 .content-section {
-    @apply my-12 md:my-16 px-4 sm:px-8 md:px-24;
+    @apply my-20 md:my-28 px-4 sm:px-8 md:px-24;
 }
 
 /* TODO: Check if this is the correct way with tailwind to define the standard properties */
