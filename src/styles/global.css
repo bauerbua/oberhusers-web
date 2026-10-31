@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @import "@fontsource/amatic-sc/400.css";
 @import "@fontsource/amatic-sc/700.css";
+@import "@fontsource/inter/300.css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/600.css";
 
 @theme {
   --color-chalk: #FAF6EC;
@@ -9,7 +12,7 @@
   --color-altrosa: #ECC4BE; /* Altrosa RGB 236/196/190 */
   --color-braun: #593930;   /* Braun   RGB 89/57/48 — auch die Tusche aller
                                gezeichneten Grafiken */
-  --font-sans: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  --font-sans: "Inter", Arial, sans-serif;
   --font-heading: "Amatic SC", "Segoe Print", cursive;
 }
 
@@ -20,7 +23,7 @@
 
   h1, h2, h3 {
     font-family: var(--font-heading);
-    font-weight: 700;
+    font-weight: 600;
     line-height: 1.1;
   }
   h1 { font-size: clamp(3.5rem, 7vw + 1rem, 7rem);  margin-bottom: 1.5rem; }
@@ -107,7 +110,7 @@
 }
 
 /* TODO: Check if this is the correct way with tailwind to define the standard properties */
-body { background: var(--color-chalk); color: var(--color-braun); font-family: var(--font-sans); }
+body { background: var(--color-chalk); color: var(--color-braun); font-family: var(--font-sans); font-weight: 300; }
 
 
 @layer components {
@@ -119,7 +122,7 @@ body { background: var(--color-chalk); color: var(--color-braun); font-family: v
 
   .field > label {
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 600;
     line-height: 1.2;
     letter-spacing: .08em;
     text-transform: uppercase;
@@ -129,7 +132,7 @@ body { background: var(--color-chalk); color: var(--color-braun); font-family: v
     display: none;
     margin-top: .35rem;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 600;
     line-height: 1.35;
     color: var(--color-braun);
   }
@@ -141,7 +144,7 @@ body { background: var(--color-chalk); color: var(--color-braun); font-family: v
   .lk {
     --c: var(--color-gelb); --f: var(--f1); --o: var(--o1);
     position: relative; display: inline-block; isolation: isolate;
-    padding: .3em .8em; color: var(--color-braun); font-weight: 500; text-decoration: none;
+    padding: .3em .8em; color: var(--color-braun); font-weight: 600; text-decoration: none;
     outline: 2px solid transparent;
   }
   .lk::before, .lk::after {
@@ -178,7 +181,7 @@ body { background: var(--color-chalk); color: var(--color-braun); font-family: v
     --c: var(--color-gelb); --f: var(--f1); --o: var(--o1);
     position: relative; display: inline-block; isolation: isolate;
     padding: .7em 1.4em; min-height: 44px; box-sizing: border-box;
-    color: var(--color-braun); font-weight: 500; text-decoration: none;
+    color: var(--color-braun); font-weight: 600; text-decoration: none;
     outline: 2px solid transparent;
   }
   .btn::before, .btn::after {
