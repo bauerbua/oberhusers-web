@@ -111,6 +111,7 @@
 
 /* TODO: Check if this is the correct way with tailwind to define the standard properties */
 body { background: var(--color-chalk); color: var(--color-braun); font-family: var(--font-sans); font-weight: 300; }
+p { margin-bottom: 1rem; line-height: 1.6; }
 
 
 @layer components {

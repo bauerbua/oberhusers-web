@@ -5,19 +5,19 @@ const menschen = [
     {
         name: "Fritz",
         rolle: "Betriebsleiter · Meisterlandwirt",
-        text: "Führt den Hof seit [Jahr, TBD] und kennt jeden Stein, jede Kuh, jedes Feld.",
+        text: "Behält den Überblick über den vielseitigen Hof und führt ihn mit viel Erfahrung weiter.",
         alt: "Porträt Fritz (Platzhalter)",
     },
     {
         name: "Barbara",
-        rolle: "Lehrerin (Volks-/Heilpädagogik) · Kindernachmittage",
-        text: "Bringt Kinder und Tiere zusammen — mit Geduld, Struktur und viel Draussen.",
+        rolle: "Lehrerin · Allrounderin",
+        text: "Hat den Chinderhof ins Leben gerufen und sorgt dafür, dass hinter den Kulissen alles rundläuft.",
         alt: "Porträt Barbara (Platzhalter)",
     },
     {
         name: "Anne-Lea",
-        rolle: "Fachfrau Kinderbetreuung · Landwirtin",
-        text: "Zwischen Stall und Kindergruppe zuhause — organisiert die Nachmittage mit.",
+        rolle: "Landwirtin · Fachfrau Kinderbetreuung",
+        text: "Bringt Landwirtschaft und Kinderbetreuung zusammen und übernimmt das Eierbusiness.",
         alt: "Porträt Anne-Lea (Platzhalter)",
     },
 ] as const;
@@ -30,7 +30,7 @@ const menschen = [
         </h2>
         <a href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/ueber-uns`} class="btn btn-ghost s3 [--c:var(--color-altrosa)]">Den Hof kennenlernen</a>
     </div>
-    <p class="mt-3 max-w-[60ch] text-[17px] leading-relaxed text-braun/70">
+    <p class="mt-3 max-w-[60ch] opacity-70">
         Drei Generationen, klare Verantwortlichkeiten — und ein offenes Tor.
     </p>
     <div class="mt-8 grid gap-6 sm:grid-cols-2 md:mt-10 md:grid-cols-3 md:gap-8">

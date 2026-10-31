@@ -6,14 +6,36 @@ import Base from "../layouts/Base.astro";
     title="Eier"
     description="Unsere Eierproduktion wurde übernommen – was bleibt, was ändert sich."
 >
-    <div class="px-5 pt-10 md:px-8">
-        <h1>
-            Eier – neu vom Partner-Hof [TBD]
-        </h1>
+    <div class="content-section">
+        <h1>Hühner &amp; Eier</h1>
+        <p>
+            Seit November 2026 bereichern 600 braune und weisse Legehennen
+            unseren Hof. In zwei mobilen Hühnerställen leben sie auf unseren
+            Wiesen und können draussen scharren &amp; picken. Mit dem Traktor
+            ziehen wir die Ställe regelmässig weiter, damit unsere Hühner immer
+            wieder neue Flächen erkunden können. Vier Hähne gehören ebenfalls
+            zur Gruppe und sorgen für zusätzliche Ruhe im Hühneralltag.
+        </p>
+        <p>
+            Unsere Eier liefern wir an Bäckereien, Hotels, Restaurants,
+            Dorfläden sowie an die Käserei und Metzgerei in der Region. Auch
+            Privathaushalte können unsere Eier geniessen: Mit einem Eierabo
+            kommen alle zwei Wochen frische Eier direkt in den Briefkasten. Wer
+            lieber spontan vorbeikommt, kann die Eier auch direkt bei uns auf
+            dem Hof kaufen.
+        </p>
+        <p>
+            Mit der Übernahme von Langis Freilandeier von Christian Langenegger
+            führen wir ein bestehendes Herzensprojekt weiter. Wir übernehmen
+            sein bewährtes Konzept und führen die Haltung der Hühner so weiter,
+            wie sie bisher gelebt wurde. Gleichzeitig freuen wir uns, diesen
+            neuen Betriebszweig in unsere Hofgemeinschaft aufzunehmen und unsere
+            Region weiterhin mit frischen Freilandeiern zu versorgen.
+        </p>
         <div class="mt-6 grid gap-4 md:grid-cols-2">
             <div class="rounded-[20px] border border-braun/20 bg-chalk/60 p-6">
                 <h2>Was bleibt gleich</h2>
-                <ul class="mt-2 list-disc pl-5 text-[15px]">
+                <ul class="mt-2 list-disc pl-5">
                     <li>Eierkühlschrank jederzeit, bar/QR</li>
                     <li>Abos / B2B laufen weiter</li>
                     <li>Ansprechpartner Hof Oberhusers</li>
@@ -21,7 +43,7 @@ import Base from "../layouts/Base.astro";
             </div>
             <div class="rounded-[20px] border border-braun/20 bg-chalk/60 p-6">
                 <h2>Was sich ändert</h2>
-                <p class="mt-2 text-[15px]">
+                <p class="mt-2">
                     Produktion bei [Partner-Hof, TBD] – Haltung [TBD, 2–3
                     Sätze].{" "}
                     <a class="il [--c:var(--color-gelb)]" href="#">
@@ -30,9 +52,7 @@ import Base from "../layouts/Base.astro";
                 </p>
             </div>
         </div>
-        <form
-            class="mt-8 rounded-[20px] border border-braun/20 bg-chalk/60 p-6"
-        >
+        <form class="mt-8 rounded-[20px] border border-braun/20 bg-chalk/60 p-6">
             <h2>Interesse an Eiern / Abo</h2>
             <div class="mt-4 grid gap-3 md:grid-cols-2">
                 <input required placeholder="Name" />
@@ -47,11 +67,13 @@ import Base from "../layouts/Base.astro";
                 placeholder="Nachricht (optional)"
                 class="mt-3"
             ></textarea>
-            <button class="btn s1 [--c:var(--color-gelb)] mt-4">Interesse senden [Versand via PostHog TBD]</button>
+            <button class="btn s1 [--c:var(--color-gelb)] mt-4">
+                Interesse senden [Versand via PostHog TBD]
+            </button>
         </form>
-        <div class="mt-8 text-[15px]">
+        <div class="mt-8">
             <h2>FAQ [TBD]</h2>
-            <p class="mt-2 text-braun/70">
+            <p class="mt-2 opacity-70">
                 Warum neuer Hof? Ändert sich Preis/Abholung? Woher kommen die
                 Eier jetzt?
             </p>

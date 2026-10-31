@@ -1,9 +1,9 @@
 - [ ] Subpages should get the color from the link/ defined in the frontmatter of the page
 - [ ] Hero section accessible name
 - [ ] Partner-Logos durch echte ersetzen (Platzhalter liegen in `/public/logos/`). Find correct logos on the web, at best in svg or webp format.
-- [ ] Integrate texts form `./Texte website.odt`
+- [x] Integrate texts form `./Texte website.odt`
 - [ ] UI/UX for eier.astro including `./Eierabopresie.odt`
-- [ ] Change "Kindernachmittage" service to be named "Kinderhof"
+- [ ] Change "Kindernachmittage" service to be named "Chinderhof"
 - [ ] Hero image should appear earlier on the page (Not needing to scroll down). Discuss options and search for real life references before implementing
 - [x] Text should be Arial Nova Light instead of regular Arial
 - [ ] Buttons should be a little less popping. Client suggested removing the border rim. Maybe at first try making the border circle a little lighter. Then also try out other options. Present all of them so i can suggest them to my client.
