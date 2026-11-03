@@ -3,17 +3,33 @@ import logo from "../../assets/design-system/mini-kuh.svg";
 import { Picture } from "astro:assets";
 
 export const navLinks = [
-    { href: `${import.meta.env.BASE_URL.replace(/\/$/, "")}/eier`, label: "Eier", shape: "s1", tone: "var(--color-gelb)" },
+    {
+        href: `${import.meta.env.BASE_URL.replace(/\/$/, "")}/eier`,
+        label: "Eier",
+        tone: "var(--color-gelb)",
+    },
     {
         href: `${import.meta.env.BASE_URL.replace(/\/$/, "")}/chinderhof`,
         label: "Chinderhof",
-        shape: "s2",
         tone: "var(--color-gruen)",
     },
-    { href: `${import.meta.env.BASE_URL.replace(/\/$/, "")}/milch`, label: "Milch", shape: "s3", tone: "var(--color-altrosa)" },
-    { href: `${import.meta.env.BASE_URL.replace(/\/$/, "")}/ackerbau`, label: "Ackerbau", shape: "s1", tone: "var(--color-gruen)" },
-    { href: `${import.meta.env.BASE_URL.replace(/\/$/, "")}/ueber-uns`, label: "Über uns", shape: "s2", tone: "var(--color-altrosa)" },
+    {
+        href: `${import.meta.env.BASE_URL.replace(/\/$/, "")}/milch`,
+        label: "Milch",
+        tone: "var(--color-altrosa)",
+    },
+    {
+        href: `${import.meta.env.BASE_URL.replace(/\/$/, "")}/ackerbau`,
+        label: "Ackerbau",
+        tone: "var(--color-gruen)",
+    },
+    {
+        href: `${import.meta.env.BASE_URL.replace(/\/$/, "")}/ueber-uns`,
+        label: "Über uns",
+        tone: "var(--color-altrosa)",
+    },
 ];
+const currentPath = Astro.url.pathname.replace(/\/$/, "");
 ---
 
 <header id="site-header">
@@ -36,11 +52,11 @@ export const navLinks = [
             />
         </a>
 
-        <div class="hidden items-center gap-6 text-[14px] leading-none text-braun/70 lg:flex">
+        <div class="hidden items-center gap-6 lg:flex">
             {navLinks.map((l) => (
                 <a
                     href={l.href}
-                    class={`lk py-2 ${l.shape}`}
+                    class={`il ${l.href.replace(/\/$/, "") === currentPath ? "is-active" : ""}`}
                     style={`--c: ${l.tone}`}
                 >
                     {l.label}
@@ -48,8 +64,7 @@ export const navLinks = [
             ))}
             <a
                 href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/#besuch`}
-                class="lk s3 py-2 font-semibold"
-                style="--c: var(--color-gelb)"
+                class="il"
             >
                 Vorbeikommen
             </a>
@@ -77,7 +92,7 @@ export const navLinks = [
                     {navLinks.map((l) => (
                         <a
                             href={l.href}
-                            class={`lk flex min-h-[44px] items-center py-2 ${l.shape}`}
+                            class={`il ${l.href.replace(/\/$/, "") === currentPath ? "is-active" : ""}`}
                             style={`--c: ${l.tone}`}
                         >
                             {l.label}
@@ -85,7 +100,7 @@ export const navLinks = [
                     ))}
                     <a
                         href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/#besuch`}
-                        class="lk flex min-h-[44px] items-center py-2 font-semibold s3"
+                        class="il"
                         style="--c: var(--color-gelb)"
                     >
                         Vorbeikommen

@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import Button from "../components/Button.astro";
 ---
 
 <Base title="Chinderhof">
@@ -173,12 +174,14 @@ import Base from "../layouts/Base.astro";
                 </span>
             </label>
 
-            <button
+            <Button
                 type="submit"
-                class="btn s1 [--c:var(--color-gruen)] mt-2 justify-self-start"
+                tone="wiese"
+                shape={1}
+                class="mt-2 justify-self-start"
             >
                 Anmeldung senden
-            </button>
+            </Button>
         </form>
     </div>
 </Base>

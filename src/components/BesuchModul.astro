@@ -1,4 +1,5 @@
 ---
+import Button from "./Button.astro";
 // Hofdaten an einer Stelle: Adresse und Route-Links hängen daran.
 const hof = {
     name: "Oberhusers Burehof",
@@ -212,9 +213,10 @@ const routeGoogle = `https://www.google.com/maps/dir/?api=1&destination=${ziel}`
         <address class="not-italic text-[19px] leading-snug">
             Oberhusers Burehof · Bembrunnen 7 · 3535 Schüpbach
         </address>
-        <a
-            class="btn s1 [--c:var(--color-gelb)]"
+        <Button
             href={routeGoogle}
+            tone="egg"
+            shape={1}
             target="_blank"
             rel="noopener noreferrer"
         >
@@ -223,6 +225,6 @@ const routeGoogle = `https://www.google.com/maps/dir/?api=1&destination=${ziel}`
                 {" "}
                 (öffnet Google Maps in einem neuen Tab)
             </span>
-        </a>
+        </Button>
     </div>
 </section>
