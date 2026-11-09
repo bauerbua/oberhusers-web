@@ -1,18 +1,28 @@
 ---
 interface Props {
-  href?: string;
-  tone?: "egg" | "wiese" | "rind";
-  shape?: 1 | 2 | 3;
-  type?: "button" | "submit" | "reset";
-  class?: string;
+    href?: string;
+    tone?: "egg" | "wiese" | "rind";
+    shape?: 1 | 2 | 3;
+    type?: "button" | "submit" | "reset";
+    class?: string;
+    target?: "_blank";
 }
-const { href, tone = "egg", shape = 1, type = "button", class: className } = Astro.props;
+const {
+    href,
+    tone = "egg",
+    shape = 1,
+    type = "button",
+    class: className,
+    target,
+} = Astro.props;
 const Tag = href ? "a" : "button";
 ---
+
 <Tag
-  class:list={["btn", `shape-${shape}`, `tone-${tone}`, className]}
-  href={href}
-  type={href ? undefined : type}
+    class:list={["btn", `shape-${shape}`, `tone-${tone}`, "w-fit", className]}
+    href={href}
+    target={target}
+    type={href ? undefined : type}
 >
-  <slot />
+    <slot />
 </Tag>

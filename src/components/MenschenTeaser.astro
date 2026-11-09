@@ -1,25 +1,31 @@
 ---
-import PlatzhalterBild from "./PlatzhalterBild.astro";
 import Button from "./Button.astro";
+import { Picture } from "astro:assets";
 
+import fritz from "../assets/fotos/fritz-1.jpeg";
+import anneLea from "../assets/fotos/Anne-lea.jpeg";
+import barbara from "../assets/fotos/barbara.jpeg";
 const menschen = [
     {
         name: "Fritz",
         rolle: "Betriebsleiter · Meisterlandwirt",
         text: "Behält den Überblick über den vielseitigen Hof und führt ihn mit viel Erfahrung weiter.",
         alt: "Porträt Fritz (Platzhalter)",
+        img: fritz,
     },
     {
         name: "Barbara",
         rolle: "Lehrerin · Allrounderin",
         text: "Hat den Chinderhof ins Leben gerufen und sorgt dafür, dass hinter den Kulissen alles rundläuft.",
         alt: "Porträt Barbara (Platzhalter)",
+        img: barbara,
     },
     {
         name: "Anne-Lea",
         rolle: "Landwirtin · Fachfrau Kinderbetreuung",
         text: "Bringt Landwirtschaft und Kinderbetreuung zusammen und übernimmt das Eierbusiness.",
         alt: "Porträt Anne-Lea (Platzhalter)",
+        img: anneLea,
     },
 ] as const;
 ---
@@ -38,11 +44,12 @@ const menschen = [
     <div class="mt-8 grid gap-6 sm:grid-cols-2 md:mt-10 md:grid-cols-3 md:gap-8">
         {menschen.map((m) => (
             <article>
-                <PlatzhalterBild
-                    label={m.alt}
-                    ratio="aspect-[4/5]"
-                    class="rounded-3xl"
+                <Picture
+                    src={m.img}
+                    alt={m.alt}
+                    class="rounded-3xl aspect-4/5 object-cover"
                 />
+
                 <h3 class="mt-4">{m.name}</h3>
                 <p class="mt-1 font-semibold">{m.rolle}</p>
                 <p class="mt-2 leading-relaxed">{m.text}</p>

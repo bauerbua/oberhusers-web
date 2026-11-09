@@ -5,6 +5,8 @@
 - [x] Hero image should appear earlier on the page (Not needing to scroll down). Full-bleed und im ersten Viewport sichtbar.
 
 - [x] Logo in der Navigation mit allen drei Abzeichen (Huhn, Klee, Kuh) — `logo-abzeichen.svg`; Linkbreite entspricht jetzt der sichtbaren Bildbreite
+- [ ] Bei Form feldern, die benötigt werden einen * zum Label hinzufügen
+- [ ] Connect Posthog and Posthog email sending workflow to the application
 - [ ] Auftritt minimalistischer gestalten (weniger Deko/Effekte, ruhigere Flächen)
 - [ ] Titel + Überschriften überarbeiten (Hierarchie, Grössen, Zeilenumbrüche)
 - [x] Hero: Titel zweizeilig („Oberhusers“ + Untertitel „Ein Burehof zum Erläbe“), Bild gross und randlos, Buttons direkt darunter

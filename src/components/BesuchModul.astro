@@ -1,6 +1,5 @@
 ---
 import Button from "./Button.astro";
-// Hofdaten an einer Stelle: Adresse und Route-Links hängen daran.
 const hof = {
     name: "Oberhusers Burehof",
     street: "Bembrunnen 7",
@@ -8,9 +7,7 @@ const hof = {
     ort: "Schüpbach",
 };
 
-const ziel = encodeURIComponent(
-    `${hof.name}, ${hof.street}, ${hof.plz} ${hof.ort}`,
-);
+const ziel = encodeURIComponent(`${hof.street}, ${hof.plz} ${hof.ort}`);
 const routeGoogle = `https://www.google.com/maps/dir/?api=1&destination=${ziel}`;
 ---
 
@@ -24,7 +21,7 @@ const routeGoogle = `https://www.google.com/maps/dir/?api=1&destination=${ziel}`
     <div class="mt-8 flex justify-center">
         <svg
             viewBox="0 0 825 558"
-            class="block h-auto w-full max-w-[720px]"
+            class="block h-auto w-full max-w-180"
             role="img"
             aria-labelledby="karte-titel karte-desc"
         >
@@ -210,16 +207,10 @@ const routeGoogle = `https://www.google.com/maps/dir/?api=1&destination=${ziel}`
     </div>
 
     <div class="mt-8 space-y-4">
-        <address class="not-italic text-[19px] leading-snug">
+        <address class="not-italic text-xl leading-snug">
             Oberhusers Burehof · Bembrunnen 7 · 3535 Schüpbach
         </address>
-        <Button
-            href={routeGoogle}
-            tone="egg"
-            shape={1}
-            target="_blank"
-            rel="noopener noreferrer"
-        >
+        <Button href={routeGoogle} tone="egg" shape={1} target="_blank">
             Route planen
             <span class="sr-only">
                 {" "}
