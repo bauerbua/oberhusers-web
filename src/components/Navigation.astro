@@ -1,6 +1,7 @@
 ---
-import logo from "../../assets/design-system/mini-kuh.svg";
+import logo from "../../assets/design-system/logo-abzeichen.svg";
 import { Picture } from "astro:assets";
+import Button from "./Button.astro";
 
 export const navLinks = [
     {
@@ -29,7 +30,10 @@ export const navLinks = [
         tone: "var(--color-altrosa)",
     },
 ];
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const currentPath = Astro.url.pathname.replace(/\/$/, "");
+const isCurrent = (href: string) =>
+    href.replace(/\/$/, "") === currentPath;
 ---
 
 <header id="site-header">
@@ -38,8 +42,8 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
         class="relative mx-auto flex items-center justify-between gap-6 px-4 py-4 sm:px-8 md:px-24 md:py-5"
     >
         <a
-            href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/`}
-            class="logo"
+            href={`${base}/`}
+            class="logo inline-flex w-fit"
             aria-label="Oberhusers Burehof – zur Startseite"
         >
             <Picture
@@ -48,7 +52,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
                 alt="logo"
                 loading="eager"
                 fetchpriority="high"
-                class="max-h-22"
+                class="h-22 w-auto"
             />
         </a>
 
@@ -56,57 +60,128 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
             {navLinks.map((l) => (
                 <a
                     href={l.href}
-                    class={`il ${l.href.replace(/\/$/, "") === currentPath ? "is-active" : ""}`}
+                    class={`il ${isCurrent(l.href) ? "is-active" : ""}`}
                     style={`--c: ${l.tone}`}
+                    aria-current={isCurrent(l.href) ? "page" : undefined}
                 >
                     {l.label}
                 </a>
             ))}
-            <a
-                href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/#besuch`}
-                class="il"
+            <Button
+                href={`${base}/#besuch`}
+                tone="wiese"
+                shape={1}
+                class="text-[14px]"
             >
                 Vorbeikommen
-            </a>
+            </Button>
         </div>
 
-        <details class="group lg:hidden">
-            <summary class="flex min-h-[44px] cursor-pointer list-none items-center gap-1.5 text-[14px] font-semibold text-braun marker:hidden [&::-webkit-details-marker]:hidden">
-                Menü
+        <details id="mobile-menu" class="group lg:hidden">
+            <summary
+                class="group inline-flex min-h-12 cursor-pointer list-none items-center gap-2 rounded-[var(--f1)] bg-braun/8 px-3 text-[17px] font-semibold text-braun transition-colors marker:hidden hover:bg-braun/12 group-open:bg-gelb/50 active:bg-braun/15 [&::-webkit-details-marker]:hidden"
+                aria-controls="mobile-menu-panel"
+            >
+                <span class="group-open:hidden">Menü</span>
+                <span class="hidden group-open:inline">Schliessen</span>
                 <svg
                     viewBox="0 0 12 12"
-                    width="11"
-                    height="11"
+                    width="14"
+                    height="14"
                     fill="none"
                     stroke="currentColor"
-                    stroke-width="1.75"
+                    stroke-width="2"
                     stroke-linecap="round"
                     aria-hidden="true"
-                    class="transition-transform group-open:rotate-180 motion-reduce:transition-none"
+                    class="group-open:hidden"
                 >
                     <path d="M2.5 4.5 6 8l3.5-3.5" />
                 </svg>
+                <svg
+                    viewBox="0 0 12 12"
+                    width="14"
+                    height="14"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    aria-hidden="true"
+                    class="hidden group-open:block"
+                >
+                    <path d="M3 3l6 6M9 3L3 9" />
+                </svg>
             </summary>
-            <div class="absolute inset-x-0 top-full z-30 border-b-2 border-braun/20 bg-chalk px-4 pb-5 pt-1 sm:px-8">
-                <div class="flex flex-col items-start gap-2 text-[16px]">
+
+            <div
+                id="mobile-menu-panel"
+                class="absolute inset-x-0 top-full z-30 max-h-[calc(100svh-8rem)] overflow-y-auto overscroll-contain border-b-2 border-braun/20 bg-chalk px-4 pb-6 pt-2 sm:px-8"
+            >
+                <ul class="flex flex-col divide-y divide-braun/10 text-[17px]">
                     {navLinks.map((l) => (
-                        <a
-                            href={l.href}
-                            class={`il ${l.href.replace(/\/$/, "") === currentPath ? "is-active" : ""}`}
-                            style={`--c: ${l.tone}`}
-                        >
-                            {l.label}
-                        </a>
+                        <li>
+                            <a
+                                href={l.href}
+                                class="group flex min-h-[52px] items-center"
+                                aria-current={
+                                    isCurrent(l.href) ? "page" : undefined
+                                }
+                            >
+                                <span
+                                    class={`il ${isCurrent(l.href) ? "is-active" : ""}`}
+                                    style={`--c: ${l.tone}`}
+                                >
+                                    {l.label}
+                                </span>
+                            </a>
+                        </li>
                     ))}
-                    <a
-                        href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/#besuch`}
-                        class="il"
-                        style="--c: var(--color-gelb)"
-                    >
-                        Vorbeikommen
-                    </a>
-                </div>
+                </ul>
+
+                <Button
+                    href={`${base}/#besuch`}
+                    tone="wiese"
+                    shape={1}
+                    class="mt-5"
+                >
+                    Vorbeikommen
+                </Button>
             </div>
         </details>
     </nav>
 </header>
+
+<script>
+    const menu = document.getElementById("mobile-menu");
+
+    if (menu instanceof HTMLDetailsElement) {
+        const summary = menu.querySelector("summary");
+        const closeMenu = () => menu.removeAttribute("open");
+
+        menu.querySelectorAll("a").forEach((link) => {
+            link.addEventListener("click", closeMenu);
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && menu.open) {
+                closeMenu();
+                summary?.focus();
+            }
+        });
+
+        document.addEventListener("click", (event) => {
+            if (
+                menu.open &&
+                event.target instanceof Node &&
+                !menu.contains(event.target)
+            ) {
+                closeMenu();
+            }
+        });
+
+        window
+            .matchMedia("(min-width: 1024px)")
+            .addEventListener("change", (event) => {
+                if (event.matches) closeMenu();
+            });
+    }
+</script>

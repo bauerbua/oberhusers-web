@@ -1,11 +1,19 @@
 ---
 import Base from "../layouts/Base.astro";
 import Button from "../components/Button.astro";
+
+const eierabos = [
+    { name: "500er", lieferungen: 25, menge: 20, preis: "350" },
+    { name: "450er", lieferungen: 25, menge: 18, preis: "337.50" },
+    { name: "300er", lieferungen: 25, menge: 12, preis: "225" },
+    { name: "250er", lieferungen: 25, menge: 10, preis: "200" },
+    { name: "150er", lieferungen: 25, menge: 6, preis: "127.50" },
+] as const;
 ---
 
 <Base
     title="Eier"
-    description="Unsere Eierproduktion wurde übernommen – was bleibt, was ändert sich."
+    description="Freilandeier vom Hof Oberhusers – Eierabo-Preise für Langnau und Umgebung."
 >
     <div class="content-section">
         <h1>Hühner &amp; Eier</h1>
@@ -33,51 +41,167 @@ import Button from "../components/Button.astro";
             neuen Betriebszweig in unsere Hofgemeinschaft aufzunehmen und unsere
             Region weiterhin mit frischen Freilandeiern zu versorgen.
         </p>
-        <div class="mt-6 grid gap-4 md:grid-cols-2">
-            <div class="rounded-[20px] border border-braun/20 bg-chalk/60 p-6">
-                <h2>Was bleibt gleich</h2>
-                <ul class="mt-2 list-disc pl-5">
-                    <li>Eierkühlschrank jederzeit, bar/QR</li>
-                    <li>Abos / B2B laufen weiter</li>
-                    <li>Ansprechpartner Hof Oberhusers</li>
-                </ul>
+
+        <section aria-labelledby="eierabo-preise-titel" class="mt-14">
+            <h2 id="eierabo-preise-titel">Eierabo-Preise</h2>
+            <p class="max-w-[60ch]">
+                Für ein Jahr in Langnau und nahe Umgebung: 25 Lieferungen, alle
+                zwei Wochen.
+            </p>
+
+            <ul class="mt-6 border-y border-braun/15">
+                {eierabos.map((abo) => (
+                    <li class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-braun/15 py-4 last:border-b-0">
+                        <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                            <span class="text-[19px] font-semibold">
+                                {abo.name}
+                            </span>
+                            <span class="text-[15px] text-braun/70">
+                                {abo.lieferungen} Lieferungen à {abo.menge} Eier
+                            </span>
+                        </div>
+                        <span class="text-[17px] font-semibold tabular-nums">
+                            CHF {abo.preis}
+                        </span>
+                    </li>
+                ))}
+            </ul>
+        </section>
+
+        <form
+            action=""
+            method="post"
+            aria-labelledby="eierabo-formular-titel"
+            class="mt-14"
+        >
+            <h2 id="eierabo-formular-titel">Interesse an einem Eierabo?</h2>
+            <p>
+                Nach Absenden, melden wir melden uns sobald wie möglich bei dir.
+            </p>
+            <div class="mt-6 grid gap-6 md:grid-cols-2">
+                <div class="field">
+                    <label for="vorname">Vorname</label>
+                    <input
+                        id="vorname"
+                        type="text"
+                        name="vorname"
+                        required
+                        autocomplete="given-name"
+                        aria-describedby="vorname-error"
+                    />
+                    <p class="field-error" id="vorname-error">
+                        Bitte Vornamen angeben.
+                    </p>
+                </div>
+
+                <div class="field">
+                    <label for="nachname">Nachname</label>
+                    <input
+                        id="nachname"
+                        type="text"
+                        name="nachname"
+                        required
+                        autocomplete="family-name"
+                        aria-describedby="nachname-error"
+                    />
+                    <p class="field-error" id="nachname-error">
+                        Bitte Nachnamen angeben.
+                    </p>
+                </div>
+
+                <div class="field">
+                    <label for="email">E-Mail</label>
+                    <input
+                        id="email"
+                        type="email"
+                        name="email"
+                        required
+                        autocomplete="email"
+                        aria-describedby="email-error"
+                    />
+                    <p class="field-error" id="email-error">
+                        Bitte eine gültige E-Mail-Adresse angeben.
+                    </p>
+                </div>
+
+                <div class="field">
+                    <label for="telefon">Telefon</label>
+                    <input
+                        id="telefon"
+                        type="tel"
+                        name="telefon"
+                        autocomplete="tel"
+                    />
+                </div>
+
+                <div class="field md:col-span-2">
+                    <label for="strasse">Strasse und Hausnummer</label>
+                    <input
+                        id="strasse"
+                        type="text"
+                        name="strasse"
+                        required
+                        autocomplete="street-address"
+                        aria-describedby="strasse-error"
+                    />
+                    <p class="field-error" id="strasse-error">
+                        Bitte Strasse und Nummer angeben.
+                    </p>
+                </div>
+
+                <div class="field">
+                    <label for="plz">PLZ</label>
+                    <input
+                        id="plz"
+                        type="text"
+                        name="plz"
+                        required
+                        inputmode="numeric"
+                        autocomplete="postal-code"
+                        aria-describedby="plz-error"
+                    />
+                    <p class="field-error" id="plz-error">
+                        Bitte PLZ angeben.
+                    </p>
+                </div>
+
+                <div class="field">
+                    <label for="ort">Ort</label>
+                    <input
+                        id="ort"
+                        type="text"
+                        name="ort"
+                        required
+                        autocomplete="address-level2"
+                        aria-describedby="ort-error"
+                    />
+                    <p class="field-error" id="ort-error">
+                        Bitte Ort angeben.
+                    </p>
+                </div>
+
+                <div class="field">
+                    <label for="abo">Eierabo</label>
+                    <select id="abo" name="abo">
+                        <option value="">Noch unsicher</option>
+                        {eierabos.map((abo) => (
+                            <option value={abo.name}>
+                                {abo.name} – {abo.lieferungen} × {abo.menge}{" "}
+                                Eier
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                <div class="field md:col-span-2">
+                    <label for="nachricht">Nachricht (optional)</label>
+                    <textarea id="nachricht" name="nachricht"></textarea>
+                </div>
             </div>
-            <div class="rounded-[20px] border border-braun/20 bg-chalk/60 p-6">
-                <h2>Was sich ändert</h2>
-                <p class="mt-2">
-                    Produktion bei [Partner-Hof, TBD] – Haltung [TBD, 2–3
-                    Sätze].{" "}
-                    <a class="il [--c:var(--color-gelb)]" href="#">
-                        Zum Partner-Hof
-                    </a>
-                </p>
-            </div>
-        </div>
-        <form class="mt-8 rounded-[20px] border border-braun/20 bg-chalk/60 p-6">
-            <h2>Interesse an Eiern / Abo</h2>
-            <div class="mt-4 grid gap-3 md:grid-cols-2">
-                <input required placeholder="Name" />
-                <input required placeholder="Kontakt (Tel/Mail)" />
-                <input placeholder="Menge / Häufigkeit" />
-                <select>
-                    <option>Haushalt</option>
-                    <option>Geschäft</option>
-                </select>
-            </div>
-            <textarea
-                placeholder="Nachricht (optional)"
-                class="mt-3"
-            ></textarea>
-            <Button tone="egg" shape={1} class="mt-4">
-                Interesse senden [Versand via PostHog TBD]
+
+            <Button type="submit" tone="egg" shape={1} class="mt-6">
+                Absenden
             </Button>
         </form>
-        <div class="mt-8">
-            <h2>FAQ [TBD]</h2>
-            <p class="mt-2 opacity-70">
-                Warum neuer Hof? Ändert sich Preis/Abholung? Woher kommen die
-                Eier jetzt?
-            </p>
-        </div>
     </div>
 </Base>

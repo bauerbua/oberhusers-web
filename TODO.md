@@ -1,13 +1,29 @@
 - [ ] Subpages should get the color from the link/ defined in the frontmatter of the page
-- [ ] Hero section accessible name
+- [x] Hero section accessible name (`aria-labelledby` zeigt jetzt auf die H1)
 - [ ] Partner-Logos durch echte ersetzen (Platzhalter liegen in `/public/logos/`). Find correct logos on the web, at best in svg or webp format.
-- [x] Integrate texts form `./Texte website.odt`
-- [ ] UI/UX for eier.astro including `./Eierabopresie.odt`
-- [x] Change "Kindernachmittage" service to be named "Chinderhof"
-- [ ] Hero image should appear earlier on the page (Not needing to scroll down). Discuss options and search for real life references before implementing
-- [x] Text should be Arial Nova Light instead of regular Arial
-- [ ] Buttons should be a little less popping. Client suggested removing the border rim. Maybe at first try making the border circle a little lighter. Then also try out other options. Present all of them so i can suggest them to my client.
-- [ ] 
+- [x] UI/UX for eier.astro including `./Eierabopreise.odt` (Text → Eierabo-Preise → Formular; «Was bleibt/Wie ändert sich» und FAQ entfernt)
+- [x] Hero image should appear earlier on the page (Not needing to scroll down). Full-bleed und im ersten Viewport sichtbar.
+
+- [x] Logo in der Navigation mit allen drei Abzeichen (Huhn, Klee, Kuh) — `logo-abzeichen.svg`; Linkbreite entspricht jetzt der sichtbaren Bildbreite
+- [ ] Auftritt minimalistischer gestalten (weniger Deko/Effekte, ruhigere Flächen)
+- [ ] Titel + Überschriften überarbeiten (Hierarchie, Grössen, Zeilenumbrüche)
+- [x] Hero: Titel zweizeilig („Oberhusers“ + Untertitel „Ein Burehof zum Erläbe“), Bild gross und randlos, Buttons direkt darunter
+  - [x] Text neben dem Titel entfernen
+  - [x] Bild direkt unter den Titel rücken
+  - [x] Hero-Bild full-bleed (100 % Breite, kein Radius) und höher
+  - [x] Buttons direkt unter dem Bild statt als Overlay
+- [ ] Startseite: zuerst das Bild, danach die Infos
+  - [x] „Aktuelles“-Block direkt nach dem Hero-Bild (einfacher Block, keine eigene Seite/Ordnerstruktur)
+    - [ ] Beitrag „Wir haben Äpfel geerntet – jetzt gibt’s Most“ (mit Bild)
+    - [x] Beitrag zur Übernahme von Langis Eiern inkl. Logo-Wechsel (Langi-Wortmarke als Textplatzhalter → Oberhusers-Wortmarke, Link zur Eier-Seite)
+      - [ ] Langi-Logo durch offizielle Bilddatei ersetzen
+- [ ] Ecken weniger rund (globale Radien reduzieren: Hero, Karten, Formulare)
+- [x] Navigation: Hover-/Aktiv-Zustand nur als Farbklecks, ohne Kreis/Kontur (kein Unterstrich mehr)
+- [ ] Punkte auf der Anfahrtsskizze korrigieren (Städte-Punkte Bern, Thun, Langnau, Lausanne)
+- [ ] Unterseiten-Layout: Titel → Text → Bilder-Carousel (Eier, Chinderhof, Milch, Ackerbau)
+- [x] Eierabo-Formular: vollständige Adresse erfassen (Strasse, PLZ, Ort)
+- [ ] „Schweizer Ei“ als fünftes Label in „Partner & Zertifizierungen“ ergänzen (echtes Logo, 1 Satz, Link)
+- [ ] Add a link to google maps or maps services for the address in the footer as well. So a user should be able to click it and be redirected to their preffered maps service. The link on "Route planen" curently includes oberhusers as a name, which is currently not findable since there is still no google profile. So this should be removed for now.
 
 
 
@@ -23,9 +39,14 @@
   - [x] Create content bound section styles
 - [x] Add global styling for form elements including error state
 - [x] Mobile menu fix
+- [x] Mobiles Menü: 48px hoher «Menü»/«Schliessen»-Button mit weichem Farbklecks, CTA in Fit-Width, Schliessen per Link/Escape/Aussenklick
 - [x] hero padding
 - [x] card hover
 - [x] Anfahrt: gezeichnete Skizze statt Karten-Embed (OSM nur als Datenquelle geprüft, kein iframe)
 - [x] Adresse in `BesuchModul.astro` ergänzt: Bembrunnen 7, 3535 Schüpbach
 - [x] Add Github pages deploy
 - [x] More spacing for each section on index.astro to make the content pop better
+- [x] Change "Kindernachmittage" service to be named "Chinderhof"
+- [x] Text should be Arial Nova Light instead of regular Arial
+- [x] Buttons should be a little less popping. Client suggested removing the border rim. Maybe at first try making the border circle a little lighter. Then also try out other options. Present all of them so i can suggest them to my client. (Umgesetzt: nur farbige unregelmässige Fläche, kein Rand/Unterstrich, Hover-Morph)
+- [x] Integrate texts form `./Texte website.odt`

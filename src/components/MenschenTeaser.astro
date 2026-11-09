@@ -26,14 +26,15 @@ const menschen = [
 
 <section aria-label="Die Menschen hinter dem Hof">
     <div class="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-        <h2>
-            Hinter dem Hof stehen Menschen
-        </h2>
-        <Button href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/ueber-uns`} tone="rind" shape={3}>Den Hof kennenlernen</Button>
+        <h2>Die Menschen hinter dem Hof</h2>
+        <Button
+            href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/ueber-uns`}
+            tone="rind"
+            shape={3}
+        >
+            Den Hof kennenlernen
+        </Button>
     </div>
-    <p class="mt-3 max-w-[60ch] opacity-70">
-        Drei Generationen, klare Verantwortlichkeiten — und ein offenes Tor.
-    </p>
     <div class="mt-8 grid gap-6 sm:grid-cols-2 md:mt-10 md:grid-cols-3 md:gap-8">
         {menschen.map((m) => (
             <article>

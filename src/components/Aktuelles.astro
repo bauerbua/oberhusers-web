@@ -1,0 +1,46 @@
+---
+import { Picture } from "astro:assets";
+import wortmarke from "../../assets/design-system/wortmarke.svg";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<section aria-labelledby="aktuelles-titel">
+    <div class="rounded-xl p-6 bg-gelb/20">
+        <h2 id="aktuelles-titel">Aktuelles</h2>
+
+        <article class="mt-8 border-t border-braun/15 pt-7">
+            <div class="mt-8 grid gap-5 md:grid-cols-2 md:gap-16">
+                <h3 class="m-0">Aus Langis Freilandeier wird Oberhusers</h3>
+                <div>
+                    <p class="max-w-[62ch]">
+                        Christian Langenegger hat seine Freilandeier an uns
+                        übergeben. Die 600 Hühner wohnen jetzt in ihren mobilen
+                        Ställen auf unseren Wiesen, und die Eierabos laufen
+                        weiter wie gewohnt. Nur der Name ist neu.
+                    </p>
+                    <a
+                        href={`${base}/eier`}
+                        class="il mt-2 inline-flex w-fit items-center gap-1.5 font-semibold"
+                        style="--c: var(--color-gelb)"
+                    >
+                        Mehr zu den Eiern und Abos
+                        <svg
+                            viewBox="0 0 16 12"
+                            width="15"
+                            height="11"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.75"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M1 6h13M9.5 1.5 15 6l-5.5 4.5"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </article>
+    </div>
+</section>

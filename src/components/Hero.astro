@@ -4,35 +4,27 @@ import Button from "./Button.astro";
 import hero from "../assets/fotos/garten-blumen.jpg";
 ---
 
-<section aria-labelledby="hero-titel">
-    <div class="flex flex-col gap-7 px-4 py-20 sm:px-8 md:flex-row md:items-end md:justify-between md:gap-12 md:px-24 md:py-24">
-        <h1 id="hero-title">
-            Ein Burehof zum Erleben.
+<section aria-labelledby="hero-title">
+    <div class="px-4 pb-7 pt-4 sm:px-8 md:px-24 md:pb-9 md:pt-6">
+        <h1
+            id="hero-title"
+            class="m-0 text-[clamp(4.5rem,13vw,9.5rem)] font-bold leading-[0.82] tracking-[0.01em] text-balance"
+        >
+            Oberhusers
         </h1>
-
-        <div>
-            <p>
-                Ein Familienhof im Emmental: Eier, Milch, Acker und Chind — und
-                eine Stalltüre, die offen ist.
-            </p>
-
-            <div class="mt-5 flex flex-wrap items-center gap-x-6 gap-y-4">
-                <Button href="#besuch" tone="wiese" shape={1}>Vorbeikommen</Button>
-                <Button href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/eier`} tone="egg" shape={2}>Auf der Suche nach Langis Eiern?</Button>
-            </div>
-        </div>
+        <p class="mt-2 max-w-[36ch] text-[clamp(1.05rem,1.1vw+0.85rem,1.375rem)] leading-snug text-braun/80 md:mt-3">
+            Ein Burehof zum Erläbe
+        </p>
     </div>
 
-    <div class="px-4 sm:px-8 md:px-24">
-        <!-- TODO: Scroll animation so the image gets larger and fills the screen. Should look like the user "enters" the Burehof and explores the offers-->
-        <Picture
-            src={hero}
-            formats={["avif", "jpg"]}
-            alt="Der Hof im Sommerlicht: eine Holzscheune mit bunter Girlande, ein grosser Baum und blühende Stauden im Vordergrund."
-            class="block object-cover w-full h-[70vh] rounded-4xl"
-            loading="eager"
-            fetchpriority="high"
-            decoding="async"
-        />
-    </div>
+    <!-- TODO: Scroll animation so the image gets larger and fills the screen. Should look like the user "enters" the Burehof and explores the offers-->
+    <Picture
+        src={hero}
+        formats={["avif", "jpg"]}
+        alt="Der Hof im Sommerlicht: eine Holzscheune mit bunter Girlande, ein grosser Baum und blühende Stauden im Vordergrund."
+        class="block h-[clamp(28rem,70svh,52rem)] w-full object-cover"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+    />
 </section>
