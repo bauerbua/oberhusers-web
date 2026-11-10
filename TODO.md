@@ -1,6 +1,8 @@
 - [ ] Subpages should get the color from the link/ defined in the frontmatter of the page
 - [x] Hero section accessible name (`aria-labelledby` zeigt jetzt auf die H1)
-- [ ] Partner-Logos durch echte ersetzen (Platzhalter liegen in `/public/logos/`). Find correct logos on the web, at best in svg or webp format.
+- [x] Partner-Logos durch echte ersetzt — offizielle Logos (IP-Suisse, SEMAG, Emmentaler AOP, GalloSuisse-„Schweizer Ei“ direkt von der Website; Stallvisite = Schweizer Bäuerinnen & Bauern in Braun-Tusche, weil das offizielle Logo nur als weisse Version existiert). Platzhalter alle ersetzt.
+  - [ ] Falls je ein offizielles Farb-Bild für Stallvisite verfügbar: austauschen
+- [x] „Schweizer Ei“ als fünftes Label in „Partner & Zertifizierungen“ ergänzt (echtes GalloSuisse-Logo «Das Schweizer Ei», 1 Satz, Link gallosuisse.ch); Grid auf 5 Spalten (Desktop) und DESIGN.md aktualisiert
 - [x] UI/UX for eier.astro including `./Eierabopreise.odt` (Text → Eierabo-Preise → Formular; «Was bleibt/Wie ändert sich» und FAQ entfernt)
 - [x] Hero image should appear earlier on the page (Not needing to scroll down). Full-bleed und im ersten Viewport sichtbar.
 
@@ -24,7 +26,7 @@
 - [ ] Punkte auf der Anfahrtsskizze korrigieren (Städte-Punkte Bern, Thun, Langnau, Lausanne)
 - [ ] Unterseiten-Layout: Titel → Text → Bilder-Carousel (Eier, Chinderhof, Milch, Ackerbau)
 - [x] Eierabo-Formular: vollständige Adresse erfassen (Strasse, PLZ, Ort)
-- [ ] „Schweizer Ei“ als fünftes Label in „Partner & Zertifizierungen“ ergänzen (echtes Logo, 1 Satz, Link)
+- [x] „Schweizer Ei“ als fünftes Label in „Partner & Zertifizierungen“ ergänzt (echtes GalloSuisse-Logo «Das Schweizer Ei», 1 Satz, Link gallosuisse.ch); Partner-Grid Desktop auf 5 Spalten, DESIGN.md angepasst
 - [ ] Add a link to google maps or maps services for the address in the footer as well. So a user should be able to click it and be redirected to their preffered maps service. The link on "Route planen" curently includes oberhusers as a name, which is currently not findable since there is still no google profile. So this should be removed for now.
 
 

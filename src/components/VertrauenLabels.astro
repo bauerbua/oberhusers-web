@@ -3,12 +3,16 @@ interface Label {
     name: string;
     text: string;
     href: string;
-    /** Optional: Datei in /public/logos/. Ohne Logo steht der Name als Wortmarke. */
+    /** Datei in /public/logos/. Ohne Logo steht der Name als Wortmarke. */
     logo?: string;
+    /** Alt-Text des Logos, falls er vom Label-Namen abweicht. */
+    logoAlt?: string;
 }
 
-// Texte sind Platzhalter für die Kundenformulierung: je ein Satz zur Beziehung Hof ↔ Organisation.
-// Logos sind Platzhalter in /public/logos/ und werden 1:1 durch die echten Dateien ersetzt.
+// Logos: offizielle Dateien der Organisationen, von deren Websites bezogen.
+// Ausnahme Stallvisite: das eigene Logo wurde eingestellt — das Logo der
+// Trägerorganisation «Schweizer Bäuerinnen & Bauern» wird in Braun-Tusche
+// verwendet, damit es auf Chalk lesbar bleibt.
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 const labels: Label[] = [
@@ -17,6 +21,7 @@ const labels: Label[] = [
         text: "Wir öffnen unsere Stalltüren und zeigen, wie die Tiere bei uns leben.",
         href: "https://www.hofsuche.schweizerbauern.ch/de/farm/1456/stallvisite",
         logo: `${base}/logos/stallvisite.svg`,
+        logoAlt: "Stallvisite – ein Projekt der Schweizer Bäuerinnen & Bauern",
     },
     {
         name: "IP-Suisse",
@@ -28,7 +33,7 @@ const labels: Label[] = [
         name: "SEMAG",
         text: "Wir vermehren Pflanzkartoffeln für die SEMAG.",
         href: "https://www.semag.ch/",
-        logo: `${base}/logos/semag.svg`,
+        logo: `${base}/logos/semag.png`,
     },
     {
         name: "Emmentaler AOP",
@@ -36,13 +41,20 @@ const labels: Label[] = [
         href: "https://www.emmentaler.ch/",
         logo: `${base}/logos/emmentaler-aop.svg`,
     },
+    {
+        name: "Schweizer Ei",
+        text: "Unsere Freilandeier tragen das Gütesiegel «Das Schweizer Ei».",
+        href: "https://www.gallosuisse.ch/",
+        logo: `${base}/logos/das-schweizer-ei.svg`,
+        logoAlt: "Das Schweizer Ei",
+    },
 ];
 ---
 
 <section aria-labelledby="partner-titel">
     <h2 id="partner-titel">Partner &amp; Zertifizierungen</h2>
 
-    <ul class="mt-8 grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+    <ul class="mt-8 grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-5">
         {labels.map((l) => (
             <li>
                 <a
@@ -55,7 +67,7 @@ const labels: Label[] = [
                         {l.logo ? (
                             <img
                                 src={l.logo}
-                                alt={l.name}
+                                alt={l.logoAlt ?? l.name}
                                 class="max-h-14 w-auto max-w-full object-contain object-left"
                                 loading="lazy"
                                 decoding="async"

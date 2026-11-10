@@ -188,8 +188,8 @@ Ein System für alle Eingaben (Text, E-Mail, Telefon, Datum, Select, Textarea) �
 
 ### Partner-Reihe (Home)
 
-- **Aufbau:** eine Reihe, keine Kacheln, keine Rahmen. Desktop 4 Spalten, Tablet 2, Mobil 1. Jede Spalte: Logo-Band (56px, unten bündig), ein Satz, Link-Label „Zur Website ↗“ am unteren Rand.
-- **Logo:** echtes Logo als `<img>` (max. 56px hoch, linksbündig). Platzhalter liegen in `/public/logos/` (Braun-Ink, ein Paletten-Fill) und werden 1:1 ersetzt. Solange keine Datei da ist, steht der Organisationsname als Wortmarke in Amatic 26px/700 — nie „Logo TBD“.
+- **Aufbau:** eine Reihe, keine Kacheln, keine Rahmen. Desktop 5 Spalten (Stallvisite, IP-Suisse, SEMAG, Emmentaler AOP, Schweizer Ei), Tablet 2, Mobil 1. Jede Spalte: Logo-Band (56px, unten bündig), ein Satz, Link-Label „Zur Website ↗“ am unteren Rand.
+- **Logo:** echtes Logo als `<img>` (max. 56px hoch, linksbündig, eigene Offizielfarben — einzig Schweizer Bauern/Stallvisite in Braun-Tusche, weil nur eine weisse Version existiert). Sonderfall SEMAG: PNG mit freigestelltem Hintergrund (Weiss entfernt), damit keine weisse Fläche auf Chalk liegt.
 - **Text:** genau ein Satz zur Beziehung Hof ↔ Organisation, 15px Arial in vollem Braun (kein `/70`).
 - **Link:** die ganze Spalte ist ein Link, `target="_blank"` mit `rel="noopener noreferrer"`; das Link-Label nennt „öffnet in neuem Tab“ für Screenreader.
 - **State:** Hover nur unter `@media (hover: hover)` — die Wortmarke wird 2px unterstrichen, der Pfeil wandert 2px nach oben rechts. `prefers-reduced-motion: reduce` schaltet den Übergang ab. Fokus: globaler 3px-Braun-Outline um die ganze Spalte.
