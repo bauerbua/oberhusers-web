@@ -3,6 +3,10 @@ import { Picture } from "astro:assets";
 import wave from "../../assets/design-system/huegel-1-umriss.svg";
 import logo from "../../assets/design-system/logo-abzeichen.svg";
 import { navLinks } from "./Navigation.astro";
+
+// Ohne Hofname: «Oberhusers» ist bei Maps (noch) nicht auffindbar.
+const ziel = encodeURIComponent("Bembrunnen 7, 3535 Schüpbach, Schweiz");
+const mapsGoogle = `https://www.google.com/maps/dir/?api=1&destination=${ziel}`;
 ---
 
 <footer class="mt-32">
@@ -37,14 +41,21 @@ import { navLinks } from "./Navigation.astro";
                     Impressum
                 </a>
             </div>
-            <div>
-                <p>
+            <address class="not-italic">
+                <a
+                    href={mapsGoogle}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="il w-fit"
+                    style="--c: var(--color-gelb)"
+                >
                     Oberhusers Burehof
                     <br />
                     Bembrunnen 7<br />
                     3535 Schüpbach
-                </p>
-            </div>
+                    <span class="sr-only"> (öffnet Google Maps in neuem Tab)</span>
+                </a>
+            </address>
         </div>
     </div>
 

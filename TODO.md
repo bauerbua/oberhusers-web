@@ -7,7 +7,7 @@
 - [x] Hero image should appear earlier on the page (Not needing to scroll down). Full-bleed und im ersten Viewport sichtbar.
 
 - [x] Logo in der Navigation mit allen drei Abzeichen (Huhn, Klee, Kuh) — `logo-abzeichen.svg`; Linkbreite entspricht jetzt der sichtbaren Bildbreite
-- [ ] Bei Form feldern, die benötigt werden einen * zum Label hinzufügen
+- [x] Bei Form feldern, die benötigt werden einen * zum Label hinzufügen
 - [ ] Connect Posthog and Posthog email sending workflow to the application
 - [ ] Auftritt minimalistischer gestalten (weniger Deko/Effekte, ruhigere Flächen)
 - [ ] Titel + Überschriften überarbeiten (Hierarchie, Grössen, Zeilenumbrüche)
@@ -27,7 +27,7 @@
 - [ ] Unterseiten-Layout: Titel → Text → Bilder-Carousel (Eier, Chinderhof, Milch, Ackerbau)
 - [x] Eierabo-Formular: vollständige Adresse erfassen (Strasse, PLZ, Ort)
 - [x] „Schweizer Ei“ als fünftes Label in „Partner & Zertifizierungen“ ergänzt (echtes GalloSuisse-Logo «Das Schweizer Ei», 1 Satz, Link gallosuisse.ch); Partner-Grid Desktop auf 5 Spalten, DESIGN.md angepasst
-- [ ] Add a link to google maps or maps services for the address in the footer as well. So a user should be able to click it and be redirected to their preffered maps service. The link on "Route planen" curently includes oberhusers as a name, which is currently not findable since there is still no google profile. So this should be removed for now.
+- [x] Footer: die Adresse ist ein klickbarer Link (öffnet Google Maps in neuem Tab, ohne Hofnamen im Suchbegriff, da bei Maps noch nicht auffindbar); «Route planen» im Besuch-Modul fragt ebenfalls nur die Adresse ab
 
 
 

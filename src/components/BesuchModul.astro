@@ -7,6 +7,8 @@ const hof = {
     ort: "Schüpbach",
 };
 
+// Ohne Hofname: «Oberhusers» ist bei Maps (noch) nicht auffindbar — die
+// Adresse allein führt zum Ziel.
 const ziel = encodeURIComponent(`${hof.street}, ${hof.plz} ${hof.ort}`);
 const routeGoogle = `https://www.google.com/maps/dir/?api=1&destination=${ziel}`;
 ---
