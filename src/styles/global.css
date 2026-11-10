@@ -129,6 +129,10 @@ p { margin-bottom: 1rem; line-height: 1.6; }
     text-transform: uppercase;
   }
 
+  .field:has(:where(input, select, textarea)[required]) > label::after {
+    content: " *";
+  }
+
   .field-error {
     display: none;
     margin-top: .35rem;
