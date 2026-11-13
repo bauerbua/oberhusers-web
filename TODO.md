@@ -1,13 +1,18 @@
 - [ ] Subpages should get the color from the link/ defined in the frontmatter of the page
-- [x] Hero section accessible name (`aria-labelledby` zeigt jetzt auf die H1)
-- [x] Partner-Logos durch echte ersetzt — offizielle Logos (IP-Suisse, SEMAG, Emmentaler AOP, GalloSuisse-„Schweizer Ei“ direkt von der Website; Stallvisite = Schweizer Bäuerinnen & Bauern in Braun-Tusche, weil das offizielle Logo nur als weisse Version existiert). Platzhalter alle ersetzt.
-  - [ ] Falls je ein offizielles Farb-Bild für Stallvisite verfügbar: austauschen
-- [x] „Schweizer Ei“ als fünftes Label in „Partner & Zertifizierungen“ ergänzt (echtes GalloSuisse-Logo «Das Schweizer Ei», 1 Satz, Link gallosuisse.ch); Grid auf 5 Spalten (Desktop) und DESIGN.md aktualisiert
-- [x] UI/UX for eier.astro including `./Eierabopreise.odt` (Text → Eierabo-Preise → Formular; «Was bleibt/Wie ändert sich» und FAQ entfernt)
-- [x] Hero image should appear earlier on the page (Not needing to scroll down). Full-bleed und im ersten Viewport sichtbar.
+- [ ] Analytics: vorerst Google Search Console; weitere Seiten-Events nur ergänzen, falls wirklich gebraucht
+- [ ] Auftritt minimalistischer gestalten (weniger Deko/Effekte, ruhigere Flächen)
+- [ ] Titel + Überschriften überarbeiten (Hierarchie, Grössen, Zeilenumbrüche)
+- [ ] Startseite: zuerst das Bild, danach die Infos
+  - [x] „Aktuelles“-Block direkt nach dem Hero-Bild (einfacher Block, keine eigene Seite/Ordnerstruktur)
+    - [x] Beitrag zur Übernahme von Langis Eiern inkl. Logo-Wechsel (Langi-Wortmarke als Textplatzhalter → Oberhusers-Wortmarke, Link zur Eier-Seite)
+      - [ ] Langi-Logo durch offizielle Bilddatei ersetzen
+- [ ] Ecken weniger rund (globale Radien reduzieren: Hero, Karten, Formulare)
+- [ ] Punkte auf der Anfahrtsskizze korrigieren (Städte-Punkte Bern, Thun, Langnau, Lausanne)
+- [ ] Unterseiten-Layout: Titel → Text → Bilder-Carousel (Eier, Chinderhof, Milch, Ackerbau)
 
-- [x] Logo in der Navigation mit allen drei Abzeichen (Huhn, Klee, Kuh) — `logo-abzeichen.svg`; Linkbreite entspricht jetzt der sichtbaren Bildbreite
-- [x] Bei Form feldern, die benötigt werden einen * zum Label hinzufügen
+----
+# Completed
+
 - [x] Formular-Versand über PHP-Endpoint auf Hostfactory
   - [x] `public/api/senden.php`: JSON + klassisches Formular, serverseitige Validierung, Honeypot, Rate-Limit, CORS, Danke-/Fehlerseite ohne JavaScript
   - [x] Mailversand per PHPMailer über Infomaniak-SMTP (statt `mail()`); Zugangsdaten aus `.env` bzw. GitHub-Secrets, nicht committet
@@ -15,30 +20,23 @@
   - [x] Datenschutz-Abschnitt im Impressum angepasst
   - [x] Setup-Doku `docs/hostfactory-setup.md`
   - [x] Deployment per GitHub Actions: Build, `config.php` aus Secrets, SFTP-Upload nach Hostfactory (`.github/workflows/deploy.yml`, `scripts/generate-config.mjs`)
-  - [ ] Von dir nötig: GitHub-Secrets anlegen (`SFTP_HOST`, `SFTP_USER`, `SFTP_PASSWORD` oder `SFTP_PRIVATE_KEY`, `SFTP_REMOTE_DIR`, `SMTP_USER`, `SMTP_PASS`, `MAIL_TO`), GitHub Pages deaktivieren, Workflow einmal manuell starten und Testanfrage schicken
-- [ ] Analytics: vorerst Google Search Console; weitere Seiten-Events nur ergänzen, falls wirklich gebraucht
-- [ ] Auftritt minimalistischer gestalten (weniger Deko/Effekte, ruhigere Flächen)
-- [ ] Titel + Überschriften überarbeiten (Hierarchie, Grössen, Zeilenumbrüche)
+- [x] Hero section accessible name (`aria-labelledby` zeigt jetzt auf die H1)
+- [x] Partner-Logos durch echte ersetzt — offizielle Logos (IP-Suisse, SEMAG, Emmentaler AOP, GalloSuisse-„Schweizer Ei“ direkt von der Website; Stallvisite = Schweizer Bäuerinnen & Bauern in Braun-Tusche, weil das offizielle Logo nur als weisse Version existiert). Platzhalter alle ersetzt.
+  - [x] Falls je ein offizielles Farb-Bild für Stallvisite verfügbar: austauschen
+- [x] „Schweizer Ei“ als fünftes Label in „Partner & Zertifizierungen“ ergänzt (echtes GalloSuisse-Logo «Das Schweizer Ei», 1 Satz, Link gallosuisse.ch); Grid auf 5 Spalten (Desktop) und DESIGN.md aktualisiert
+- [x] UI/UX for eier.astro including `./Eierabopreise.odt` (Text → Eierabo-Preise → Formular; «Was bleibt/Wie ändert sich» und FAQ entfernt)
+- [x] Hero image should appear earlier on the page (Not needing to scroll down). Full-bleed und im ersten Viewport sichtbar.
+- [x] Logo in der Navigation mit allen drei Abzeichen (Huhn, Klee, Kuh) — `logo-abzeichen.svg`; Linkbreite entspricht jetzt der sichtbaren Bildbreite
+- [x] Bei Form feldern, die benötigt werden einen * zum Label hinzufügen
+- [x] Navigation: Hover-/Aktiv-Zustand nur als Farbklecks, ohne Kreis/Kontur (kein Unterstrich mehr)
 - [x] Hero: Titel zweizeilig („Oberhusers“ + Untertitel „Ein Burehof zum Erläbe“), Bild gross und randlos, Buttons direkt darunter
   - [x] Text neben dem Titel entfernen
   - [x] Bild direkt unter den Titel rücken
   - [x] Hero-Bild full-bleed (100 % Breite, kein Radius) und höher
   - [x] Buttons direkt unter dem Bild statt als Overlay
-- [ ] Startseite: zuerst das Bild, danach die Infos
-  - [x] „Aktuelles“-Block direkt nach dem Hero-Bild (einfacher Block, keine eigene Seite/Ordnerstruktur)
-    - [ ] Beitrag „Wir haben Äpfel geerntet – jetzt gibt’s Most“ (mit Bild)
-    - [x] Beitrag zur Übernahme von Langis Eiern inkl. Logo-Wechsel (Langi-Wortmarke als Textplatzhalter → Oberhusers-Wortmarke, Link zur Eier-Seite)
-      - [ ] Langi-Logo durch offizielle Bilddatei ersetzen
-- [ ] Ecken weniger rund (globale Radien reduzieren: Hero, Karten, Formulare)
-- [x] Navigation: Hover-/Aktiv-Zustand nur als Farbklecks, ohne Kreis/Kontur (kein Unterstrich mehr)
-- [ ] Punkte auf der Anfahrtsskizze korrigieren (Städte-Punkte Bern, Thun, Langnau, Lausanne)
-- [ ] Unterseiten-Layout: Titel → Text → Bilder-Carousel (Eier, Chinderhof, Milch, Ackerbau)
 - [x] Eierabo-Formular: vollständige Adresse erfassen (Strasse, PLZ, Ort)
 - [x] „Schweizer Ei“ als fünftes Label in „Partner & Zertifizierungen“ ergänzt (echtes GalloSuisse-Logo «Das Schweizer Ei», 1 Satz, Link gallosuisse.ch); Partner-Grid Desktop auf 5 Spalten, DESIGN.md angepasst
 - [x] Footer: die Adresse ist ein klickbarer Link (öffnet Google Maps in neuem Tab, ohne Hofnamen im Suchbegriff, da bei Maps noch nicht auffindbar); «Route planen» im Besuch-Modul fragt ebenfalls nur die Adresse ab
-
-
-
 - [x] Add global styling for headings (especially h1 & h2)
   - [x] Spacing
   - [x] Font-size
