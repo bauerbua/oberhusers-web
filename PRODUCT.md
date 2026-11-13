@@ -5,7 +5,7 @@
 - **Type:** Website für Familien-Bauernhof im Emmental (Nähe Langnau / Emmenmatt)
 - **Location:** `/Users/jakob/Projekte/oberhusers` (ehemals chinderhof)
 - **Sprache:** Deutsch (Schweiz), persönlich, bodenständig, freundlich, nicht werblich
-- **Plattform:** Web, responsiv (Mobile + Desktop). Stack: Astro + Tailwind, kein CMS, PostHog cookieless Analytics + Mail-Versand
+- **Plattform:** Web, responsiv (Mobile + Desktop). Stack: Astro + Tailwind, kein CMS, PHP-Mail-Versand auf Hostfactory
 
 ## 2. Zweck
 Digitales Schaufenster + offene Tür zum Hof. Kein Shop, keine Unternehmensseite.
@@ -77,7 +77,7 @@ Start (inkl. Übernahme-Hinweis, Labels, Besuch-Modul) / Eier / Kindernachmittag
 - Eier-Interesse-Formular: Name, Kontakt, Menge/Häufigkeit, Haushalt/Geschäft, Nachricht (kein „Jetzt abonnieren“)
 - Kindernachmittage Anfrage/Anmeldung (Referenz: Hof Bisibiel)
 - Kontakt + Anfahrt als Besuch-Modul (gezeichnete Anfahrtsskizze, Route-Links Google/Apple Maps, ÖV Bahnhof Emmenmatt)
-- PostHog cookieless Analytics (CTA/Form-Events, keine PII) + Mail-Versand für Formulare
+- PHPMailer über Infomaniak-SMTP für Formulare; Reichweite über Google Search Console
 - Später: Anfrage-Management, Webshop, Milchabholung
 
 ## 10. Non-Goals (bewusst NICHT)

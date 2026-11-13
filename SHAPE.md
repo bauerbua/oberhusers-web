@@ -79,11 +79,11 @@ Ziel: In 5s klar: Familienhof Emmental, Eier/Kinder/Milch/Ackerbau, offene Tür.
 3. Geschichte/Motivation kurz
 4. Besuch-Modul (voll): Offene Stalltür, Standort + Karte (embed), Adresse, Parken, ÖV Langnau/Emmenmatt, Fussweg, Verhaltenshinweise (Hunde, Stall, Kinder), Kontakt: Tel/Mail/Formular allgemein + getrennte Wege Eier / Kinder / Gewerbe, Eierkühlschrank-Box (jederzeit, bar/QR)
 
-## 4. Formulare (MVP-Spec, Versand via PostHog / Mail)
+## 4. Formulare (MVP-Spec, Versand via PHP-Mail auf Hostfactory)
 - `eier-interesse`: Pflicht Name/Kontakt, optional Menge/Häufigkeit, Typ Haushalt/Geschäft, Nachricht. Success: „Danke, wir melden uns sobald…“. Spam-Schutz honeypot, kein Konto.
 - `kinder-anmeldung`: Kind Name/Alter, Begleitung, Termin-Auswahl, Kontakt, Allergien/Bemerkung. Success + Mail an Barbara/Anne-Lea.
 - `kontakt-allgemein` + `gewerbe`: Firma, Bedarf, Menge, Kontakt.
-Alle: serverseitig validieren, DE-Fehlermeldungen, DS-Hinweis 1 Satz. Mails: Bestätigung an Absender + intern (PostHog als Mail-Tool), keine Marketing-Nutzung ohne Einwilligung.
+Alle: serverseitig validieren, DE-Fehlermeldungen, DS-Hinweis 1 Satz. Mails: Bestätigung an Absender + intern (PHPMailer über Infomaniak-SMTP), keine Marketing-Nutzung ohne Einwilligung.
 
 ## 5. Content-Regeln
 - Konkret > werblich. Zahlen nennen (40 Kühe, 30 ha; Hühner-Zahlen nur noch historisch/Partner-Hof).
@@ -91,11 +91,11 @@ Alle: serverseitig validieren, DE-Fehlermeldungen, DS-Hinweis 1 Satz. Mails: Bes
 - Texte kurz, Ebenen vertiefbar. Keine Preislisten zum Start. H1/CTAs bewusst noch offen (TBD).
 - Nicht erwähnen: Geburtstage, „keine Abos frei“, Milchabholung als Versprechen.
 
-## 6. Technik / Constraints (Astro + Tailwind, kein CMS, PostHog)
+## 6. Technik / Constraints (Astro + Tailwind, kein CMS, PHP-Mail)
 - Astro statisch (SSG), `src/pages/` = Sitemap oben, `src/components/` für Besuch-Modul, Labels-Block, Cards, Formulare, `src/content/` für Texte/Termine (Dateien, kein CMS – Content ändert sich selten).
 - Tailwind-Tokens aus DESIGN.md (Farben, Fonts, Radien), Bilder WebP/AVIF, Maps-Embed + ÖV-Links. Label-Logos als SVG/lokale Assets, externe Links neuer Tab.
-- PostHog cookieless Analytics: keine Cookies, kein Banner nötig, aber Privacy-Hinweis in Footer/Datenschutz. Events: CTA-Klicks, Formular-Start/Erfolg, Label-Klicks. Keine PII im Analytics, IP-Anonymisierung an.
-- PostHog/Mail-Versand für Formulare (Bestätigung + intern), honeypot, serverseitig validieren, DE-Fehlermeldungen.
+- Kein Web-Tracking: keine Cookies, kein Banner nötig. Reichweite/Suchbegriffe über Google Search Console; Privacy-Hinweis (Server-Logs) im Datenschutz.
+- PHP-Mail-Versand für Formulare (intern, Reply-To Absender), honeypot, serverseitig validieren, DE-Fehlermeldungen, Rate-Limit.
 - Responsive, a11y AA, SEO basics (Titel/Description DE-CH, OG-Bilder), Performance <2s.
 
 ## 7. Offene Punkte (brauche ich von dir)
@@ -106,7 +106,7 @@ Alle: serverseitig validieren, DE-Fehlermeldungen, DS-Hinweis 1 Satz. Mails: Bes
 - H1 + CTA-Formulierungen [TBD, Varianten später mit impeccable]
 - 4er-Übersicht Gestaltung [TBD, Varianten später mit impeccable live/new-work]
 - Label-Logos: Stallvisite / IP-Suisse / SEMAG / Emmentaler AOP als SVG/PNG + Freigabe
-- PostHog: API-Host/Key, Mail-Absenderadresse/Domain
+- Hostfactory: API-Host/Domain, Mail-Absenderadresse + SPF/DKIM
 - Logo/Wunschfarben? Brief sagt warm/natürlich, serifenlos – sonst frei
 - Hosting/Domain vorhanden?
 

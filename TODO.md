@@ -8,7 +8,15 @@
 
 - [x] Logo in der Navigation mit allen drei Abzeichen (Huhn, Klee, Kuh) — `logo-abzeichen.svg`; Linkbreite entspricht jetzt der sichtbaren Bildbreite
 - [x] Bei Form feldern, die benötigt werden einen * zum Label hinzufügen
-- [ ] Connect Posthog and Posthog email sending workflow to the application
+- [x] Formular-Versand über PHP-Endpoint auf Hostfactory
+  - [x] `public/api/senden.php`: JSON + klassisches Formular, serverseitige Validierung, Honeypot, Rate-Limit, CORS, Danke-/Fehlerseite ohne JavaScript
+  - [x] Mailversand per PHPMailer über Infomaniak-SMTP (statt `mail()`); Zugangsdaten aus `.env` bzw. GitHub-Secrets, nicht committet
+  - [x] Frontend: `src/lib/forms-endpoint.ts` (Standard `/api/senden.php`), `src/lib/forms.ts`; Formulare senden direkt an das PHP-Skript
+  - [x] Datenschutz-Abschnitt im Impressum angepasst
+  - [x] Setup-Doku `docs/hostfactory-setup.md`
+  - [x] Deployment per GitHub Actions: Build, `config.php` aus Secrets, SFTP-Upload nach Hostfactory (`.github/workflows/deploy.yml`, `scripts/generate-config.mjs`)
+  - [ ] Von dir nötig: GitHub-Secrets anlegen (`SFTP_HOST`, `SFTP_USER`, `SFTP_PASSWORD` oder `SFTP_PRIVATE_KEY`, `SFTP_REMOTE_DIR`, `SMTP_USER`, `SMTP_PASS`, `MAIL_TO`), GitHub Pages deaktivieren, Workflow einmal manuell starten und Testanfrage schicken
+- [ ] Analytics: vorerst Google Search Console; weitere Seiten-Events nur ergänzen, falls wirklich gebraucht
 - [ ] Auftritt minimalistischer gestalten (weniger Deko/Effekte, ruhigere Flächen)
 - [ ] Titel + Überschriften überarbeiten (Hierarchie, Grössen, Zeilenumbrüche)
 - [x] Hero: Titel zweizeilig („Oberhusers“ + Untertitel „Ein Burehof zum Erläbe“), Bild gross und randlos, Buttons direkt darunter
