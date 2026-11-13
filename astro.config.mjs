@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://bauerbua.github.io',
-  base: '/oberhusers-web',
+  site: 'http://www.oberhusers.ch',
+  base: '/',
   vite: { plugins: [tailwindcss()] },
 });
