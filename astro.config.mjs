@@ -3,6 +3,6 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: 'http://www.oberhusers.ch',
-  base: '/test-deployment/',
+  base: '/',
   vite: { plugins: [tailwindcss()] },
 });
