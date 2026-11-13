@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Button from "../components/Button.astro";
+import AltchaWidget from "../components/altcha-widget.astro";
 
 const eierabos = [
     { name: "500er", lieferungen: 25, menge: 20, preis: "350" },
@@ -69,12 +70,26 @@ const eierabos = [
         </section>
 
         <form
-            action=""
+            action={`/api/forms.php`}
             method="post"
-            aria-labelledby="eierabo-formular-titel"
+            data-form="eierabo"
             class="mt-14"
         >
-            <h2 id="eierabo-formular-titel">Interesse an einem Eierabo?</h2>
+            <input type="hidden" name="_form" value="eierabo" />
+
+            <!-- Honeypot: hidden from real visitors -->
+            <div class="absolute left-[-9999px]" aria-hidden="true">
+                <label for="website">Website</label>
+                <input
+                    id="website"
+                    type="text"
+                    name="website"
+                    tabindex="-1"
+                    autocomplete="off"
+                />
+            </div>
+
+            <h2>Interesse an einem Eierabo?</h2>
             <p>
                 Nach Absenden, melden wir melden uns sobald wie möglich bei dir.
                 Mit * markierte Felder sind Pflichtfelder.
@@ -200,7 +215,15 @@ const eierabos = [
                 </div>
             </div>
 
-            <Button type="submit" tone="egg" shape={1} class="mt-6">
+            <AltchaWidget floatingAnchor="#submit-eier-form" />
+
+            <Button
+                id="submit-eier-form"
+                type="submit"
+                tone="egg"
+                shape={1}
+                class="mt-6"
+            >
                 Absenden
             </Button>
         </form>

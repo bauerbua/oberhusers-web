@@ -1,0 +1,17 @@
+---
+const { floatingAnchor } = Astro.props;
+---
+
+<script>
+    import "altcha";
+    import "altcha/i18n/de";
+</script>
+
+<altcha-widget
+    challenge={`/api/altcha-challenge.php`}
+    language="de"
+    auto="onfocus"
+    display="floating"
+    type="checkbox"
+    floatingAnchor={floatingAnchor ?? "button"}
+></altcha-widget>

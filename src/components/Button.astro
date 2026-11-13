@@ -6,6 +6,7 @@ interface Props {
     type?: "button" | "submit" | "reset";
     class?: string;
     target?: "_blank";
+    id?: string;
 }
 const {
     href,
@@ -14,6 +15,7 @@ const {
     type = "button",
     class: className,
     target,
+    id,
 } = Astro.props;
 const Tag = href ? "a" : "button";
 ---
@@ -23,6 +25,7 @@ const Tag = href ? "a" : "button";
     href={href}
     target={target}
     type={href ? undefined : type}
+    id={id}
 >
     <slot />
 </Tag>

@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Button from "../components/Button.astro";
+import AltchaWidget from "../components/altcha-widget.astro";
 ---
 
 <Base title="Chinderhof">
@@ -43,10 +44,30 @@ import Button from "../components/Button.astro";
             Damit die Kinder den Hof bei jedem Wetter geniessen können, bitten
             wir Sie, ihnen praktische und wetterfeste Kleidung anzuziehen.
         </p>
-        <form action="" method="post" class="mt-6 grid gap-6 md:grid-cols-2">
+        <form
+            action={`/api/forms.php`}
+            method="post"
+            data-form="chinderhof"
+            class="mt-6 grid gap-6 md:grid-cols-2"
+        >
             <p class="md:col-span-2">
                 Mit * markierte Felder sind Pflichtfelder.
             </p>
+
+            <input type="hidden" name="_form" value="chinderhof" />
+
+            <!-- Honeypot -->
+            <div class="absolute left-[-9999px]" aria-hidden="true">
+                <label for="website">Website</label>
+                <input
+                    id="website"
+                    type="text"
+                    name="website"
+                    tabindex="-1"
+                    autocomplete="off"
+                />
+            </div>
+
             <div class="field">
                 <label for="vorname">Vorname</label>
                 <input
@@ -177,7 +198,10 @@ import Button from "../components/Button.astro";
                 </span>
             </label>
 
+            <AltchaWidget floatingAnchor="#submit-anmeldung" />
+
             <Button
+                id="#submit-anmeldung"
                 type="submit"
                 tone="wiese"
                 shape={1}

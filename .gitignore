@@ -1,11 +1,7 @@
 /node_modules
 /dist
 /backend
-
-# Secrets (z. B. lokale Zugangsdaten) nicht committen
-.env
-.env.*
-!.env.example
+/private
 
 # Astro-Generat: Types, Dev-Server-Zustand, Preview-Logs
 /.astro/
