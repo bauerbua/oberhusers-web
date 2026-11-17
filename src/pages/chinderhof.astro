@@ -48,7 +48,7 @@ import AltchaWidget from "../components/altcha-widget.astro";
             action={`/api/forms.php`}
             method="post"
             data-form="chinderhof"
-            class="mt-6 grid gap-6 md:grid-cols-2"
+            class="mt-6"
         >
             <p class="md:col-span-2">
                 Mit * markierte Felder sind Pflichtfelder.
@@ -67,148 +67,156 @@ import AltchaWidget from "../components/altcha-widget.astro";
                     autocomplete="off"
                 />
             </div>
+            <div class="grid gap-6 md:grid-cols-2">
+                <div class="field">
+                    <label for="vorname">Vorname</label>
+                    <input
+                        id="vorname"
+                        type="text"
+                        name="vorname"
+                        required
+                        autocomplete="given-name"
+                        aria-describedby="vorname-error"
+                    />
+                    <p class="field-error" id="vorname-error">
+                        Bitte Vornamen angeben.
+                    </p>
+                </div>
 
-            <div class="field">
-                <label for="vorname">Vorname</label>
-                <input
-                    id="vorname"
-                    type="text"
-                    name="vorname"
-                    required
-                    autocomplete="given-name"
-                    aria-describedby="vorname-error"
-                />
-                <p class="field-error" id="vorname-error">
-                    Bitte Vornamen angeben.
-                </p>
+                <div class="field">
+                    <label for="name">Nachname</label>
+                    <input
+                        id="name"
+                        type="text"
+                        name="nachname"
+                        required
+                        autocomplete="family-name"
+                        aria-describedby="name-error"
+                    />
+                    <p class="field-error" id="name-error">
+                        Bitte Nachnamen angeben.
+                    </p>
+                </div>
+
+                <div class="field">
+                    <label for="adresse">Adresse</label>
+                    <input
+                        id="adresse"
+                        type="text"
+                        name="adresse"
+                        required
+                        autocomplete="street-address"
+                        aria-describedby="adresse-error"
+                    />
+                    <p class="field-error" id="adresse-error">
+                        Bitte Adresse angeben.
+                    </p>
+                </div>
+
+                <div class="field">
+                    <label for="email">E-Mail</label>
+                    <input
+                        id="email"
+                        type="email"
+                        name="email"
+                        required
+                        autocomplete="email"
+                        aria-describedby="email-error"
+                    />
+                    <p class="field-error" id="email-error">
+                        Bitte eine gültige E-Mail-Adresse angeben.
+                    </p>
+                </div>
+
+                <div class="field">
+                    <label for="tel-privat">Telefon privat</label>
+                    <input
+                        id="tel-privat"
+                        type="tel"
+                        name="telPrivat"
+                        required
+                        autocomplete="tel"
+                        aria-describedby="tel-privat-error"
+                    />
+                    <p class="field-error" id="tel-privat-error">
+                        Bitte Telefonnummer angeben.
+                    </p>
+                </div>
+
+                <div class="field">
+                    <label for="natel">Natel</label>
+                    <input
+                        id="natel"
+                        type="tel"
+                        name="natel"
+                        required
+                        autocomplete="tel"
+                        aria-describedby="natel-error"
+                    />
+                    <p class="field-error" id="natel-error">
+                        Bitte Natelnummer angeben.
+                    </p>
+                </div>
+
+                <div class="field">
+                    <label for="geburtsdatum">Geburtsdatum</label>
+                    <input
+                        id="geburtsdatum"
+                        type="date"
+                        name="geburtsdatum"
+                        required
+                        autocomplete="bday"
+                        aria-describedby="geburtsdatum-error"
+                    />
+                    <p class="field-error" id="geburtsdatum-error">
+                        Bitte Geburtsdatum angeben.
+                    </p>
+                </div>
+
+                <div class="field md:col-span-2">
+                    <label for="allergien">Allergien</label>
+                    <textarea id="allergien" name="allergien"></textarea>
+                </div>
+
+                <div class="field md:col-span-2">
+                    <label for="bemerkungen">Bemerkungen</label>
+                    <textarea id="bemerkungen" name="bemerkungen"></textarea>
+                </div>
+
+                <label class="md:col-span-2 mt-2 flex items-center gap-2">
+                    <input type="checkbox" name="fotoerlaubnis" />
+                    <span>
+                        Wir sind einverstanden, wenn Fotos von unserem Kind auf
+                        der Website
+                        <a
+                            class="il [--c:var(--color-gruen)] underline"
+                            href="https://www.oberhusers.ch"
+                        >
+                            www.oberhusers.ch
+                        </a>
+                        veröffentlicht werden.
+                    </span>
+                </label>
             </div>
-
-            <div class="field">
-                <label for="name">Nachname</label>
-                <input
-                    id="name"
-                    type="text"
-                    name="name"
-                    required
-                    autocomplete="family-name"
-                    aria-describedby="name-error"
-                />
-                <p class="field-error" id="name-error">
-                    Bitte Nachnamen angeben.
-                </p>
-            </div>
-
-            <div class="field">
-                <label for="adresse">Adresse</label>
-                <input
-                    id="adresse"
-                    type="text"
-                    name="adresse"
-                    required
-                    autocomplete="street-address"
-                    aria-describedby="adresse-error"
-                />
-                <p class="field-error" id="adresse-error">
-                    Bitte Adresse angeben.
-                </p>
-            </div>
-
-            <div class="field">
-                <label for="email">E-Mail</label>
-                <input
-                    id="email"
-                    type="email"
-                    name="email"
-                    required
-                    autocomplete="email"
-                    aria-describedby="email-error"
-                />
-                <p class="field-error" id="email-error">
-                    Bitte eine gültige E-Mail-Adresse angeben.
-                </p>
-            </div>
-
-            <div class="field">
-                <label for="tel-privat">Telefon privat</label>
-                <input
-                    id="tel-privat"
-                    type="tel"
-                    name="telPrivat"
-                    required
-                    autocomplete="tel"
-                    aria-describedby="tel-privat-error"
-                />
-                <p class="field-error" id="tel-privat-error">
-                    Bitte Telefonnummer angeben.
-                </p>
-            </div>
-
-            <div class="field">
-                <label for="natel">Natel</label>
-                <input
-                    id="natel"
-                    type="tel"
-                    name="natel"
-                    required
-                    autocomplete="tel"
-                    aria-describedby="natel-error"
-                />
-                <p class="field-error" id="natel-error">
-                    Bitte Natelnummer angeben.
-                </p>
-            </div>
-
-            <div class="field">
-                <label for="geburtsdatum">Geburtsdatum</label>
-                <input
-                    id="geburtsdatum"
-                    type="date"
-                    name="geburtsdatum"
-                    required
-                    autocomplete="bday"
-                    aria-describedby="geburtsdatum-error"
-                />
-                <p class="field-error" id="geburtsdatum-error">
-                    Bitte Geburtsdatum angeben.
-                </p>
-            </div>
-
-            <div class="field md:col-span-2">
-                <label for="allergien">Allergien</label>
-                <textarea id="allergien" name="allergien"></textarea>
-            </div>
-
-            <div class="field md:col-span-2">
-                <label for="bemerkungen">Bemerkungen</label>
-                <textarea id="bemerkungen" name="bemerkungen"></textarea>
-            </div>
-
-            <label class="md:col-span-2 mt-2 flex items-center gap-2">
-                <input type="checkbox" name="fotoerlaubnis" />
-                <span>
-                    Wir sind einverstanden, wenn Fotos von unserem Kind auf der
-                    Website
-                    <a
-                        class="il [--c:var(--color-gruen)]"
-                        href="https://www.oberhusers.ch"
-                    >
-                        www.oberhusers.ch
-                    </a>
-                    veröffentlicht werden.
-                </span>
-            </label>
-
             <AltchaWidget floatingAnchor="#submit-anmeldung" />
 
             <Button
-                id="#submit-anmeldung"
+                id="submit-anmeldung"
                 type="submit"
                 tone="wiese"
                 shape={1}
-                class="mt-2 justify-self-start"
+                class="mt-6"
             >
                 Anmeldung senden
             </Button>
+
+            <p
+                class="form-notice md:col-span-full"
+                data-form-status
+                role="status"
+                aria-live="polite"
+                tabindex="-1"
+            ></p>
         </form>
     </div>
 </Base>

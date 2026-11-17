@@ -146,6 +146,23 @@ p { margin-bottom: 1rem; line-height: 1.6; }
     display: block;
   }
 
+  .form-notice {
+    display: none;
+    margin-top: 1.25rem;
+    padding: .85rem 1.1rem;
+    border-radius: 20px;
+    background: color-mix(in srgb, var(--color-gruen) 45%, var(--color-chalk));
+    font-weight: 600;
+    line-height: 1.45;
+    scroll-margin: 1rem;
+  }
+
+  .form-notice:not(:empty) { display: block; }
+
+  .form-notice.is-error {
+    background: color-mix(in srgb, var(--color-altrosa) 55%, var(--color-chalk));
+  }
+
   .il {
     --c: var(--color-gelb); --f: var(--f1);
     color: var(--color-braun);
