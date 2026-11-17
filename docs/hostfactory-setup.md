@@ -1,240 +1,200 @@
 # Formulare & Hosting auf Hostfactory
 
-Stand: Nov 2026. Die Website ist statisch (Astro) und liegt zusammen mit
-einem kleinen PHP-Skript auf Hostfactory. Die Formulare schicken ihre Daten
-an `/api/senden.php`; das Skript verschickt sie per SMTP über Infomaniak.
+Stand: November 2026. Die Website ist statisch (Astro), die Formulare laufen
+über zwei PHP-Endpunkte. SMTP- und Altcha-Zugangsdaten stehen in einer
+`private/config.php`, die **manuell** auf dem Server gepflegt wird.
 
 ```
 git push auf main
       │
       ▼
-GitHub Actions: npm ci → build → config.php aus Secrets → SFTP
+GitHub Actions
+  npm ci
+  composer install  → backend/vendor/
+  npm run build     → dist/
+      │
+      ▼  FTPS
+  dist/     → httpdocs/   Website + api/*.php (öffentlich)
+  backend/  → backend/    composer.json, composer.lock, vendor/
       │
       ▼
-Hostfactory Web-Root
-      ├── index.html, chinderhof/, eier/, …
-      └── api/senden.php ──PHPMailer──▶ mail.infomaniak.com ──▶ Postfach
+Server
+  httpdocs/api/forms.php
+    ├─ require ../../private/config.php      ← manuell hochgeladen
+    └─ require ../../backend/vendor/autoload.php
 ```
 
-## 1. Deployment per GitHub Actions
+`dirname(__DIR__, 2)` in den PHP-Skripten landet im Benutzer-Home, eine Ebene
+über `httpdocs`. Deshalb müssen `private/` und `backend/` **ausserhalb** des
+Web-Roots liegen. Das setzt voraus, dass der FTP-/SFTP-Login im Home beginnt
+(also `httpdocs` ein Unterordner ist). Prüfen mit `pwd` in einem SFTP-Client.
 
-Der Workflow `.github/workflows/deploy.yml` läuft bei jedem Push auf `main`
-und lässt sich manuell starten (Actions → «Deploy to Hostfactory» → «Run
-workflow»). Er macht Folgendes:
+## 1. Was versioniert ist – und was nicht
 
-1. prüft, ob alle nötigen Secrets gesetzt sind,
-2. baut die Website mit `npm ci && npm run build`,
-3. erzeugt `dist/api/config.php` aus den SMTP-Secrets
-   (`scripts/generate-config.mjs`),
-4. prüft, ob `senden.php`, PHPMailer und `config.php` im Build liegen,
-5. spiegelt `dist/` per SFTP in das Web-Root.
+| Pfad | Im Repo? | Grund |
+| --- | --- | --- |
+| `public/api/*.php` | ja | API-Code; landet über `dist/` in `httpdocs/api/` |
+| `backend/composer.json`, `composer.lock` | ja | Reproduzierbare PHP-Abhängigkeiten |
+| `backend/vendor/` | nein | Wird im CI mit Composer installiert und hochgeladen |
+| `private/config.example.php` | ja | Vorlage ohne Geheimnisse |
+| `private/config.php` | nein | Enthält SMTP-Passwort und Altcha-Secret |
 
-Der Upload ist ein vollständiger Abgleich (`sync: full`) mit `--delete`:
-Dateien, die im Web-Root liegen, aber nicht im Build, werden gelöscht. Damit
-das nichts Wichtiges trifft, sind `.well-known/`, `cgi-bin/`, `logs/`,
-`*.log`, `error_log`, `.deploy-*`, `.user.ini` und `php.ini` ausgenommen.
+Nur `config.php` wird manuell hochgeladen. Alles andere kommt aus dem Repo –
+sonst würden Server und Git auseinanderlaufen.
 
-### Einmalig: SFTP bei Hostfactory aktivieren
-
-1. my.hostfactory.ch → «Webhostings» → Webhosting wählen → Domain Account
-   wählen → «FTP / SSH verwalten» → «SSH/SFTP aktivieren».
-2. Dort stehen Hostname, Port und Benutzername. Das Passwort ist das
-   FTP-/SSH-Passwort des Accounts.
-3. Den absoluten Pfad zum Web-Root herausfinden: einmal mit einem
-   SFTP-Client verbinden und `pwd` ausführen, oder im Panel beim
-   FTP-Verzeichnis nachsehen. Meist ist es `/home/BENUTZER/public_html`.
-
-> **Wichtig:** `SFTP_REMOTE_DIR` muss der absolute Pfad genau dieses
-> Web-Roots sein, zum Beispiel `/home/BENUTZER/public_html`. Nie `/` und
-> nicht das Home-Verzeichnis, sonst löscht `--delete` dort alles, was nicht
-> zur Website gehört.
-
-Falls im Web-Root bereits eine wichtige `.htaccess` liegt (z. B. mit
-Weiterleitungen oder PHP-Einstellungen), vor dem ersten Deployment eine
-Sicherung machen und sie bei Bedarf als `public/.htaccess` ins Repository
-legen — dann wird sie mit ausgeliefert. Dateien ausserhalb der oben
-genannten Ausnahmen, die nicht im Build liegen, werden gelöscht.
-
-### Repository-Secrets anlegen
+## 2. Repository-Secrets anlegen
 
 GitHub → Repository → Settings → Secrets and variables → Actions.
 
 | Secret | Pflicht | Wert |
 | --- | --- | --- |
-| `SFTP_HOST` | ja | SFTP-Host aus dem Hostfactory-Panel |
-| `SFTP_PORT` | nein | Standard `22` |
-| `SFTP_USER` | ja | FTP-/SSH-Benutzer |
-| `SFTP_PASSWORD` | ja\* | Passwort des Accounts |
-| `SFTP_PRIVATE_KEY` | ja\* | alternativ: kompletter privater SSH-Key |
-| `SFTP_REMOTE_DIR` | ja | absoluter Pfad zum Web-Root, z. B. `/home/BENUTZER/public_html` |
-| `SMTP_HOST` | nein | Standard `mail.infomaniak.com` |
-| `SMTP_PORT` | nein | Standard `587` |
-| `SMTP_SECURE` | nein | Standard `starttls` (`ssl` für Port 465) |
-| `SMTP_USER` | ja | vollständige Infomaniak-Mailadresse |
-| `SMTP_PASS` | ja | SMTP- oder App-Passwort |
-| `MAIL_TO` | ja | Empfänger der Formular-Mails |
-| `MAIL_FROM` | nein | Absender, Standard: `SMTP_USER` |
+| `FTP_HOST` | ja | Host aus dem Hostfactory-Panel |
+| `FTP_USERNAME` | ja | FTP-/SSH-Benutzer |
+| `FTP_PASSWORD` | ja | Passwort des Accounts |
 
-\* Entweder `SFTP_PASSWORD` oder `SFTP_PRIVATE_KEY`. Der Key ist die
-robustere Variante: Das Passwort wird vom Deployer ungeschützt in ein
-Shell-Skript eingesetzt, deshalb bricht der Workflow bei Passwörtern mit
-`"`, `$`, `` ` `` oder `\` ab. In dem Fall einen SSH-Key verwenden.
+Optional als **Variable**: `SITE_URL` (Standard
+`https://www.oberhusers.ch`), Ziel des Smoke-Tests.
 
-`MAIL_FROM_NAME` ist optional und kann als Repository-**Variable** (`vars`)
-angelegt werden; Standard ist «Oberhusers Website».
+SMTP- und Altcha-Werte sind **keine** GitHub-Secrets mehr: Sie stehen nur in
+`private/config.php` auf dem Server.
 
-Die Secrets werden nie committet. `.env` ist in `.gitignore`; im CI
-existiert `dist/api/config.php` erst nach dem Generieren aus den Secrets.
+## 3. `config.php` manuell anlegen und hochladen
 
-### GitHub Pages abschalten
-
-Der frühere Pages-Workflow ist ersetzt. Falls Pages im Repository noch
-aktiv ist: Settings → Pages → Source auf «None» stellen. Die Domain zeigt
-auf Hostfactory, nicht auf Pages.
-
-## 2. SMTP konfigurieren (Infomaniak)
-
-Für das Deployment sind die Secrets oben ausreichend; `dist/api/config.php`
-wird im Workflow erzeugt. Für lokale Tests gibt es die committete Vorlage
-`.env.example`:
+Einmalig:
 
 ```bash
-cp .env.example .env
+cp private/config.example.php private/config.php
 ```
 
-Dann in `.env` ausfüllen:
+Dann in `private/config.php` ausfüllen:
 
-```dotenv
-SMTP_HOST=mail.infomaniak.com
-SMTP_PORT=587
-SMTP_SECURE=starttls
-SMTP_USER=deine-adresse@oberhusers.ch
-SMTP_PASS=DEIN_SMTP_PASSWORT
-MAIL_TO=deine@private-adresse.ch
-MAIL_FROM=deine-adresse@oberhusers.ch
-```
+| Schlüssel | Bedeutung |
+| --- | --- |
+| `recipient_email` | Empfänger der Formular-Mails |
+| `sender_email`, `sender_name` | sichtbarer Absender (Adresse der eigenen Domain) |
+| `smtp_host`, `smtp_port` | Infomaniak: `mail.infomaniak.com`, `587` |
+| `smtp_secure` | `starttls` (Port 587) oder `ssl` (Port 465) |
+| `smtp_username`, `smtp_password` | vollständige Mailadresse + App-Passwort |
+| `altcha_secret` | `openssl rand -hex 32`, **stabil lassen** |
 
-- `MAIL_TO` ist der Empfänger und darf deine private Adresse sein.
-- `MAIL_FROM` muss zum Infomaniak-Postfach bzw. einer dort erlaubten
-  Absenderadresse passen.
-- `.env` ist in `.gitignore`; `.env.example` ist die Vorlage und wird
-  committet.
+Datei per FTPS nach `private/config.php` hochladen – **nicht** nach
+`httpdocs/`. Der Ordner `private/` muss auf dem Server existieren; er wird vom
+Deployment nicht angelegt, weil er nicht im Repo liegt.
 
-Danach `dist/api/config.php` aus der `.env` erzeugen:
+Bei späteren Änderungen genügt es, nur diese Datei erneut hochzuladen. Ein
+neues Deployment ist dafür nicht nötig.
+
+`altcha_secret` darf sich nicht ändern: Bereits ausgegebene Challenges werden
+sonst ungültig. Er dient ausserdem als Schlüssel für die Rate-Limit-Dateien.
+
+## 4. Ablauf des Deployments
+
+`.github/workflows/deploy.yml` läuft bei jedem Push auf `main` und manuell über
+«Run workflow»:
+
+1. prüft, ob die FTP-Secrets gesetzt sind,
+2. installiert Node- und Composer-Abhängigkeiten,
+3. baut die Website,
+4. prüft, ob API und `vendor/autoload.php` vorhanden sind,
+5. lädt **zuerst** `backend/` hoch (ausserhalb des Web-Roots),
+6. lädt danach `dist/` nach `httpdocs/`,
+7. ruft `/api/altcha-challenge.php` auf und prüft die JSON-Antwort.
+
+`private/config.php` wird bewusst nicht angefasst. Der Smoke-Test schlägt fehl,
+wenn die Datei auf dem Server fehlt oder unvollständig ist.
+
+## 5. Einmalige Einrichtung auf Hostfactory
+
+1. **PHP-Version**: im Panel PHP **8.1 oder neuer** wählen (Altcha verlangt
+   `>= 8.1`; empfohlen 8.3).
+2. **FTPS aktivieren** und Host, Port, Benutzer und Passwort notieren.
+3. **Web-Root** prüfen: Der FTP-Login muss im Home beginnen und `httpdocs`
+   als Unterordner zeigen. Sonst würden `backend/` und `private/` an der
+   falschen Stelle landen.
+4. **`private/` anlegen** und `config.php` dort hochladen (Schritt 3).
+5. **Domain**: `oberhusers.ch` und `www.oberhusers.ch` auf das Webhosting
+   zeigen lassen, HTTPS aktivieren.
+6. **Mail**: In Infomaniak SPF, DKIM und DMARC für die Domain setzen. Ein
+   eigenes App-Passwort für den Versand verwenden.
+
+Falls der FTP-Zugang nicht über `httpdocs` hinausreicht, ist dieses Layout
+nicht möglich. Dann müssten `config.php` und `vendor/` innerhalb von
+`httpdocs/api/` liegen (mit `.htaccess`-Schutz) und die `require`-Pfade in den
+PHP-Dateien angepasst werden. Das ist die schlechtere Variante, weil Secrets
+dann im Web-Root liegen.
+
+## 6. Lokal entwickeln und testen
 
 ```bash
-npm run build
-npm run generate:config
+npm install
+composer install --working-dir=backend
+cp private/config.example.php private/config.php   # einmalig, danach ausfüllen
 ```
 
-Das Skript schreibt die PHP-Datei nach `dist/api/config.php`. Die Werte
-lassen sich auch direkt als Umgebungsvariablen setzen, ohne `.env`:
+Zwei Terminals:
 
 ```bash
-SMTP_USER=… SMTP_PASS=… MAIL_TO=… npm run generate:config
+npm run dev:backend   # PHP auf http://localhost:8080
+npm run dev           # Astro auf http://localhost:4321
 ```
 
-In Infomaniak zusätzlich SPF/DKIM für die Domain setzen. Als Absender eine
-Adresse der eigenen Domain verwenden, nicht eine fremde. Für den Versand
-am besten ein eigenes App-Passwort anlegen, damit es bei einem Leak
-einfach widerrufen werden kann.
+Der Astro-Dev-Server leitet `/api/*` an PHP weiter (`astro.config.mjs`).
+Formular ausfüllen und absenden: Die Seite bleibt stehen, unter dem Button
+erscheint eine Meldung. Der Versand geht über Infomaniak an `recipient_email`.
 
-## 3. Testen
-
-### Lokal mit echtem Mailversand
+### API direkt prüfen
 
 ```bash
-brew install php          # falls PHP noch nicht installiert ist
-cp .env.example .env      # einmalig, danach ausfüllen
-npm run build
-npm run generate:config
-php -S localhost:8080 -t dist
+curl -s http://localhost:8080/api/altcha-challenge.php | head -c 200
 ```
 
-`http://localhost:8080/chinderhof/` öffnen, das Formular ausfüllen und
-absenden. Die Mail geht über Infomaniak raus und kommt bei `MAIL_TO` an.
-PHPMailer spricht SMTP direkt; `mail()`, sendmail oder msmtp werden weder
-lokal noch auf dem Server benötigt.
+Erwartet: JSON mit `parameters` und `signature`. Ein `POST` ohne gültige
+Altcha-Lösung antwortet mit `403` – das ist korrekt.
 
-### Gegen die Produktion
-
-```bash
-curl -i -X POST https://www.oberhusers.ch/api/senden.php \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json' \
-  -d '{"form":"kinder-anmeldung","data":{"vorname":"Test","name":"Test","email":"test@example.com","adresse":"Testweg 1","telPrivat":"034 000 00 00","natel":"079 000 00 00","geburtsdatum":"2018-05-01","allergien":"","bemerkungen":"Test","fotoerlaubnis":"ja"}}'
-```
-
-Erwartet: HTTP 200 und `{"ok":true}`. Das Rate-Limit erlaubt 5 Anfragen pro
-IP in 10 Minuten; für weitere Tests kurz warten.
-
-Ohne JavaScript wird das Formular klassisch abgeschickt und das Skript
-antwortet mit einer Danke- bzw. Fehlerseite.
-
-## 4. Fehlersuche
+## 7. Fehlersuche
 
 | Symptom | Ursache / Lösung |
 | --- | --- |
-| `Fehlende Repository-Secrets` | Secret(s) unter Settings → Secrets and variables → Actions anlegen. |
-| `SFTP_REMOTE_DIR muss ein absoluter Pfad sein` | Pfad mit `/` beginnen lassen, z. B. `/home/BENUTZER/public_html`. |
-| `Permission denied (publickey,password)` | SFTP-Benutzer/Passwort bzw. Key prüfen; SSH/SFTP im Panel aktiviert? |
-| Upload landet im falschen Ordner | `SFTP_REMOTE_DIR` zeigt nicht auf das Web-Root. Pfad per SFTP-Client mit `pwd` prüfen. |
-| `500` / `config_missing` | `dist/api/config.php` fehlt oder SMTP-/Mail-Werte sind leer. Secrets prüfen und neu deployen. |
-| `502` / `mail_failed` | SMTP-Login abgelehnt. Zugangsdaten, Port und Verschlüsselung prüfen; PHP-Error-Log ansehen. |
-| `400` / `validation` | Pflichtfeld fehlt oder E-Mail ungültig. Das Formular zeigt das im UI an. |
-| `429` / `rate_limited` | Zu viele Anfragen von derselben IP. Kurz warten. |
-| Mail kommt nicht an | Spam-Ordner, SPF/DKIM, Empfängeradresse und `mail_from` prüfen. |
-| `535` / Authentication failed | Infomaniak verlangt evtl. ein App-Passwort, oder der Benutzername ist nicht die vollständige Mailadresse. |
-| Formular sendet nicht | Im Browser prüfen, ob `/api/senden.php` erreichbar ist. |
+| `500` bei `/api/altcha-challenge.php` | `private/config.php` fehlt oder ist unvollständig → Datei per FTPS hochladen. |
+| `Failed to open stream: …/backend/vendor/autoload.php` | `backend/` wurde nicht hochgeladen oder landete im falschen Verzeichnis. |
+| `403` «Sicherheitsprüfung fehlgeschlagen» | Challenge abgelaufen (120 s), `altcha_secret` zwischen Ausgabe und Prüfung geändert oder Serveruhr falsch. |
+| `403` «Bitte schliesse die Sicherheitsprüfung ab» | Altcha-Widget hat noch nicht gelöst oder Challenge-Request schlug fehl. |
+| `405` auf `/api/forms.php` | Direktaufruf per GET; das Formular sendet POST. |
+| `422` Pflichtfeld | Feld leer oder E-Mail ungültig. |
+| `429` | Rate-Limit: 5 Anfragen pro IP in 10 Minuten. |
+| `500` beim Senden | SMTP-Login oder Verbindung fehlgeschlagen; PHP-Error-Log ansehen. |
+| `535 Authentication failed` | Infomaniak verlangt ein App-Passwort, oder `smtp_username` ist nicht die vollständige Mailadresse. |
+| Mail kommt nicht an | Spam-Ordner, SPF/DKIM/DMARC, `recipient_email` und `sender_email` prüfen. |
+| Deploy landet am falschen Ort | FTP-Login beginnt nicht im Home, oder `server-dir` passt nicht. `pwd` per SFTP prüfen. |
+| Smoke-Test schlägt fehl, Website geht aber | `SITE_URL`-Variable prüfen; `private/config.php` und `backend/` auf dem Server prüfen. |
+| Änderung nicht sichtbar | Workflow-Log ansehen, ob der Upload-Schritt durchlief; ggf. «Run workflow». |
 
-## 5. Sicherheit
+## 8. Sicherheit
 
-- SMTP-Zugangsdaten stehen nur in `config.php`, nicht im Frontend und nicht
-  im Repository.
-- `config.php` wird im CI aus Secrets erzeugt und ist per `.htaccess` gegen
-  direkten HTTP-Aufruf geschützt.
-- Serverseitige Validierung von Formularart, Pflichtfeldern und E-Mail.
-- Honeypot-Feld `website`; Bots bekommen eine Erfolgsmeldung, es wird aber
-  nichts verschickt.
-- Nur bekannte Felder landen in der Mail.
-- Einfaches dateibasiertes Rate-Limit pro IP.
+- `config.php` liegt ausserhalb des Web-Roots und wird nie committet.
+- Secrets in GitHub: nur die FTP-Zugangsdaten. SMTP- und Altcha-Werte stehen
+  ausschliesslich in `private/config.php` auf dem Server.
+- Formular-Schutz: Altcha-Challenge, Honeypot `website`, Rate-Limit pro IP,
+  serverseitige Validierung und Whitelisting der Felder.
+- SMTP-Zugangsdaten, die früher im Klartext in der Arbeitskopie lagen, sollten
+  einmalig rotiert werden – besonders, wenn das Repository öffentlich ist.
+- Für den Versand ein eigenes App-Passwort verwenden, damit es bei einem Leak
+  einfach widerrufen werden kann.
+- `private/config.php` nach dem Upload möglichst auf `600` setzen, falls der
+  FTP-Client das unterstützt.
 
-## 6. Analytics
+## 9. Was bewusst nicht automatisiert ist
 
-Aktuell ist **kein** Web-Tracking eingebaut. Für die Frage «über welche
-Suchbegriffe kommen Leute auf die Seite?» reicht die **Google Search
-Console**:
+- **`config.php`**: enthält Geheimnisse und ändert sich selten. Manuell
+  hochladen ist einfacher als Secrets, Generatoren und Extra-Deploy-Ziele.
+- **`vendor/` dagegen schon**: Die Bibliotheken sind kein Geheimnis und
+  ergeben sich eindeutig aus `composer.lock`. Ein manueller Upload würde bei
+  einem vergessenen Update zu schwer auffindbaren Fehlern führen.
+- **`public/api/*.php` schon gar nicht**: Diese Dateien sind Teil des
+  Astro-Builds. Ein manueller Upload würde den Build und die Website
+  auseinanderlaufen lassen.
 
-1. Property für `https://www.oberhusers.ch` anlegen und per DNS oder
-   HTML-Datei verifizieren.
-2. Unter «Leistung» Suchanfragen, Klicks und Impressionen beobachten.
-
-Falls später Seitenaufrufe oder Events gewünscht sind, kann ein
-datenschutzfreundliches Tool ergänzt werden — dann muss der
-Datenschutz-Abschnitt im Impressum entsprechend angepasst werden.
-
-## 7. PHPMailer
-
-PHPMailer liegt ohne Composer unter `public/api/PHPMailer/` (v7.2.0,
-LGPL-2.1). `senden.php` lädt die drei benötigten Dateien direkt. Zum
-Aktualisieren die Dateien aus einem PHPMailer-Release ersetzen:
-
-- `PHPMailer.php`
-- `SMTP.php`
-- `Exception.php`
-- `LICENSE`
-
-### Warum kein Composer?
-
-PHP installiert Pakete nicht zur Laufzeit. Composer ist nur der Paketmanager
-für Entwicklung und Build; die Dateien aus `vendor/` müssen trotzdem mit auf
-den Server. Auf Shared Hosting ist Composer oft gar nicht verfügbar, und für
-einen einzelnen Endpoint wäre `vendor/` (Autoloader, Sprachdateien, Docs)
-grösser als die drei tatsächlich benötigten Dateien. Der «ganze Source» ist
-das also nicht: Beispiele, Tests, Übersetzungen und Doku fehlen bewusst.
-
-Wer trotzdem Composer verwenden will: `phpmailer/phpmailer` in eine
-`composer.json` aufnehmen, im CI `composer install --no-dev` ausführen und
-`vendor/` nach `dist/api/vendor/` kopieren. `senden.php` bindet dann
-`vendor/autoload.php` statt der drei Einzeldateien ein. Lokal braucht es
-dafür zusätzlich Composer.
+Wenn du Composer im CI ganz vermeiden willst, ist die sauberste Alternative,
+`backend/vendor/` zu committen (ca. 900 KB) und die PHP-Schritte im Workflow zu
+entfernen. Dann kommt weiterhin alles automatisch aus dem Repo – nur
+`config.php` bleibt manuell.

@@ -8,9 +8,6 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 $root = dirname(__DIR__, 2);
 
-$config = require $root . '/private/config.php';
-require $root . '/backend/vendor/autoload.php';
-
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
 
@@ -20,6 +17,24 @@ function respond(int $status, array $data): never
     echo json_encode($data, JSON_UNESCAPED_UNICODE);
     exit;
 }
+
+$configFile = $root . '/private/config.php';
+$autoloadFile = $root . '/backend/vendor/autoload.php';
+
+if (!is_file($configFile) || !is_file($autoloadFile)) {
+    error_log(
+        'Form backend misconfigured: private/config.php or ' .
+        'backend/vendor/autoload.php is missing.'
+    );
+
+    respond(500, [
+        'success' => false,
+        'message' => 'Der Formularversand ist momentan nicht verfügbar. Bitte versuche es später erneut.',
+    ]);
+}
+
+$config = require $configFile;
+require $autoloadFile;
 
 function cleanField(mixed $value, int $maxLength = 1000): string
 {
@@ -147,7 +162,9 @@ function sendEmail(
     $mail->SMTPAuth = true;
     $mail->Username = $config['smtp_username'];
     $mail->Password = $config['smtp_password'];
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->SMTPSecure = ($config['smtp_secure'] ?? 'starttls') === 'ssl'
+        ? PHPMailer::ENCRYPTION_SMTPS
+        : PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = $config['smtp_port'];
     $mail->CharSet = 'UTF-8';
 

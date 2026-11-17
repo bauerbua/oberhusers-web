@@ -2,6 +2,9 @@
 - [ ] Analytics: vorerst Google Search Console; weitere Seiten-Events nur ergänzen, falls wirklich gebraucht
 - [ ] Auftritt minimalistischer gestalten (weniger Deko/Effekte, ruhigere Flächen)
 - [ ] Titel + Überschriften überarbeiten (Hierarchie, Grössen, Zeilenumbrüche)
+- [ ] Update google maps links, since Oberhusers Burehof now actually exists on google as an entry
+- [ ] Update page titles and include relevant SEO per page (check out if using a astro plugin is useful here)
+- [ ] Generate sitemap.xml (check out astro plugins)
 - [ ] Startseite: zuerst das Bild, danach die Infos
   - [x] „Aktuelles“-Block direkt nach dem Hero-Bild (einfacher Block, keine eigene Seite/Ordnerstruktur)
     - [x] Beitrag zur Übernahme von Langis Eiern inkl. Logo-Wechsel (Langi-Wortmarke als Textplatzhalter → Oberhusers-Wortmarke, Link zur Eier-Seite)
