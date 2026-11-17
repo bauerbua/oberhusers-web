@@ -6,9 +6,14 @@
 /backend/vendor
 
 # Echte Zugangsdaten bleiben lokal bzw. auf dem Server. Versioniert ist nur
-# die Vorlage; `private/config.php` wird manuell per FTPS gepflegt.
+# die Vorlage; im Deployment liegt `config.php` unter `httpdocs/api/private/`
+# und wird manuell per FTPS gepflegt.
 /private/*
 !/private/config.example.php
+
+# Lokale Variante des Deployment-Ordners (config + vendor bleiben Handarbeit)
+/public/api/private/config.php
+/public/api/private/vendor/
 
 # Lokale Zugangsdaten: nicht committen (vom Deployment nicht benötigt)
 /.env

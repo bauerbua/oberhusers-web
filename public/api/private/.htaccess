@@ -1,0 +1,11 @@
+# Kein direkter Web-Zugriff auf Konfiguration und Composer-Bibliotheken.
+# Die PHP-Endpunkte im übergeordneten Verzeichnis binden die Dateien intern ein.
+
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+</IfModule>

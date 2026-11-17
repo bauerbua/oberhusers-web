@@ -1,46 +1,38 @@
 # Formulare & Hosting auf Hostfactory
 
 Stand: November 2026. Die Website ist statisch (Astro), die Formulare laufen
-über zwei PHP-Endpunkte. SMTP- und Altcha-Zugangsdaten stehen in einer
-`private/config.php`, die **manuell** auf dem Server gepflegt wird.
+über zwei PHP-Endpunkte. Hostfactory erlaubt PHP per `open_basedir` nur den
+Zugriff auf `httpdocs` und `/tmp` – deshalb liegen Konfiguration und
+Bibliotheken **innerhalb** des Webroots, aber in einem per `.htaccess`
+gesperrten Unterordner.
 
 ```
-git push auf main
-      │
-      ▼
-GitHub Actions
-  npm ci
-  composer install  → backend/vendor/
-  npm run build     → dist/
-      │
-      ▼  FTPS
-  dist/     → httpdocs/   Website + api/*.php (öffentlich)
-  backend/  → backend/    composer.json, composer.lock, vendor/
-      │
-      ▼
-Server
-  httpdocs/api/forms.php
-    ├─ require ../../private/config.php      ← manuell hochgeladen
-    └─ require ../../backend/vendor/autoload.php
+httpdocs/
+├── index.html, chinderhof/, eier/, …
+└── api/
+    ├── forms.php
+    ├── altcha-challenge.php
+    └── private/              ← Require all denied
+        ├── .htaccess
+        ├── config.php        ← manuell hochgeladen
+        └── vendor/           ← im CI gebündelt
 ```
 
-`dirname(__DIR__, 2)` in den PHP-Skripten landet im Benutzer-Home, eine Ebene
-über `httpdocs`. Deshalb müssen `private/` und `backend/` **ausserhalb** des
-Web-Roots liegen. Das setzt voraus, dass der FTP-/SFTP-Login im Home beginnt
-(also `httpdocs` ein Unterordner ist). Prüfen mit `pwd` in einem SFTP-Client.
+Die PHP-Skripte benutzen zuerst diesen Pfad und fallen nur lokal auf das
+Repo-Layout (`private/config.php`, `backend/vendor/`) zurück.
 
 ## 1. Was versioniert ist – und was nicht
 
 | Pfad | Im Repo? | Grund |
 | --- | --- | --- |
 | `public/api/*.php` | ja | API-Code; landet über `dist/` in `httpdocs/api/` |
+| `public/api/private/.htaccess` | ja | sperrt `config.php` und `vendor/` im Web |
 | `backend/composer.json`, `composer.lock` | ja | Reproduzierbare PHP-Abhängigkeiten |
-| `backend/vendor/` | nein | Wird im CI mit Composer installiert und hochgeladen |
+| `backend/vendor/` | nein | Wird im CI installiert und in den Build kopiert |
 | `private/config.example.php` | ja | Vorlage ohne Geheimnisse |
-| `private/config.php` | nein | Enthält SMTP-Passwort und Altcha-Secret |
+| `httpdocs/api/private/config.php` | nein | Serverdatei mit SMTP-Passwort und Altcha-Secret |
 
-Nur `config.php` wird manuell hochgeladen. Alles andere kommt aus dem Repo –
-sonst würden Server und Git auseinanderlaufen.
+Nur `config.php` wird manuell gepflegt. Alles andere kommt aus dem Repo.
 
 ## 2. Repository-Secrets anlegen
 
@@ -55,36 +47,37 @@ GitHub → Repository → Settings → Secrets and variables → Actions.
 Optional als **Variable**: `SITE_URL` (Standard
 `https://www.oberhusers.ch`), Ziel des Smoke-Tests.
 
-SMTP- und Altcha-Werte sind **keine** GitHub-Secrets mehr: Sie stehen nur in
-`private/config.php` auf dem Server.
+SMTP- und Altcha-Werte sind keine GitHub-Secrets: Sie stehen nur in
+`httpdocs/api/private/config.php` auf dem Server.
 
 ## 3. `config.php` manuell anlegen und hochladen
 
-Einmalig:
+Einmalig lokal:
 
 ```bash
 cp private/config.example.php private/config.php
 ```
 
-Dann in `private/config.php` ausfüllen:
+Werte ausfüllen (dieselben Keys wie in der Vorlage):
 
 | Schlüssel | Bedeutung |
 | --- | --- |
 | `recipient_email` | Empfänger der Formular-Mails |
-| `sender_email`, `sender_name` | sichtbarer Absender (Adresse der eigenen Domain) |
+| `sender_email`, `sender_name` | sichtbarer Absender der eigenen Domain |
 | `smtp_host`, `smtp_port` | Infomaniak: `mail.infomaniak.com`, `587` |
 | `smtp_secure` | `starttls` (Port 587) oder `ssl` (Port 465) |
-| `smtp_username`, `smtp_password` | vollständige Mailadresse + App-Passwort |
+| `smtp_username`, `smtp_password` | Mailadresse + App-Passwort |
 | `altcha_secret` | `openssl rand -hex 32`, **stabil lassen** |
 
-Datei per FTPS nach `private/config.php` hochladen – **nicht** nach
-`httpdocs/`. Hostfactory stellt ein `private/`-Verzeichnis bereits bereit
-(mit Zugriff nur für den Account, ohne Web-Zugriff); dort können neben
-`config.php` auch DB-Backups liegen. Das Deployment fasst diesen Ordner
-bewusst nicht an, damit nichts davon überschrieben oder gelöscht wird.
+Dann per FTPS hochladen nach:
 
-Bei späteren Änderungen genügt es, nur diese Datei erneut hochzuladen. Ein
-neues Deployment ist dafür nicht nötig.
+```
+httpdocs/api/private/config.php
+```
+
+Nicht in den Account-Ordner `private/` (dort liegen die DB-Backups): PHP darf
+dort wegen `open_basedir` nicht lesen. Bei späteren Änderungen genügt es, nur
+diese eine Datei erneut hochzuladen.
 
 `altcha_secret` darf sich nicht ändern: Bereits ausgegebene Challenges werden
 sonst ungültig. Er dient ausserdem als Schlüssel für die Rate-Limit-Dateien.
@@ -97,34 +90,29 @@ sonst ungültig. Er dient ausserdem als Schlüssel für die Rate-Limit-Dateien.
 1. prüft, ob die FTP-Secrets gesetzt sind,
 2. installiert Node- und Composer-Abhängigkeiten,
 3. baut die Website,
-4. prüft, ob API und `vendor/autoload.php` vorhanden sind,
-5. lädt **zuerst** `backend/` hoch (ausserhalb des Web-Roots),
-6. lädt danach `dist/` nach `httpdocs/`,
+4. kopiert `backend/vendor/` nach `dist/api/private/vendor/`,
+5. prüft, ob API, `vendor/` und `.htaccess` im Build liegen,
+6. lädt `dist/` nach `httpdocs/`,
 7. ruft `/api/altcha-challenge.php` auf und prüft die JSON-Antwort.
 
-`private/config.php` wird bewusst nicht angefasst. Der Smoke-Test schlägt fehl,
-wenn die Datei auf dem Server fehlt oder unvollständig ist.
+Der Deploy-Schritt schliesst `api/private/config.php` aus, damit die manuell
+gepflegte Datei nicht angefasst wird. Die früheren Ziele `~/private` und
+`~/backend` entfallen.
 
 ## 5. Einmalige Einrichtung auf Hostfactory
 
-1. **PHP-Version**: im Panel PHP **8.1 oder neuer** wählen (Altcha verlangt
-   `>= 8.1`; empfohlen 8.3).
+1. **PHP-Version**: im Panel **8.1 oder neuer** wählen (empfohlen 8.3).
 2. **FTPS aktivieren** und Host, Port, Benutzer und Passwort notieren.
-3. **Web-Root** prüfen: Der FTP-Login muss im Home beginnen und `httpdocs`
-   als Unterordner zeigen. Sonst würden `backend/` und `private/` an der
-   falschen Stelle landen.
-4. **`config.php` ablegen**: Das von Hostfactory bereitgestellte `private/`
-   liegt bereits im Home; dort `config.php` hochladen (Schritt 3).
-5. **Domain**: `oberhusers.ch` und `www.oberhusers.ch` auf das Webhosting
-   zeigen lassen, HTTPS aktivieren.
-6. **Mail**: In Infomaniak SPF, DKIM und DMARC für die Domain setzen. Ein
-   eigenes App-Passwort für den Versand verwenden.
+3. **Webroot** ist `httpdocs` (bestätigt: `/srv/www/vhosts/chinderhof.ch/httpdocs`).
+4. **`api/private/`**: wird durch das Deployment angelegt; `config.php` dort
+   manuell ablegen (Schritt 3). Das `.htaccess` kommt aus dem Build.
+5. **Domain**: `oberhusers.ch` und `www.oberhusers.ch` mit gültigem
+   SSL-Zertifikat versehen.
+6. **Mail**: In Infomaniak SPF, DKIM und DMARC setzen, App-Passwort verwenden.
 
-Falls der FTP-Zugang nicht über `httpdocs` hinausreicht, ist dieses Layout
-nicht möglich. Dann müssten `config.php` und `vendor/` innerhalb von
-`httpdocs/api/` liegen (mit `.htaccess`-Schutz) und die `require`-Pfade in den
-PHP-Dateien angepasst werden. Das ist die schlechtere Variante, weil Secrets
-dann im Web-Root liegen.
+Die Serverordner `private/` (DB-Backups) und ein evtl. vorhandenes
+`backend/` neben `httpdocs` bleiben unberührt; sie werden von der Anwendung
+nicht mehr benutzt.
 
 ## 6. Lokal entwickeln und testen
 
@@ -141,9 +129,8 @@ npm run dev:backend   # PHP auf http://localhost:8080
 npm run dev           # Astro auf http://localhost:4321
 ```
 
+Lokal greift der Fallback auf `private/config.php` und `backend/vendor/`.
 Der Astro-Dev-Server leitet `/api/*` an PHP weiter (`astro.config.mjs`).
-Formular ausfüllen und absenden: Die Seite bleibt stehen, unter dem Button
-erscheint eine Meldung. Der Versand geht über Infomaniak an `recipient_email`.
 
 ### API direkt prüfen
 
@@ -158,9 +145,9 @@ Altcha-Lösung antwortet mit `403` – das ist korrekt.
 
 | Symptom | Ursache / Lösung |
 | --- | --- |
-| `500` bei `/api/altcha-challenge.php` | `private/config.php` fehlt oder ist unvollständig → Datei per FTPS hochladen. |
-| `Failed to open stream: …/backend/vendor/autoload.php` | `backend/` wurde nicht hochgeladen oder landete im falschen Verzeichnis. |
-| `403` «Sicherheitsprüfung fehlgeschlagen» | Challenge abgelaufen (120 s), `altcha_secret` zwischen Ausgabe und Prüfung geändert oder Serveruhr falsch. |
+| `500` bei `/api/altcha-challenge.php` | `api/private/config.php` oder `api/private/vendor/` fehlt. Error-Log nennt jetzt die geprüften Pfade. |
+| `open_basedir restriction in effect` | Pfad ausserhalb `httpdocs` – Datei nach `httpdocs/api/private/` verschieben. |
+| `403` «Sicherheitsprüfung fehlgeschlagen» | Challenge abgelaufen (120 s), `altcha_secret` geändert oder Serveruhr falsch. |
 | `403` «Bitte schliesse die Sicherheitsprüfung ab» | Altcha-Widget hat noch nicht gelöst oder Challenge-Request schlug fehl. |
 | `405` auf `/api/forms.php` | Direktaufruf per GET; das Formular sendet POST. |
 | `422` Pflichtfeld | Feld leer oder E-Mail ungültig. |
@@ -168,36 +155,36 @@ Altcha-Lösung antwortet mit `403` – das ist korrekt.
 | `500` beim Senden | SMTP-Login oder Verbindung fehlgeschlagen; PHP-Error-Log ansehen. |
 | `535 Authentication failed` | Infomaniak verlangt ein App-Passwort, oder `smtp_username` ist nicht die vollständige Mailadresse. |
 | Mail kommt nicht an | Spam-Ordner, SPF/DKIM/DMARC, `recipient_email` und `sender_email` prüfen. |
-| Deploy landet am falschen Ort | FTP-Login beginnt nicht im Home, oder `server-dir` passt nicht. `pwd` per SFTP prüfen. |
-| Smoke-Test schlägt fehl, Website geht aber | `SITE_URL`-Variable prüfen; `private/config.php` und `backend/` auf dem Server prüfen. |
-| Änderung nicht sichtbar | Workflow-Log ansehen, ob der Upload-Schritt durchlief; ggf. «Run workflow». |
+| Smoke-Test schlägt fehl, Website geht aber | `SITE_URL`-Variable, `api/private/config.php` und `api/private/vendor/` prüfen. |
 
 ## 8. Sicherheit
 
-- `config.php` liegt ausserhalb des Web-Roots und wird nie committet.
-- Secrets in GitHub: nur die FTP-Zugangsdaten. SMTP- und Altcha-Werte stehen
-  ausschliesslich in `private/config.php` auf dem Server.
+- `api/private/.htaccess` sperrt den gesamten Unterordner im Web
+  (`Require all denied`). Nicht löschen und nicht umbenennen.
+- Selbst wenn eine Anfrage `config.php` erreichen sollte, führt PHP sie nur
+  aus und gibt nichts aus – Quelltext wird nicht ausgeliefert.
+- `config.php` wird nie committet; im Repository liegt nur die Vorlage.
 - Formular-Schutz: Altcha-Challenge, Honeypot `website`, Rate-Limit pro IP,
   serverseitige Validierung und Whitelisting der Felder.
 - SMTP-Zugangsdaten, die früher im Klartext in der Arbeitskopie lagen, sollten
   einmalig rotiert werden – besonders, wenn das Repository öffentlich ist.
-- Für den Versand ein eigenes App-Passwort verwenden, damit es bei einem Leak
-  einfach widerrufen werden kann.
-- `private/config.php` nach dem Upload möglichst auf `600` setzen, falls der
-  FTP-Client das unterstützt.
+- Für den Versand ein eigenes App-Passwort verwenden.
 
-## 9. Was bewusst nicht automatisiert ist
+## 9. Warum liegt `config.php` jetzt im Webroot?
 
-- **`config.php`**: enthält Geheimnisse und ändert sich selten. Manuell
-  hochladen ist einfacher als Secrets, Generatoren und Extra-Deploy-Ziele.
-- **`vendor/` dagegen schon**: Die Bibliotheken sind kein Geheimnis und
-  ergeben sich eindeutig aus `composer.lock`. Ein manueller Upload würde bei
-  einem vergessenen Update zu schwer auffindbaren Fehlern führen.
-- **`public/api/*.php` schon gar nicht**: Diese Dateien sind Teil des
-  Astro-Builds. Ein manueller Upload würde den Build und die Website
-  auseinanderlaufen lassen.
+Hostfactory setzt:
 
-Wenn du Composer im CI ganz vermeiden willst, ist die sauberste Alternative,
-`backend/vendor/` zu committen (ca. 900 KB) und die PHP-Schritte im Workflow zu
-entfernen. Dann kommt weiterhin alles automatisch aus dem Repo – nur
-`config.php` bleibt manuell.
+```
+open_basedir = /srv/www/vhosts/chinderhof.ch/httpdocs/:/tmp/
+```
+
+Alles ausserhalb von `httpdocs` ist für PHP unsichtbar – auch der vom Hoster
+bereitgestellte `private/`-Ordner mit den DB-Backups. Ein `require` von dort
+schlägt fehl, egal welche Rechte die Datei hat. Die einzige praktikable
+Variante auf diesem Hosting ist deshalb `httpdocs/api/private/` mit
+`.htaccess`-Schutz.
+
+Falls Hostfactory `open_basedir` später um einen Ordner ausserhalb von
+`httpdocs` erweitert, kann man `config.php` und `vendor/` dorthin verschieben;
+der Code prüft den Deployment-Pfad zuerst und kann entsprechend angepasst
+werden.

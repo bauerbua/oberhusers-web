@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
-// Vorlage für `private/config.php`.
+// Vorlage für `config.php`.
 //
 // Einmalig kopieren, Werte eintragen und die Datei manuell per FTPS auf den
-// Server laden – nach `private/config.php`, also ausserhalb von `httpdocs/`.
+// Server laden – nach `httpdocs/api/private/config.php` (innerhalb des
+// Webroots, aber per .htaccess gesperrt; Hostfactorys open_basedir erlaubt
+// keinen Zugriff ausserhalb von httpdocs).
 // Die echte Datei ist absichtlich nicht versioniert.
 
 return [
