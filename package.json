@@ -7,13 +7,14 @@
     "dev": "astro dev",
     "dev:stop": "astro dev stop",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "dev:backend": "php -S localhost:8080 -t public"
   },
   "dependencies": {
     "@fontsource/amatic-sc": "^5.3.0",
     "@fontsource/inter": "^5.3.0",
     "altcha": "^3.6.0",
-    "astro": "^7.4.5"
+    "astro": "^7.4.12"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.0",
