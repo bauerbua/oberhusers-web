@@ -78,8 +78,10 @@ Dann in `private/config.php` ausfüllen:
 | `altcha_secret` | `openssl rand -hex 32`, **stabil lassen** |
 
 Datei per FTPS nach `private/config.php` hochladen – **nicht** nach
-`httpdocs/`. Der Ordner `private/` muss auf dem Server existieren; er wird vom
-Deployment nicht angelegt, weil er nicht im Repo liegt.
+`httpdocs/`. Hostfactory stellt ein `private/`-Verzeichnis bereits bereit
+(mit Zugriff nur für den Account, ohne Web-Zugriff); dort können neben
+`config.php` auch DB-Backups liegen. Das Deployment fasst diesen Ordner
+bewusst nicht an, damit nichts davon überschrieben oder gelöscht wird.
 
 Bei späteren Änderungen genügt es, nur diese Datei erneut hochzuladen. Ein
 neues Deployment ist dafür nicht nötig.
@@ -111,7 +113,8 @@ wenn die Datei auf dem Server fehlt oder unvollständig ist.
 3. **Web-Root** prüfen: Der FTP-Login muss im Home beginnen und `httpdocs`
    als Unterordner zeigen. Sonst würden `backend/` und `private/` an der
    falschen Stelle landen.
-4. **`private/` anlegen** und `config.php` dort hochladen (Schritt 3).
+4. **`config.php` ablegen**: Das von Hostfactory bereitgestellte `private/`
+   liegt bereits im Home; dort `config.php` hochladen (Schritt 3).
 5. **Domain**: `oberhusers.ch` und `www.oberhusers.ch` auf das Webhosting
    zeigen lassen, HTTPS aktivieren.
 6. **Mail**: In Infomaniak SPF, DKIM und DMARC für die Domain setzen. Ein
