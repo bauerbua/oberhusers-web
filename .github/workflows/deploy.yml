@@ -1,4 +1,4 @@
-name: Deploy Astro to HOSTFACTORY
+name: Deploy to HOSTFACTORY
 
 on:
   push:
@@ -27,13 +27,59 @@ jobs:
           node-version: 22
           cache: npm
 
+      - name: Check required secrets
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          missing=0
+          for name in FTP_HOST FTP_USERNAME FTP_PASSWORD; do
+            if [ -z "$(printenv "$name")" ]; then
+              echo "::error::Repository-Secret $name fehlt (Settings → Secrets and variables → Actions)."
+              missing=1
+            fi
+          done
+          exit "$missing"
+
       - name: Install dependencies
         run: npm ci
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.5"
+          tools: composer:v2
+
+      - name: Install PHP dependencies
+        run: composer install --working-dir=backend --no-dev --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Build Astro
         run: npm run build
 
-      - name: Deploy via FTPS
+      - name: Verify build contains API and dependencies
+        run: |
+          test -f dist/api/forms.php
+          test -f dist/api/altcha-challenge.php
+          test -f backend/vendor/autoload.php
+
+      # Reihenfolge: erst die Bibliotheken ausserhalb des Web-Roots, dann die
+      # Website. `private/config.php` wird bewusst nicht deployt – die Datei
+      # wird manuell per FTPS gepflegt.
+      - name: Deploy PHP dependencies
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          local-dir: backend/
+          server-dir: backend/
+          state-name: .ftp-deploy-backend.json
+          log-level: verbose
+
+      - name: Deploy website
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
           server: ${{ secrets.FTP_HOST }}
@@ -43,5 +89,21 @@ jobs:
           port: 21
           local-dir: dist/
           server-dir: httpdocs/
-          state-name: .ftp-deploy-sync-state.json
+          state-name: .ftp-deploy-site.json
           log-level: verbose
+
+      - name: Smoke test ALTCHA endpoint
+        env:
+          SITE_URL: ${{ vars.SITE_URL || 'http://www.oberhusers.ch' }}
+        run: |
+          for attempt in 1 2 3 4 5; do
+            body="$(curl -fsS --max-time 10 "$SITE_URL/api/altcha-challenge.php" || true)"
+            if printf '%s' "$body" | grep -q '"signature"'; then
+              echo "ALTCHA endpoint antwortet korrekt."
+              exit 0
+            fi
+            echo "Versuch $attempt fehlgeschlagen, warte 5s …"
+            sleep 5
+          done
+          echo "::error::ALTCHA-Endpoint antwortet nicht wie erwartet. Prüfe die manuell hochgeladene private/config.php und backend/vendor auf dem Server."
+          exit 1
