@@ -48,7 +48,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.5"
+          php-version: "8.3"
           tools: composer:v2
 
       - name: Install PHP dependencies
@@ -57,28 +57,24 @@ jobs:
       - name: Build Astro
         run: npm run build
 
-      - name: Verify build contains API and dependencies
+      # Hostfactorys open_basedir erlaubt PHP nur httpdocs + /tmp. Deshalb
+      # müssen vendor/ und config.php innerhalb von httpdocs liegen.
+      - name: Bundle PHP dependencies into the build
+        run: |
+          rm -rf dist/api/private/vendor
+          mkdir -p dist/api/private
+          cp -R backend/vendor dist/api/private/vendor
+          cp public/api/private/.htaccess dist/api/private/.htaccess
+
+      - name: Verify build
         run: |
           test -f dist/api/forms.php
           test -f dist/api/altcha-challenge.php
-          test -f backend/vendor/autoload.php
+          test -f dist/api/private/vendor/autoload.php
+          test -f dist/api/private/.htaccess
 
-      # Reihenfolge: erst die Bibliotheken ausserhalb des Web-Roots, dann die
-      # Website. `private/config.php` wird bewusst nicht deployt – die Datei
-      # wird manuell per FTPS gepflegt.
-      - name: Deploy PHP dependencies
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
-          port: 21
-          local-dir: backend/
-          server-dir: backend/
-          state-name: .ftp-deploy-backend.json
-          log-level: verbose
-
+      # `api/private/config.php` wird bewusst nicht deployt: Die Datei wird
+      # manuell per FTPS gepflegt und darf vom Abgleich nicht angefasst werden.
       - name: Deploy website
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
@@ -90,20 +86,31 @@ jobs:
           local-dir: dist/
           server-dir: httpdocs/
           state-name: .ftp-deploy-site.json
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/api/private/config.php
+            api/private/config.php
           log-level: verbose
 
       - name: Smoke test ALTCHA endpoint
         env:
-          SITE_URL: ${{ vars.SITE_URL || 'http://www.oberhusers.ch' }}
+          SITE_URL: ${{ vars.SITE_URL || 'https://www.oberhusers.ch' }}
         run: |
+          url="$SITE_URL/api/altcha-challenge.php"
           for attempt in 1 2 3 4 5; do
-            body="$(curl -fsS --max-time 10 "$SITE_URL/api/altcha-challenge.php" || true)"
-            if printf '%s' "$body" | grep -q '"signature"'; then
+            response="$(curl -sS --max-time 10 -w '\n%{http_code}' "$url" || true)"
+            code="$(printf '%s' "$response" | tail -n 1)"
+            body="$(printf '%s' "$response" | sed '$d')"
+
+            if [ "$code" = "200" ] && printf '%s' "$body" | grep -q '"signature"'; then
               echo "ALTCHA endpoint antwortet korrekt."
               exit 0
             fi
-            echo "Versuch $attempt fehlgeschlagen, warte 5s …"
+
+            echo "Versuch $attempt fehlgeschlagen (HTTP $code): ${body:0:300}"
             sleep 5
           done
-          echo "::error::ALTCHA-Endpoint antwortet nicht wie erwartet. Prüfe die manuell hochgeladene private/config.php und backend/vendor auf dem Server."
+          echo "::error::ALTCHA-Endpoint antwortet nicht wie erwartet. Prüfe httpdocs/api/private/config.php und httpdocs/api/private/vendor/ auf dem Server."
           exit 1

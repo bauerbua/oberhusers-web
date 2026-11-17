@@ -43,14 +43,48 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 }
 
 $root = dirname(__DIR__, 2);
-$configFile = $root . '/private/config.php';
-$autoloadFile = $root . '/backend/vendor/autoload.php';
 
-if (!is_file($configFile) || !is_file($autoloadFile)) {
-    error_log(
-        'ALTCHA challenge error: private/config.php or ' .
-        'backend/vendor/autoload.php is missing.'
-    );
+// Hostfactory erlaubt per open_basedir nur httpdocs + /tmp. Darum liegen
+// config.php und vendor/ im Deployment unter api/private/. Lokal greift der
+// Fallback auf das Repo-Layout (private/config.php, backend/vendor/).
+$configCandidates = [
+    __DIR__ . '/private/config.php',
+    $root . '/private/config.php',
+];
+$autoloadCandidates = [
+    __DIR__ . '/private/vendor/autoload.php',
+    $root . '/backend/vendor/autoload.php',
+];
+
+$configFile = null;
+$autoloadFile = null;
+
+foreach ($configCandidates as $candidate) {
+    if (@is_file($candidate) && @is_readable($candidate)) {
+        $configFile = $candidate;
+        break;
+    }
+}
+
+foreach ($autoloadCandidates as $candidate) {
+    if (@is_file($candidate) && @is_readable($candidate)) {
+        $autoloadFile = $candidate;
+        break;
+    }
+}
+
+$problems = [];
+
+if ($configFile === null) {
+    $problems[] = 'config.php not found in: ' . implode(', ', $configCandidates);
+}
+
+if ($autoloadFile === null) {
+    $problems[] = 'autoload.php not found in: ' . implode(', ', $autoloadCandidates);
+}
+
+if ($problems !== []) {
+    error_log('ALTCHA challenge error: ' . implode('; ', $problems));
 
     http_response_code(500);
     echo json_encode(['error' => 'Could not create verification challenge']);

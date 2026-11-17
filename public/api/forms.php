@@ -6,8 +6,6 @@ use AltchaOrg\Altcha\Algorithm\Pbkdf2;
 use AltchaOrg\Altcha\VerifySolutionOptions;
 use PHPMailer\PHPMailer\PHPMailer;
 
-$root = dirname(__DIR__, 2);
-
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
 
@@ -18,14 +16,48 @@ function respond(int $status, array $data): never
     exit;
 }
 
-$configFile = $root . '/private/config.php';
-$autoloadFile = $root . '/backend/vendor/autoload.php';
+// Hostfactory erlaubt per open_basedir nur httpdocs + /tmp. Darum liegen
+// config.php und vendor/ im Deployment unter api/private/. Lokal greift der
+// Fallback auf das Repo-Layout (private/config.php, backend/vendor/).
 
-if (!is_file($configFile) || !is_file($autoloadFile)) {
-    error_log(
-        'Form backend misconfigured: private/config.php or ' .
-        'backend/vendor/autoload.php is missing.'
-    );
+$configCandidates = [
+    __DIR__ . '/private/config.php',
+    dirname(__DIR__, 2) . '/private/config.php',
+];
+$autoloadCandidates = [
+    __DIR__ . '/private/vendor/autoload.php',
+    dirname(__DIR__, 2) . '/backend/vendor/autoload.php',
+];
+
+$configFile = null;
+$autoloadFile = null;
+
+foreach ($configCandidates as $candidate) {
+    if (@is_file($candidate) && @is_readable($candidate)) {
+        $configFile = $candidate;
+        break;
+    }
+}
+
+foreach ($autoloadCandidates as $candidate) {
+    if (@is_file($candidate) && @is_readable($candidate)) {
+        $autoloadFile = $candidate;
+        break;
+    }
+}
+
+$problems = [];
+
+if ($configFile === null) {
+    $problems[] = 'config.php not found in: ' . implode(', ', $configCandidates);
+}
+
+if ($autoloadFile === null) {
+    $problems[] = 'autoload.php not found in: ' . implode(', ', $autoloadCandidates);
+}
+
+if ($problems !== []) {
+    error_log('Form backend misconfigured: ' . implode('; ', $problems));
 
     respond(500, [
         'success' => false,
