@@ -11,7 +11,11 @@
 - [x] Favicon
   - [x] Dateien aus `assets/favicon/` nach `public/` verschoben (Root ist für `/favicon.ico` & Co. empfohlen)
   - [x] Icons, Apple-Touch-Icon und Web-Manifest im `<head>` von `Base.astro` verlinkt; Manifest um Name, Sprache, Start-URL und Brand-Farben ergänzt
-- [ ] Update page titles and include relevant SEO per page (check out if using a astro plugin is useful here)
+- [x] Update page titles and include relevant SEO per page (check out if using a astro plugin is useful here)
+  - [x] Kein SEO-Plugin nötig: `Base.astro` erweitert um `titleSuffix`, `image`, `imageAlt` und `noindex`
+  - [x] Pro Seite eigener Titel + Description (ca. 50–60 bzw. 140–160 Zeichen), Startseite ohne doppelten Hof-Namen
+  - [x] Canonical, Robots, Open Graph und Twitter Card im `<head>`; `og:locale` `de_CH`
+  - [x] Gemeinsames Vorschaubild `public/og-image.jpg` (1200×630, Ausschnitt aus dem Hero-Foto)
 - [x] Generate sitemap.xml (check out astro plugins)
   - [x] `@astrojs/sitemap` in `astro.config.mjs` eingebunden; Build erzeugt `sitemap-index.xml` + `sitemap-0.xml` mit allen 7 Seiten
   - [x] `public/robots.txt` mit Verweis auf `https://www.oberhusers.ch/sitemap-index.xml`
