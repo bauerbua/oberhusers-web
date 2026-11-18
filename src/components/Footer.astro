@@ -5,6 +5,7 @@ import logo from "../../assets/design-system/logo-abzeichen.svg";
 import { navLinks } from "./Navigation.astro";
 
 const mapsGoogle = `https://maps.app.goo.gl/8Yos99G2Ds8M21uH6`;
+const linkedin = `https://www.linkedin.com/in/jakob-bauer-167669257`;
 ---
 
 <footer class="mt-32">
@@ -57,6 +58,26 @@ const mapsGoogle = `https://maps.app.goo.gl/8Yos99G2Ds8M21uH6`;
                 </a>
             </address>
         </div>
+    </div>
+
+    <div class="content-section">
+        <p
+            class="m-0 border-t-2 border-braun/15 py-6 text-sm leading-relaxed text-braun/75"
+        >
+            Fotos: Murielle Wüthrich{" · "}
+            Webdesign &amp; Umsetzung:{" "}
+            <a
+                href={linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="underline decoration-1 underline-offset-2 hover:decoration-2"
+            >
+                Jakob Bauer
+                <span class="sr-only">
+                    (öffnet LinkedIn in neuem Tab)
+                </span>
+            </a>
+        </p>
     </div>
 
     <Picture

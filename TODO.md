@@ -2,9 +2,12 @@
 - [x] Move Anne-Lea and Mama images further down
   - [x] Bildausschnitt der Hochformate oben ausgerichtet (`object-position: 50% 0%`) — mehr Luft über dem Kopf
   - [x] Wiederverwendbare `PersonCard.astro` (+ `src/data/menschen.ts`) mit den Varianten `teaser` (Startseite) und `profil` (Über uns); gleiches Styling auf beiden Seiten
-- [ ] Mention Murielle Wüthrich as credits for all  images on the website
-- [ ] Raise limit for requests on form-endpoints a bit
-- [ ] Update google maps links, since Oberhusers Burehof now actually exists on google as a business entry
+- [x] Mention Murielle Wüthrich as credits for all images on the website
+  - [x] Eigenes «Bildnachweis»-Kapitel im Impressum (Fotos + Nutzungshinweis)
+  - [x] Credit-Zeile im Footer: Fotos, Webdesign & Umsetzung (Jakob Bauer, LinkedIn)
+- [x] Raise limit for requests on form-endpoints a bit
+  - [x] Rate-Limit von 5 auf 10 Anfragen pro IP und 10 Minuten erhöht (`public/api/forms.php`), Doku angepasst
+- [x] Update google maps links, since Oberhusers Burehof now actually exists on google as a business entry
 - [ ] Favicon
 - [ ] Update page titles and include relevant SEO per page (check out if using a astro plugin is useful here)
 - [ ] Generate sitemap.xml (check out astro plugins)
