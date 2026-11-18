@@ -164,7 +164,7 @@ Runde, ruhige Geometrie für Flächen: grosse Foto-Platten (36px), Bänder (24px
 Gemeinsames Formsystem: Farb-Blob und braune Linie liegen absichtlich nicht deckungsgleich — der Blob sitzt nach rechts unten, die Linie nach links oben, wie ein leicht versetzt gedrucktes Etikett (Vorbild: Logo-Abzeichen). Die Formen kommen aus drei festen Paaren `.s1`/`.s2`/`.s3` (Füllung `--f`, Linie `--o`); die Farbe wird pro Element über `--c` aus den fünf Palette-Tokens gesetzt. Benachbarte Elemente wechseln das Set. Kein Schatten, keine zusätzlichen Effekte.
 
 - **Textlink `.lk`** (Navigation, Fusszeile, kurze Labels): ruhend unsichtbar; bei Hover und `:focus-visible` erscheinen Blob (Spartenfarbe) und Braun-Linie, leicht versetzt. Kein Kasten.
-- **Inline-Link `.il`** (im Lauftext): ruhend 2px untermalt; bei Hover/Fokus liegt ein flacher Farb-Streifen hinter der unteren Texthälfte. `box-decoration-break: clone` hält ihn bei Zeilenumbrüchen korrekt.
+- **Inline-Link `.il.link-inline`** (im Lauftext): ruhend 2px untermalt (`text-underline-offset: 3px`); bei Hover/Fokus liegt ein flacher Farb-Streifen hinter der unteren Texthälfte. `box-decoration-break: clone` hält ihn bei Zeilenumbrüchen korrekt.
 - **Primär-Button `.btn`**: Blob und Linie ruhend sichtbar und versetzt; Hover/Fokus bewegen sie zueinander, `:active` rastet beide deckungsgleich ein. Braun-Text, 44px Touch-Ziel. Genau eine primäre Aktion pro Ansicht.
 - **Sekundär-Button `.btn-ghost`**: ruhend nur die Linie; der Farb-Blob erscheint bei Hover/Fokus.
 - **Fokus:** Jede Komponente hat ihren eigenen Fokus-Status (Blob/Linie bzw. schwerere 3px-Linie); der transparente Outline bleibt für den Forced-Colors-Modus. Kein zusätzlicher Aussenring.
