@@ -195,6 +195,13 @@ Ein System für alle Eingaben (Text, E-Mail, Telefon, Datum, Select, Textarea) �
 - **State:** Hover nur unter `@media (hover: hover)` — die Wortmarke wird 2px unterstrichen, der Pfeil wandert 2px nach oben rechts. `prefers-reduced-motion: reduce` schaltet den Übergang ab. Fokus: globaler 3px-Braun-Outline um die ganze Spalte.
 - **Farben:** nur Braun auf Chalk. Keine Farbzuordnung pro Partner — die Palette ordnet Sparten zu, nicht Organisationen.
 
+### Personen-Karten (Home & Über uns)
+
+- **Ein Baustein, zwei Varianten:** `PersonCard.astro` mit `variant="teaser"` (Startseite: Name, Rolle, ein Satz) und `variant="profil"` (Über uns: Name, Rolle, Langtext, Verantwortungsbereiche). Alle Inhalte stehen zentral in `src/data/menschen.ts`, damit Teaser und Profil nie auseinanderlaufen.
+- **Aufbau:** Foto im 4:5-Hochformat (grosser Radius), darunter Name als H3 in Amatic, Rolle in Arial 600, Lauftext; im Profil zusätzlich die Liste der Verantwortungsbereiche. Reihenfolge und Abstände sind in beiden Varianten identisch.
+- **Raster:** mobil 1 Spalte, ab `sm` 2, ab `md` 3 — gleiche Spaltenbreiten und Abstände auf Start- und Über-uns-Seite.
+- **Bildausschnitt:** Die Porträts sind Hochformate und werden beschnitten. Der optionale `bildPosition`-Wert (`object-position`, z. B. `50% 0%`) rückt die Person im Rahmen nach unten, damit der Kopf nicht an der Kante klebt. Der Ausschnitt wird pro Person gepflegt, nie pro Seite.
+
 ### Kiesel-Badge (Sparten-Identität)
 - **Aufbau:** Kiesel-Form (uneben gerundet, leicht rotiert ±3–4deg), Füllung in der Sparten-Farbe (Eier Gelb, Kinder Chalk + 2px Braun-Ring, Milch Altrosa, Ackerbau Grün), dahinter der harte Schatten in Halbraun. Innen das Tier-Icon in Braun-Strich.
 - **Einsatz:** oben links auf den Sparten-Fotos; sonst nirgends.

@@ -1,9 +1,8 @@
 ---
 import Base from "../layouts/Base.astro";
-import fritz from "../assets/fotos/fritz-1.jpeg";
-import anneLea from "../assets/fotos/Anne-lea.jpeg";
-import barbara from "../assets/fotos/barbara.jpeg";
-import { Picture } from "astro:assets";
+import PersonCard from "../components/PersonCard.astro";
+
+import { menschen } from "../data/menschen";
 ---
 
 <Base title="Über uns">
@@ -12,19 +11,11 @@ import { Picture } from "astro:assets";
         <p>
             Unser Hof ist in stetigem Wandel – genau das macht ihn so lebendig!
             Unsere wichtigsten Betriebszweige sind die{" "}
-            <a class="il" href="/milch">
-                Milchkühe
-            </a>
-            , der{" "}
-            <a class="il" href="/chinderhof">
-                Chinderhof
-            </a>{" "}
-            und ganz neu unsere{" "}
-            <a class="il" href="/eier">
-                Freilandeier
-            </a>
-            . Dabei verbinden wir Tradition mit neuen Ideen und entwickeln
-            unseren Betrieb mit viel Freude und Engagement weiter.
+            <a class="il" href="/milch">Milchkühe</a>, der{" "}
+            <a class="il" href="/chinderhof">Chinderhof</a> und ganz neu unsere{" "}
+            <a class="il" href="/eier">Freilandeier</a>. Dabei verbinden wir
+            Tradition mit neuen Ideen und entwickeln unseren Betrieb mit viel
+            Freude und Engagement weiter.
         </p>
         <p>
             Aktuell leben bereits die 6., 7. und 8. Generation Wüthrich auf
@@ -50,78 +41,10 @@ import { Picture } from "astro:assets";
         </p>
 
         <h2 class="mt-10">Wir</h2>
-        <div class="mt-4 grid gap-6 md:grid-cols-3">
-            <div>
-                <Picture
-                    src={fritz}
-                    alt=""
-                    class="rounded-3xl aspect-4/5 object-cover"
-                />
-                <h3 class="mt-4">Fritz – Betriebsleiter, Meisterlandwirt</h3>
-                <p class="mt-2">
-                    Als Betriebsleiter behält Fritz den Überblick über unseren
-                    vielseitigen Hof. Obwohl er mit Barbara den Betrieb 2002
-                    übernommen hat, ist er schon sein ganzes Leben hier zu Hause
-                    und mit Herzblut in der Landwirtschaft tätig. Er trägt die
-                    Gesamtverantwortung für alles, was draussen mit unseren
-                    Tieren, den Feldern und dem Land zu tun hat, und führt den
-                    Hof mit viel Erfahrung und Engagement weiter.
-                </p>
-                <p class="mt-2">Verantwortungsbereiche</p>
-                <ul class="mt-1 list-disc pl-5">
-                    <li>Betriebsleitung und Organisation</li>
-                    <li>Tierhaltung und Landwirtschaft</li>
-                    <li>Felder, Wiesen und Maschinen</li>
-                </ul>
-            </div>
-            <div>
-                <Picture
-                    src={barbara}
-                    alt=""
-                    class="rounded-3xl aspect-4/5 object-cover"
-                />
-                <h3 class="mt-4">Barbara – Lehrerin, Allrounderin</h3>
-                <p class="mt-2">
-                    Als Lehrerin bringt Barbara ihre Freude an der Arbeit mit
-                    Kindern auch auf unseren Hof. 2008 hat sie den Chinderhof
-                    ins Leben gerufen und damit ihr liebstes, den Hof und die
-                    Kinder zusammengebracht. Neben ihrer Tätigkeit als Lehrerin
-                    ist sie unsere vielseitige Allrounderin und sorgt dafür,
-                    dass auch hinter den Kulissen alles rundläuft.
-                </p>
-                <p class="mt-2">Verantwortungsbereiche</p>
-                <ul class="mt-1 list-disc pl-5">
-                    <li>Hauptverantwortung für den Chinderhof</li>
-                    <li>Betreuung unseres Streichelzoos</li>
-                    <li>Administration und Haushalt</li>
-                </ul>
-            </div>
-            <div>
-                <Picture
-                    src={anneLea}
-                    alt=""
-                    class="rounded-3xl aspect-4/5 object-cover"
-                />
-                <h3 class="mt-4">
-                    Anne-Lea – Landwirtin, Fachfrau Kinderbetreuung
-                </h3>
-                <p class="mt-2">
-                    Mit ihrer Ausbildung und Erfahrung in der Landwirtschaft und
-                    der Kinderbetreuung kennt sie zwei grosse Bereiche unseres
-                    Hofes. Künftig möchte sie sich ganz dem Familienhof widmen
-                    und bringt frischen Wind in die Weiterentwicklung unseres
-                    Betriebs.
-                </p>
-                <p class="mt-2">Verantwortungsbereiche</p>
-                <ul class="mt-1 list-disc pl-5">
-                    <li>
-                        Mithilfe in allen Betriebszweigen von melken bis
-                        Chinderhof
-                    </li>
-                    <li>Hauptverantwortung für das Eierbusiness</li>
-                    <li>Administration und digitale Aufgaben</li>
-                </ul>
-            </div>
+        <div class="mt-6 grid gap-6 sm:grid-cols-2 md:grid-cols-3 md:gap-8">
+            {menschen.map((person) => (
+                <PersonCard person={person} variant="profil" />
+            ))}
         </div>
     </div>
 </Base>

@@ -1,5 +1,7 @@
 # Prio 1
-- [ ] Move Anne-Lea and Mama images further down
+- [x] Move Anne-Lea and Mama images further down
+  - [x] Bildausschnitt der Hochformate oben ausgerichtet (`object-position: 50% 0%`) — mehr Luft über dem Kopf
+  - [x] Wiederverwendbare `PersonCard.astro` (+ `src/data/menschen.ts`) mit den Varianten `teaser` (Startseite) und `profil` (Über uns); gleiches Styling auf beiden Seiten
 - [ ] Mention Murielle Wüthrich as credits for all  images on the website
 - [ ] Raise limit for requests on form-endpoints a bit
 - [ ] Update google maps links, since Oberhusers Burehof now actually exists on google as a business entry
