@@ -1,16 +1,7 @@
 ---
 import Button from "./Button.astro";
-const hof = {
-    name: "Oberhusers Burehof",
-    street: "Bembrunnen 7",
-    plz: "3535",
-    ort: "Schüpbach",
-};
 
-// Ohne Hofname: «Oberhusers» ist bei Maps (noch) nicht auffindbar — die
-// Adresse allein führt zum Ziel.
-const ziel = encodeURIComponent(`${hof.street}, ${hof.plz} ${hof.ort}`);
-const routeGoogle = `https://www.google.com/maps/dir/?api=1&destination=${ziel}`;
+const routeGoogle = `https://maps.app.goo.gl/8Yos99G2Ds8M21uH6`;
 ---
 
 <section id="besuch" aria-labelledby="besuch-titel" class="text-center">

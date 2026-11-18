@@ -1,38 +1,20 @@
 ---
 import Button from "./Button.astro";
-import { Picture } from "astro:assets";
+import PersonCard from "./PersonCard.astro";
 
-import fritz from "../assets/fotos/fritz-1.jpeg";
-import anneLea from "../assets/fotos/Anne-lea.jpeg";
-import barbara from "../assets/fotos/barbara.jpeg";
-const menschen = [
-    {
-        name: "Fritz",
-        rolle: "Betriebsleiter · Meisterlandwirt",
-        text: "Behält den Überblick über den vielseitigen Hof und führt ihn mit viel Erfahrung weiter.",
-        alt: "Porträt Fritz (Platzhalter)",
-        img: fritz,
-    },
-    {
-        name: "Barbara",
-        rolle: "Lehrerin · Allrounderin",
-        text: "Hat den Chinderhof ins Leben gerufen und sorgt dafür, dass hinter den Kulissen alles rundläuft.",
-        alt: "Porträt Barbara (Platzhalter)",
-        img: barbara,
-    },
-    {
-        name: "Anne-Lea",
-        rolle: "Landwirtin · Fachfrau Kinderbetreuung",
-        text: "Bringt Landwirtschaft und Kinderbetreuung zusammen und übernimmt das Eierbusiness.",
-        alt: "Porträt Anne-Lea (Platzhalter)",
-        img: anneLea,
-    },
-] as const;
+import { menschen } from "../data/menschen";
 ---
 
 <section aria-label="Die Menschen hinter dem Hof">
     <div class="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
         <h2>Die Menschen hinter dem Hof</h2>
+    </div>
+    <div class="mt-8 grid gap-6 sm:grid-cols-2 md:mt-10 md:grid-cols-3 md:gap-8">
+        {menschen.map((person) => (
+            <PersonCard person={person} />
+        ))}
+    </div>
+    <div class="flex justify-center mt-6">
         <Button
             href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/ueber-uns`}
             tone="rind"
@@ -40,20 +22,5 @@ const menschen = [
         >
             Den Hof kennenlernen
         </Button>
-    </div>
-    <div class="mt-8 grid gap-6 sm:grid-cols-2 md:mt-10 md:grid-cols-3 md:gap-8">
-        {menschen.map((m) => (
-            <article>
-                <Picture
-                    src={m.img}
-                    alt={m.alt}
-                    class="rounded-3xl aspect-4/5 object-cover"
-                />
-
-                <h3 class="mt-4">{m.name}</h3>
-                <p class="mt-1 font-semibold">{m.rolle}</p>
-                <p class="mt-2 leading-relaxed">{m.text}</p>
-            </article>
-        ))}
     </div>
 </section>

@@ -122,15 +122,17 @@ function enforceRateLimit(array $config): void
         }
 
         $now = time();
+        $window = 600;      // 10 Minuten
+        $maxRequests = 10;  // pro IP und Zeitfenster
 
         $timestamps = array_values(
             array_filter(
                 $timestamps,
-                fn($time) => is_int($time) && $time > $now - 600
+                fn($time) => is_int($time) && $time > $now - $window
             )
         );
 
-        if (count($timestamps) >= 5) {
+        if (count($timestamps) >= $maxRequests) {
             respond(429, [
                 'success' => false,
                 'message' => 'Zu viele Anfragen. Bitte versuche es später erneut.',

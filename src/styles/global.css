@@ -177,6 +177,14 @@ p { margin-bottom: 1rem; line-height: 1.6; }
   }
   @media (hover: hover) { .il:hover { box-shadow: inset 0 -.65em 0 var(--c); } }
 
+  /* Inline-Links im Lauftext: ruhend unterstrichen, damit sie ohne Hover
+     erkennbar sind; Hover/Fokus kommt als Farbklecks von .il. */
+  .link-inline {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+
   .shape-1 { --f: var(--f1); --o: var(--o1); }
   .shape-2 { --f: var(--f2); --o: var(--o2); }
   .shape-3 { --f: var(--f3); --o: var(--o3); }

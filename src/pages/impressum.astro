@@ -2,7 +2,10 @@
 import Base from "../layouts/Base.astro";
 ---
 
-<Base title="Impressum">
+<Base
+    title="Impressum"
+    description="Kontakt, Bildnachweis und Datenschutz des Burehofs Oberhusers in Schüpbach im Emmental."
+>
     <div class="content-section">
         <h1>Impressum</h1>
         <address>
@@ -16,9 +19,17 @@ import Base from "../layouts/Base.astro";
 
         <h2>Kontakt</h2>
         <p>
-            E-Mail: <a href="mailto:hof@oberhusers.ch">hof@oberhusers.ch</a>
+            E-Mail: <a class="il link-inline" href="mailto:hof@oberhusers.ch">hof@oberhusers.ch</a>
             <br />
-            Web: <a href="http://www.oberhusers.ch">http://www.oberhusers.ch</a>
+            Web: <a class="il link-inline" href="https://www.oberhusers.ch">https://www.oberhusers.ch</a>
+        </p>
+
+        <h2>Bildnachweis</h2>
+        <p>
+            Alle Fotos auf dieser Website stammen von Murielle Wüthrich. Die
+            Bilder dürfen nicht ohne unsere Zustimmung weiterverwendet werden.
+            Die Logos der Partner und Zertifizierungen sind Eigentum der
+            jeweiligen Organisationen.
         </p>
 
         <h2>Haftungsausschluss</h2>
@@ -85,8 +96,19 @@ import Base from "../layouts/Base.astro";
         </p>
 
         <p>
+            <strong>Webdesign &amp; Umsetzung:</strong>{" "}
+            <a
+                class="il link-inline"
+                href="https://www.linkedin.com/in/jakob-bauer-167669257"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Jakob Bauer
+                <span class="sr-only">(öffnet LinkedIn in neuem Tab)</span>
+            </a>
+            <br />
             <strong>Impressum erstellt durch:</strong>{" "}
-            <a href="https://rechtpilot.ch/de">Rechtpilot</a>
+            <a class="il link-inline" href="https://rechtpilot.ch/de">Rechtpilot</a>
         </p>
     </div>
 </Base>

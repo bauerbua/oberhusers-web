@@ -93,24 +93,3 @@ jobs:
             **/api/private/config.php
             api/private/config.php
           log-level: verbose
-
-      - name: Smoke test ALTCHA endpoint
-        env:
-          SITE_URL: ${{ vars.SITE_URL || 'https://www.oberhusers.ch' }}
-        run: |
-          url="$SITE_URL/api/altcha-challenge.php"
-          for attempt in 1 2 3 4 5; do
-            response="$(curl -sS --max-time 10 -w '\n%{http_code}' "$url" || true)"
-            code="$(printf '%s' "$response" | tail -n 1)"
-            body="$(printf '%s' "$response" | sed '$d')"
-
-            if [ "$code" = "200" ] && printf '%s' "$body" | grep -q '"signature"'; then
-              echo "ALTCHA endpoint antwortet korrekt."
-              exit 0
-            fi
-
-            echo "Versuch $attempt fehlgeschlagen (HTTP $code): ${body:0:300}"
-            sleep 5
-          done
-          echo "::error::ALTCHA-Endpoint antwortet nicht wie erwartet. Prüfe httpdocs/api/private/config.php und httpdocs/api/private/vendor/ auf dem Server."
-          exit 1

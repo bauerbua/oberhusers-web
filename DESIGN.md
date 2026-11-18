@@ -164,7 +164,7 @@ Runde, ruhige Geometrie für Flächen: grosse Foto-Platten (36px), Bänder (24px
 Gemeinsames Formsystem: Farb-Blob und braune Linie liegen absichtlich nicht deckungsgleich — der Blob sitzt nach rechts unten, die Linie nach links oben, wie ein leicht versetzt gedrucktes Etikett (Vorbild: Logo-Abzeichen). Die Formen kommen aus drei festen Paaren `.s1`/`.s2`/`.s3` (Füllung `--f`, Linie `--o`); die Farbe wird pro Element über `--c` aus den fünf Palette-Tokens gesetzt. Benachbarte Elemente wechseln das Set. Kein Schatten, keine zusätzlichen Effekte.
 
 - **Textlink `.lk`** (Navigation, Fusszeile, kurze Labels): ruhend unsichtbar; bei Hover und `:focus-visible` erscheinen Blob (Spartenfarbe) und Braun-Linie, leicht versetzt. Kein Kasten.
-- **Inline-Link `.il`** (im Lauftext): ruhend 2px untermalt; bei Hover/Fokus liegt ein flacher Farb-Streifen hinter der unteren Texthälfte. `box-decoration-break: clone` hält ihn bei Zeilenumbrüchen korrekt.
+- **Inline-Link `.il.link-inline`** (im Lauftext): ruhend 2px untermalt (`text-underline-offset: 3px`); bei Hover/Fokus liegt ein flacher Farb-Streifen hinter der unteren Texthälfte. `box-decoration-break: clone` hält ihn bei Zeilenumbrüchen korrekt.
 - **Primär-Button `.btn`**: Blob und Linie ruhend sichtbar und versetzt; Hover/Fokus bewegen sie zueinander, `:active` rastet beide deckungsgleich ein. Braun-Text, 44px Touch-Ziel. Genau eine primäre Aktion pro Ansicht.
 - **Sekundär-Button `.btn-ghost`**: ruhend nur die Linie; der Farb-Blob erscheint bei Hover/Fokus.
 - **Fokus:** Jede Komponente hat ihren eigenen Fokus-Status (Blob/Linie bzw. schwerere 3px-Linie); der transparente Outline bleibt für den Forced-Colors-Modus. Kein zusätzlicher Aussenring.
@@ -194,6 +194,13 @@ Ein System für alle Eingaben (Text, E-Mail, Telefon, Datum, Select, Textarea) �
 - **Link:** die ganze Spalte ist ein Link, `target="_blank"` mit `rel="noopener noreferrer"`; das Link-Label nennt „öffnet in neuem Tab“ für Screenreader.
 - **State:** Hover nur unter `@media (hover: hover)` — die Wortmarke wird 2px unterstrichen, der Pfeil wandert 2px nach oben rechts. `prefers-reduced-motion: reduce` schaltet den Übergang ab. Fokus: globaler 3px-Braun-Outline um die ganze Spalte.
 - **Farben:** nur Braun auf Chalk. Keine Farbzuordnung pro Partner — die Palette ordnet Sparten zu, nicht Organisationen.
+
+### Personen-Karten (Home & Über uns)
+
+- **Ein Baustein, zwei Varianten:** `PersonCard.astro` mit `variant="teaser"` (Startseite: Name, Rolle, ein Satz) und `variant="profil"` (Über uns: Name, Rolle, Langtext, Verantwortungsbereiche). Alle Inhalte stehen zentral in `src/data/menschen.ts`, damit Teaser und Profil nie auseinanderlaufen.
+- **Aufbau:** Foto im 4:5-Hochformat (grosser Radius), darunter Name als H3 in Amatic, Rolle in Arial 600, Lauftext; im Profil zusätzlich die Liste der Verantwortungsbereiche. Reihenfolge und Abstände sind in beiden Varianten identisch.
+- **Raster:** mobil 1 Spalte, ab `sm` 2, ab `md` 3 — gleiche Spaltenbreiten und Abstände auf Start- und Über-uns-Seite.
+- **Bildausschnitt:** Die Porträts sind Hochformate und werden beschnitten. Der optionale `bildPosition`-Wert (`object-position`, z. B. `50% 0%`) rückt die Person im Rahmen nach unten, damit der Kopf nicht an der Kante klebt. Der Ausschnitt wird pro Person gepflegt, nie pro Seite.
 
 ### Kiesel-Badge (Sparten-Identität)
 - **Aufbau:** Kiesel-Form (uneben gerundet, leicht rotiert ±3–4deg), Füllung in der Sparten-Farbe (Eier Gelb, Kinder Chalk + 2px Braun-Ring, Milch Altrosa, Ackerbau Grün), dahinter der harte Schatten in Halbraun. Innen das Tier-Icon in Braun-Strich.

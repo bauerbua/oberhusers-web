@@ -1,10 +1,33 @@
+# Prio 1
+- [x] Move Anne-Lea and Mama images further down
+  - [x] Bildausschnitt der Hochformate oben ausgerichtet (`object-position: 50% 0%`) — mehr Luft über dem Kopf
+  - [x] Wiederverwendbare `PersonCard.astro` (+ `src/data/menschen.ts`) mit den Varianten `teaser` (Startseite) und `profil` (Über uns); gleiches Styling auf beiden Seiten
+- [x] Mention Murielle Wüthrich as credits for all images on the website
+  - [x] Eigenes «Bildnachweis»-Kapitel im Impressum (Fotos + Nutzungshinweis)
+  - [x] Credit-Zeile im Footer: Fotos, Webdesign & Umsetzung (Jakob Bauer, LinkedIn)
+- [x] Raise limit for requests on form-endpoints a bit
+  - [x] Rate-Limit von 5 auf 10 Anfragen pro IP und 10 Minuten erhöht (`public/api/forms.php`), Doku angepasst
+- [x] Update google maps links, since Oberhusers Burehof now actually exists on google as a business entry
+- [x] Favicon
+  - [x] Dateien aus `assets/favicon/` nach `public/` verschoben (Root ist für `/favicon.ico` & Co. empfohlen)
+  - [x] Icons, Apple-Touch-Icon und Web-Manifest im `<head>` von `Base.astro` verlinkt; Manifest um Name, Sprache, Start-URL und Brand-Farben ergänzt
+- [x] Update page titles and include relevant SEO per page (check out if using a astro plugin is useful here)
+  - [x] Kein SEO-Plugin nötig: `Base.astro` erweitert um `titleSuffix`, `image`, `imageAlt` und `noindex`
+  - [x] Pro Seite eigener Titel + Description (ca. 50–60 bzw. 140–160 Zeichen), Startseite ohne doppelten Hof-Namen
+  - [x] Canonical, Robots, Open Graph und Twitter Card im `<head>`; `og:locale` `de_CH`
+  - [x] Gemeinsames Vorschaubild `public/og-image.jpg` (1200×630, Ausschnitt aus dem Hero-Foto)
+- [x] Generate sitemap.xml (check out astro plugins)
+  - [x] `@astrojs/sitemap` in `astro.config.mjs` eingebunden; Build erzeugt `sitemap-index.xml` + `sitemap-0.xml` mit allen 7 Seiten
+  - [x] `public/robots.txt` mit Verweis auf `https://www.oberhusers.ch/sitemap-index.xml`
+- [x] Possibly remove SMOKE test from deployment pipeline if it continues to not work (everything works as expected in production)
+  - [x] Entfernt: Der ALTCHA-Smoke-Test liess zuletzt zwei erfolgreiche Deploys als «failure» enden, obwohl der Endpoint in Produktion korrekt antwortet (HTTP 200). Build-Verifikation und FTP-Deploy-Schritt bleiben bestehen.
+- [ ] Image carousel/ gallery on bottom of each subpage
+
+# The rest
 - [ ] Subpages should get the color from the link/ defined in the frontmatter of the page
 - [ ] Analytics: vorerst Google Search Console; weitere Seiten-Events nur ergänzen, falls wirklich gebraucht
 - [ ] Auftritt minimalistischer gestalten (weniger Deko/Effekte, ruhigere Flächen)
 - [ ] Titel + Überschriften überarbeiten (Hierarchie, Grössen, Zeilenumbrüche)
-- [ ] Update google maps links, since Oberhusers Burehof now actually exists on google as an entry
-- [ ] Update page titles and include relevant SEO per page (check out if using a astro plugin is useful here)
-- [ ] Generate sitemap.xml (check out astro plugins)
 - [ ] Startseite: zuerst das Bild, danach die Infos
   - [x] „Aktuelles“-Block direkt nach dem Hero-Bild (einfacher Block, keine eigene Seite/Ordnerstruktur)
     - [x] Beitrag zur Übernahme von Langis Eiern inkl. Logo-Wechsel (Langi-Wortmarke als Textplatzhalter → Oberhusers-Wortmarke, Link zur Eier-Seite)
@@ -13,9 +36,7 @@
 - [ ] Punkte auf der Anfahrtsskizze korrigieren (Städte-Punkte Bern, Thun, Langnau, Lausanne)
 - [ ] Unterseiten-Layout: Titel → Text → Bilder-Carousel (Eier, Chinderhof, Milch, Ackerbau)
 
-----
 # Completed
-
 - [x] Formular-Versand über PHP-Endpoint auf Hostfactory
   - [x] `public/api/senden.php`: JSON + klassisches Formular, serverseitige Validierung, Honeypot, Rate-Limit, CORS, Danke-/Fehlerseite ohne JavaScript
   - [x] Mailversand per PHPMailer über Infomaniak-SMTP (statt `mail()`); Zugangsdaten aus `.env` bzw. GitHub-Secrets, nicht committet
