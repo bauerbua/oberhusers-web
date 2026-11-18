@@ -45,7 +45,7 @@ export const menschen: Person[] = [
         aufgaben: [
             "Hauptverantwortung für den Chinderhof",
             "Betreuung unseres Streichelzoos",
-            "Administration und Haushalt",
+            "Administration und Buchhaltung",
         ],
         bild: barbara,
         bildAlt: "Barbara im Stall",
