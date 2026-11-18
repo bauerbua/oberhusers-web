@@ -19,7 +19,8 @@
 - [x] Generate sitemap.xml (check out astro plugins)
   - [x] `@astrojs/sitemap` in `astro.config.mjs` eingebunden; Build erzeugt `sitemap-index.xml` + `sitemap-0.xml` mit allen 7 Seiten
   - [x] `public/robots.txt` mit Verweis auf `https://www.oberhusers.ch/sitemap-index.xml`
-- [ ] Possibly remove SMOKE test from deployment pipeline if it continues to not work (everything works as expected in production)
+- [x] Possibly remove SMOKE test from deployment pipeline if it continues to not work (everything works as expected in production)
+  - [x] Entfernt: Der ALTCHA-Smoke-Test liess zuletzt zwei erfolgreiche Deploys als «failure» enden, obwohl der Endpoint in Produktion korrekt antwortet (HTTP 200). Build-Verifikation und FTP-Deploy-Schritt bleiben bestehen.
 - [ ] Image carousel/ gallery on bottom of each subpage
 
 # The rest
