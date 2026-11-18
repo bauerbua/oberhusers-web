@@ -151,7 +151,7 @@ Altcha-Lösung antwortet mit `403` – das ist korrekt.
 | `403` «Bitte schliesse die Sicherheitsprüfung ab» | Altcha-Widget hat noch nicht gelöst oder Challenge-Request schlug fehl. |
 | `405` auf `/api/forms.php` | Direktaufruf per GET; das Formular sendet POST. |
 | `422` Pflichtfeld | Feld leer oder E-Mail ungültig. |
-| `429` | Rate-Limit: 5 Anfragen pro IP in 10 Minuten. |
+| `429` | Rate-Limit: 10 Anfragen pro IP in 10 Minuten. |
 | `500` beim Senden | SMTP-Login oder Verbindung fehlgeschlagen; PHP-Error-Log ansehen. |
 | `535 Authentication failed` | Infomaniak verlangt ein App-Passwort, oder `smtp_username` ist nicht die vollständige Mailadresse. |
 | Mail kommt nicht an | Spam-Ordner, SPF/DKIM/DMARC, `recipient_email` und `sender_email` prüfen. |
