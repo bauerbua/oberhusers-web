@@ -8,7 +8,9 @@
 - [x] Raise limit for requests on form-endpoints a bit
   - [x] Rate-Limit von 5 auf 10 Anfragen pro IP und 10 Minuten erhöht (`public/api/forms.php`), Doku angepasst
 - [x] Update google maps links, since Oberhusers Burehof now actually exists on google as a business entry
-- [ ] Favicon
+- [x] Favicon
+  - [x] Dateien aus `assets/favicon/` nach `public/` verschoben (Root ist für `/favicon.ico` & Co. empfohlen)
+  - [x] Icons, Apple-Touch-Icon und Web-Manifest im `<head>` von `Base.astro` verlinkt; Manifest um Name, Sprache, Start-URL und Brand-Farben ergänzt
 - [ ] Update page titles and include relevant SEO per page (check out if using a astro plugin is useful here)
 - [ ] Generate sitemap.xml (check out astro plugins)
 - [ ] Possibly remove SMOKE test from deployment pipeline if it continues to not work (everything works as expected in production)
