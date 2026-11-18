@@ -1,10 +1,19 @@
+# Prio 1
+- [ ] Move Anne-Lea and Mama images further down
+- [ ] Mention Murielle Wüthrich as credits for all  images on the website
+- [ ] Raise limit for requests on form-endpoints a bit
+- [ ] Update google maps links, since Oberhusers Burehof now actually exists on google as a business entry
+- [ ] Favicon
+- [ ] Update page titles and include relevant SEO per page (check out if using a astro plugin is useful here)
+- [ ] Generate sitemap.xml (check out astro plugins)
+- [ ] Possibly remove SMOKE test from deployment pipeline if it continues to not work (everything works as expected in production)
+- [ ] Image carousel/ gallery on bottom of each subpage
+
+# The rest
 - [ ] Subpages should get the color from the link/ defined in the frontmatter of the page
 - [ ] Analytics: vorerst Google Search Console; weitere Seiten-Events nur ergänzen, falls wirklich gebraucht
 - [ ] Auftritt minimalistischer gestalten (weniger Deko/Effekte, ruhigere Flächen)
 - [ ] Titel + Überschriften überarbeiten (Hierarchie, Grössen, Zeilenumbrüche)
-- [ ] Update google maps links, since Oberhusers Burehof now actually exists on google as an entry
-- [ ] Update page titles and include relevant SEO per page (check out if using a astro plugin is useful here)
-- [ ] Generate sitemap.xml (check out astro plugins)
 - [ ] Startseite: zuerst das Bild, danach die Infos
   - [x] „Aktuelles“-Block direkt nach dem Hero-Bild (einfacher Block, keine eigene Seite/Ordnerstruktur)
     - [x] Beitrag zur Übernahme von Langis Eiern inkl. Logo-Wechsel (Langi-Wortmarke als Textplatzhalter → Oberhusers-Wortmarke, Link zur Eier-Seite)
@@ -13,9 +22,7 @@
 - [ ] Punkte auf der Anfahrtsskizze korrigieren (Städte-Punkte Bern, Thun, Langnau, Lausanne)
 - [ ] Unterseiten-Layout: Titel → Text → Bilder-Carousel (Eier, Chinderhof, Milch, Ackerbau)
 
-----
 # Completed
-
 - [x] Formular-Versand über PHP-Endpoint auf Hostfactory
   - [x] `public/api/senden.php`: JSON + klassisches Formular, serverseitige Validierung, Honeypot, Rate-Limit, CORS, Danke-/Fehlerseite ohne JavaScript
   - [x] Mailversand per PHPMailer über Infomaniak-SMTP (statt `mail()`); Zugangsdaten aus `.env` bzw. GitHub-Secrets, nicht committet
