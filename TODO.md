@@ -12,7 +12,9 @@
   - [x] Dateien aus `assets/favicon/` nach `public/` verschoben (Root ist für `/favicon.ico` & Co. empfohlen)
   - [x] Icons, Apple-Touch-Icon und Web-Manifest im `<head>` von `Base.astro` verlinkt; Manifest um Name, Sprache, Start-URL und Brand-Farben ergänzt
 - [ ] Update page titles and include relevant SEO per page (check out if using a astro plugin is useful here)
-- [ ] Generate sitemap.xml (check out astro plugins)
+- [x] Generate sitemap.xml (check out astro plugins)
+  - [x] `@astrojs/sitemap` in `astro.config.mjs` eingebunden; Build erzeugt `sitemap-index.xml` + `sitemap-0.xml` mit allen 7 Seiten
+  - [x] `public/robots.txt` mit Verweis auf `https://www.oberhusers.ch/sitemap-index.xml`
 - [ ] Possibly remove SMOKE test from deployment pipeline if it continues to not work (everything works as expected in production)
 - [ ] Image carousel/ gallery on bottom of each subpage
 
